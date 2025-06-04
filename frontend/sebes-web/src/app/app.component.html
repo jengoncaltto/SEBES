@@ -1,10 +1,44 @@
 <link rel="stylesheet" href="../styles.css">
 
-<app-navbar />
-<section id="container">
-    <app-sidebar />
-    <app-bolsa></app-bolsa>
+<section class="page" >
+    <app-navbar />
+    <div class="container">
+        <app-sidebar class="sidebar" />
+        <app-bolsa class="main"></app-bolsa>
+    </div>
+    
 </section>
+<div class="page">
+    <app-navbar />
+    <div class="container">
+        <app-sidebar class="sidebar" />
+        <app-inscricao  class="main"/>
+    </div>
+    
+</div>
+<div class="page">
+    <app-navbar />
+    <div class="container">
+        <app-sidebar class="sidebar" />
+        <app-inscricoes class="main"/>
+    </div>
+    
+</div>
+<div class="page">
+    <app-navbar />
+    <div class="container">
+        <app-sidebar class="sidebar" />
+        <app-bolsas class="main"/>
+    </div>
+    
+</div>
+<div class="page">
+    <app-navbar />
+    <div class="container">
+        <app-sidebar class="sidebar" />
+        
+    </div>
+</div>
 
-<app-bolsas />
+
 <router-outlet />

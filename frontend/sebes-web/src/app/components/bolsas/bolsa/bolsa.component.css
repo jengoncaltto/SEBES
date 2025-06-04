@@ -4,7 +4,7 @@ main {
     width: 75%;
 }
 
-/* Informações da Bolsa */
+
 .info-bolsa {
     margin-bottom: 30px;
 }
@@ -20,14 +20,14 @@ main {
     line-height: 1.5;
 }
 
-/* Container de documentos */
+
 .documentos {
     background-color: #f9f9f9;
     border: 1px solid #999;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
-    width: 500px; /* ou ajuste conforme necessidade */
+    width: 500px;
 }
 
 .documentos h2 {
@@ -35,15 +35,14 @@ main {
     margin-bottom: 15px;
 }
 
-/* Lista de documentos */
-.documentos ul {
-    list-style: none;
+
+.documentos div {
     margin-bottom: 15px;
 }
 
-.documentos li {
+.documentos span {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     padding: 8px 10px;
     background-color: #fff;
@@ -52,15 +51,15 @@ main {
     margin-bottom: 10px;
 }
 
-/* Botão Upload e status */
-.documentos li::before {
+
+.documentos span::before {
     content: "●";
     font-size: 1rem;
     margin-right: 10px;
-    color: green; /* ou red se for status pendente */
+    color: green; 
 }
 
-/* Botões genéricos */
+
 button {
     padding: 10px 20px;
     border: none;
@@ -70,7 +69,7 @@ button {
     transition: background-color 0.3s ease;
 }
 
-/* Botão Inscreva-se */
+
 .documentos button {
     background-color: #25597e;
     color: white;
@@ -81,8 +80,8 @@ button {
     background-color: #1c4560;
 }
 
-/* Botão upload na lista */
-.documentos li button {
+
+.documentos span button {
     background-color: #e0e0e0;
     color: #333;
     font-size: 0.8rem;
@@ -90,11 +89,11 @@ button {
     border-radius: 5px;
 }
 
-.documentos li button:hover {
+.documentos span button:hover {
     background-color: #ccc;
 }
 
-/* Edital */
+
 .edital {
     margin-top: 30px;
 }
@@ -107,7 +106,6 @@ button {
 .edital img {
     width: 100%;
     max-width: 500px;
-    height: auto;
     border-radius: 8px;
     border: 1px solid #ccc;
 }

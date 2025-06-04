@@ -1,0 +1,116 @@
+main {
+    padding: 30px;
+}
+
+
+.info-bolsa h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.info-bolsa p {
+    font-size: 0.9rem;
+    color: #555;
+    max-width: 600px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+
+.documentos {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.documentos h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.documentos ul {
+    list-style: none;
+    margin-bottom: 15px;
+}
+
+.documentos li {
+    background-color: #fff;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+
+.documentos button {
+    background-color: #2d6cdf;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.documentos button:hover {
+    background-color: #245bb5;
+}
+
+
+.edital h1 {
+    font-size: 1.5rem;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.edital img {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status span {
+    font-size: 0.85rem;
+}
+
+button{
+    border: none;
+    padding: 7px;
+    border-radius: 20px;
+    margin-left: 50px;
+}
+button:hover{
+    background-color: rgba(0, 0, 0, 0.185);
+}
+.azul{
+    background-color: #2d6cdf;
+
+}
+.linha-documento{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    
+}
+.direita{
+    margin-left: 150px ;
+}
+.esquerda{
+
+}
