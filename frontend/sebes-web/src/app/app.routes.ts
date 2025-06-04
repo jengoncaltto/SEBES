@@ -6,6 +6,8 @@ import { LoginComponent } from './login/login.component';
 import { CadastroAlunoComponent } from './cadastro/cadastro-aluno/cadastro-aluno.component';
 import { EditaisComponent } from './editais/editais.component';
 import { EditalComponent } from './editais/edital/edital.component';
+import { BolsasComponent } from './bolsas/bolsas.component';
+import { BolsaComponent } from './bolsas/bolsa/bolsa.component';
 
 export const routes: Routes = [
     {
@@ -27,6 +29,16 @@ export const routes: Routes = [
 			{
 				path: "edital"
 				component: EditalComponent
+			}
+		]
+	},
+	{
+		path: "bolsas"
+		component: BolsasComponent
+		children:[
+			{
+				path: "bolsa"
+				component: BolsaComponent
 			}
 		]
 	}
