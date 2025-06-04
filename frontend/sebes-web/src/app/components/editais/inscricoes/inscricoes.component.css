@@ -45,18 +45,18 @@ table td span {
 
 
 .btn-avaliacao {
-    background-color: #e0e0e0;
+    background-color: #25597e;
     border: none;
     border-radius: 6px;
-    padding: 6px 12px;
+    padding: 7px 15px;
     cursor: pointer;
     font-size: 0.8rem;
-    color: #333;
+    color: white;
     transition: background-color 0.3s ease;
 }
 
 .btn-avaliacao:hover {
-    background-color: #ccc;
+    background-color: #1c4560;
 }
 
 

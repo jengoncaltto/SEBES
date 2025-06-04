@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
+
 
 @Component({
   selector: 'app-cadastro-funcionario',
-  imports: [NavbarComponent],
+  imports: [],
   templateUrl: './cadastro-funcionario.component.html',
   styleUrl: './cadastro-funcionario.component.css'
 })

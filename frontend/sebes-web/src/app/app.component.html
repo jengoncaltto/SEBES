@@ -1,10 +1,29 @@
 <link rel="stylesheet" href="../styles.css">
 
+<div class="page">
+    <app-navbar />
+    <div class="container">
+        <app-login class="main" />
+    </div>
+</div>
+<div class="page">
+    <app-navbar />
+    <div class="container">
+        <app-cadastro-aluno class="main" />
+    </div>
+</div>
+<div class="page">
+    <app-navbar />
+    <div class="container">
+        <app-cadastro-funcionario class="main" />
+    </div>
+</div>
+
 <section class="page" >
     <app-navbar />
     <div class="container">
         <app-sidebar class="sidebar" />
-        <app-bolsa class="main"></app-bolsa>
+        <app-edital class="main"/>
     </div>
     
 </section>
@@ -32,13 +51,36 @@
     </div>
     
 </div>
+
 <div class="page">
     <app-navbar />
     <div class="container">
         <app-sidebar class="sidebar" />
-        
+        <!--App todos os editais-->
     </div>
 </div>
-
+<!--
+<div class="page">
+    <app-navbar />
+    <div class="container">
+        <app-sidebar class="sidebar" />
+        App Perfil
+    </div>
+</div>
+<div class="page">
+    <app-navbar />
+    <div class="container">
+        <app-sidebar class="sidebar" />
+        App configurações
+    </div>
+</div>
+<div class="page">
+    <app-navbar />
+    <div class="container">
+        <app-sidebar class="sidebar" />
+        App minhas inscrições
+    </div>
+</div>
+-->
 
 <router-outlet />
