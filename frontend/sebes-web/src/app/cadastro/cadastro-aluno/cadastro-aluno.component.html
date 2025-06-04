@@ -1,4 +1,5 @@
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,18 +10,20 @@
         <app-header />
 
         <main>  
-            <h1>Cadastro</h1>
-            <form class="form-cadastro-aluno">
-                <input type="text" placeholder="Nome Completo" />
-                <input type="email" placeholder="E-mail" />
-                <input type="passowrd" placeholder="Senha" />
-                <input type="text" placeholder="CPF" />
-                <input type="text" placeholder="Matrícula" />
+            <h1 id="page-title">Cadastro</h1>
+            <form id="form-cadastro-aluno">
+                <input class="input" type="text" placeholder="Nome Completo" />
+                <input class="input" type="email" placeholder="E-mail" />
+                <input class="input" type="password" placeholder="Senha" />
+                <input class="input" type="text" placeholder="CPF" />
+                <input class="input" type="text" placeholder="Matrícula" />
 
-                <div>
+                <div id="">
                     <button type="button" class="cadastro-aluno"> Aluno</button>
                     <button type="button" class="cadastro-funcionario"> Funcionário</button>
                 </div>
+                <button type="submit"> Cadastrar </button>
             </form>
         </main>
 </body>
+</html>
