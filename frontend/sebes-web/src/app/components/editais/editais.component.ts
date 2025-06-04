@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from './componentes-gerais/navbar/Navbar.component';
+import { NavbarComponent } from './shared/navbar/Navbar.component';
 import { EditalComponent } from './bolsa/bolsa.component';
 
 @Component({
