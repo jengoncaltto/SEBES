@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-side-section',
   imports: [],
-  templateUrl: './side-section.component.html',
-  styleUrl: './side-section.component.css'
+  templateUrl: './side-section-aluno.component.html',
+  styleUrl: './side-section-aluno.component.css'
 })
-export class SideSectionComponent {
+export class SideSectionAlunoComponent {
 
 }

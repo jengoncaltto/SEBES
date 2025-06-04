@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../app-principal/componentes-gerais/header/header.component';
+import { NavbarComponent } from "../../shared/navbar/navbar.component";
+
 
 @Component({
   selector: 'app-cadastro-aluno',
-  imports: [HeaderComponent],
+  imports: [NavbarComponent],
   templateUrl: './cadastro-aluno.component.html',
   styleUrl: './cadastro-aluno.component.css'
 })
