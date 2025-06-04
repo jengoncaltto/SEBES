@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { CadastroComponent } from "../cadastro/cadastro.component";
+import { CadastroAlunoComponent } from '../../cadastro/cadastro-aluno/cadastro-aluno.component';
 
 @Component({
   selector: 'app-login',
-  imports: [CadastroComponent],
+  imports: [CadastroAlunoComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
