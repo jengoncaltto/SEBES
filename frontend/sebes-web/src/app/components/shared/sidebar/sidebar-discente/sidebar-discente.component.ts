@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-sidebar-discente',
   imports: [],
   templateUrl: './sidebar-discente.component.html',
-  styleUrl: './sidebar.component.css'
+  styleUrl: '../sidebar.css'
 })
 export class SidebarDiscenteComponent {
 

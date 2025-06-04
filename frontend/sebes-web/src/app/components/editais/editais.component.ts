@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from './shared/navbar/Navbar.component';
-import { EditalComponent } from './bolsa/bolsa.component';
+
+import { NavbarComponent } from '../shared/navbar/navbar.component';
+import { DocumentosComponent } from "./documentos/documentos.component";
+import { SidebarDiscenteComponent } from "../shared/sidebar/sidebar-discente/sidebar-discente.component";
+
 
 @Component({
   selector: 'app-editais',
-  imports: [NavbarComponent, EditalComponent],
+  imports: [NavbarComponent, DocumentosComponent, SidebarDiscenteComponent],
   templateUrl: './editais.component.html',
   styleUrl: './editais.component.css'
 })

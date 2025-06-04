@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { EditalComponent } from './editais/edital/edital.component';
-import { CadastroAlunoComponent } from './cadastro/cadastro-aluno/cadastro-aluno.component';
-import { CadastroFuncionarioComponent } from './cadastro/cadastro-funcionario/cadastro-funcionario.component';
+import { CadastroFuncionarioComponent } from "./components/cadastro/cadastro-funcionario/cadastro-funcionario.component";
+import { NavbarComponent } from "./components/shared/navbar/navbar.component";
+import { LoginComponent } from "./components/login/login.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent, CadastroAlunoComponent, CadastroFuncionarioComponent],
+  imports: [RouterOutlet, CadastroFuncionarioComponent, NavbarComponent, LoginComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

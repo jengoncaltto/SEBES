@@ -1,0 +1,46 @@
+body {
+    display: flex;
+}
+
+.menu-funcionario, .menu-estudante {
+    width: 200px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px 0;
+    margin: 10px;
+    height: fit-content;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+
+#titulo-menu{
+    text-align: center;
+    font-size: 1rem;
+    margin: 0 15px 0 15px;
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+
+.menu-funcionario nav a, .menu-estudante nav a {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    color: #000;
+    padding: 10px 15px;
+    border-top: 1px solid #ccc;
+    transition: background-color 0.3s ease;
+    margin: 0 15px 0 15px;
+}
+
+
+.menu-funcionario nav a:first-of-type, .menu-estudante nav a:first-of-type{
+    border-top: none;
+}
+
+.menu-funcionario nav a:hover, .menu-estudante nav a:hover {
+    background-color: #e0e0e0;
+    cursor: pointer;
+    border-radius: 5px;
+}
