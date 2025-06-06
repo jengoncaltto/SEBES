@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 // páginas
 import { LoginComponent } from './components/login/login.component';
-import { CadastroAlunoComponent } from './components/cadastro/cadastro-aluno/cadastro-aluno.component';
+import { Cadastro } from './components/cadastro/cadastro';
 import { EditaisComponent } from './components/editais/editais.component';
 import { EditalComponent } from './components/editais/edital/edital.component';
 import { BolsasComponent } from './components/bolsas/bolsas.component';
@@ -18,8 +18,8 @@ export const routes: Routes = [
 		component: LoginComponent
 	},
 	{
-		path: "cadastroAluno",
-		component: CadastroAlunoComponent
+		path: "cadastro",
+		component: Cadastro
 	},
 	{
 		path: "editais",
