@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-sidebar',
   imports: [],
-  templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css'
+  templateUrl: './sidebar.html',
+  styleUrl: './sidebar.css'
   
 })
-export class SidebarComponent {
+export class Sidebar{
   isDiscente = true;
   textoOpcaoInscricoes = "";
   isLogado = true;

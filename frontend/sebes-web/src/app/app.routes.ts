@@ -1,43 +1,38 @@
 import { Routes } from '@angular/router';
 
+// verificação de acesso
+
 // páginas
-import { LoginComponent } from './components/login/login.component';
+import { Login } from './components/login/login';
 import { Cadastro } from './components/cadastro/cadastro';
-import { EditaisComponent } from './components/editais/editais.component';
-import { EditalComponent } from './components/editais/edital/edital.component';
-import { BolsasComponent } from './components/bolsas/bolsas.component';
-import { BolsaComponent } from './components/bolsas/bolsa/bolsa.component';
+import { ProcessosSeletivos } from './components/processoSeletivo/processos-seletivos/processos-seletivos';
+import { Bolsas } from './components/bolsas/bolsas';
+import { Bolsa } from './components/bolsas/bolsa/bolsa';
 
 export const routes: Routes = [
     {
 		path: "",
-		component: EditaisComponent // fazer uma home, se não toda vez que acessar a pagina vai para os editais
+		component: ProcessosSeletivos // fazer uma home, se não toda vez que acessar a pagina vai para os processosSeletivos
 	},
 	{
 		path: "login",
-		component: LoginComponent
+		component: Login
 	},
 	{
 		path: "cadastro",
 		component: Cadastro
 	},
 	{
-		path: "editais",
-		component: EditaisComponent,
-		children:[
-			{
-				path: "edital",
-				component: EditalComponent
-			}
-		]
+		path: "processosSeletivos",
+		component: ProcessosSeletivos
 	},
 	{
 		path: "bolsas",
-		component: BolsasComponent,
+		component: Bolsas,
 		children:[
 			{
 				path: "bolsa",
-				component: BolsaComponent
+				component: Bolsa
 			}
 		]
 	}
