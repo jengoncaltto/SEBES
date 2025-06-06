@@ -1,0 +1,71 @@
+
+#inscricoes-recebidas {
+    padding: 20px 40px;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+table tr:first-child {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+table td {
+    padding: 15px 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.9rem;
+    color: #333;
+
+}
+
+
+table img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+
+table td span {
+    vertical-align: middle;
+}
+
+
+.btn-avaliacao {
+    background-color: #25597e;
+    border: none;
+    border-radius: 6px;
+    padding: 7px 15px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-avaliacao:hover {
+    background-color: #1c4560;
+}
+
+
+
+input[type="search"] {
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    width: 200px;
+}
+
