@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { DocumentosComponent } from "./documentos/documentos.component";
 
 
 
 @Component({
   selector: 'app-editais',
-  imports: [DocumentosComponent],
+  imports: [],
   templateUrl: './editais.component.html',
   styleUrl: './editais.component.css'
 })
