@@ -1,0 +1,60 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif ;
+    
+}
+
+body{
+    margin-top: 100px;
+}
+button{
+    border: none;
+    background-color: #00000000;
+}
+
+main {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    height: 100vh;
+    margin-left: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#page-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+
+/* Botão de login */
+#form-login button[type="botao-login"] {
+    margin-top: 10px;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 20px;
+    background-color: #333;
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#form-login button[type="botao-login"]{
+    margin-top: 10px;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 20px;
+    background-color: #333;
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+#form-login button[type="botao-login"]:hover {
+    background-color: #555;
+}
