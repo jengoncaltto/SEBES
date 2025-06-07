@@ -28,12 +28,10 @@ export const routes: Routes = [
 	},
 	{
 		path: "bolsas",
-		component: Bolsas,
-		children:[
-			{
-				path: "bolsa",
-				component: Bolsa
-			}
-		]
+		component: Bolsas
+	},
+	{
+		path: "bolsas/bolsa",
+		component: Bolsa
 	}
 ];
