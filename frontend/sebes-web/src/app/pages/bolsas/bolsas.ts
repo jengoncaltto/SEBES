@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Navbar } from "../shared/navbar/navbar";
 import { DivBolsaComponent } from "./div-bolsa/div-bolsa.component";
 
 @Component({
