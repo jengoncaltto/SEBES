@@ -1,15 +1,4 @@
-#bolsas{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-#page-title{
-    width: 100vw;
-    justify-self: center;
-    margin-left: 70px;
-    margin-bottom: 10px;
 
-}
-main{
-    padding: 10px;
-}
+
+
+

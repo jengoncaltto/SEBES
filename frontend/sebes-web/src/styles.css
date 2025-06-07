@@ -1,11 +1,111 @@
+:root{
+    /* sizes */
+    --font-weight-bold: 800;
+
+    --page-title-font-size: 25px;
+    --grid-item-title-font-size: 16px;
+    --grid-item-desc-font-size: 12px;
+
+    --border-default: 2px solid #cccccc;
+
+    /* colors */
+    --btn-bg-default: #25597e;
+    --btn-bg-hover-default: #22455c;
+    
+    --list-item-bg-default: #f5f5f5;
+
+    --grid-item-bg-default: #f5f5f5;
+    --grid-item-desc-font-color: #999999;
+}   
+
 *{
     margin: 0;
     padding: 0;
+    border: none;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 body{
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
+}
+
+.page-title{
+    padding-left: 5px;
+    font-size: var(--page-title-font-size);
+    font-weight: var(--font-weight-bold);
+}
+
+.list-view{
+    /* modo de vizualização em lista */
+    display: flex;
+}
+
+.list-item{
+    background-color: var(--list-item-bg-default);
+}
+
+.grid-view{
+    /* modo de vizualização em lista de blocos */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 320px);
+    gap: 40px;
+    width: 100%;
+    min-width: 400px;
+    max-width: 1470px;
+    padding: 15px 10px 0 5px;
+}
+
+.grid-item{
+    max-width: 320px;
+    min-height: 160px;
+    max-height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: normal;
+    justify-content: space-between;
+    padding: 15px 15px;
+    border: var(--border-default); 
+    border-radius: 10px;
+    background-color: var(--grid-item-bg-default);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.15);
+}
+
+.grid-item-title{
+    text-transform: capitalize;
+    font-size: var(--grid-item-title-font-size);
+    font-weight: var(--font-weight-bold);
+}
+
+.grid-item-descricao{
+    font-size: var(--grid-item-desc-font-size);
+    color: var(--grid-item-desc-font-color);
+    text-align: justify;
+}
+
+.btn-container{
+    display: flex;
+    justify-content: right;
+}
+
+.btn-default{
+    text-transform: capitalize;
+    padding: 8px 12px;
+    margin: 5px 10px 5px 0;
+    border-radius: 5px;
+    background-color: var(--btn-bg-default);
+    color: white;
+    font-size: 0.85rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn-default:hover {
+    background-color: var(--btn-bg-hover-default);
+}
+
+.btn-link{
+    text-transform: capitalize;
+    text-decoration: none;
+    color: white;
 }

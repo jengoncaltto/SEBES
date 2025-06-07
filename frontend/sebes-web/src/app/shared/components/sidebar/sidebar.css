@@ -1,9 +1,6 @@
-
-aside{
-    width: 20%;
-}
 .menu{
-    width: 200px;
+    width: 12vw;
+    min-width: 200px;
     background-color: #f5f5f5;
     border: 1px solid #ccc;
     border-radius: 10px;

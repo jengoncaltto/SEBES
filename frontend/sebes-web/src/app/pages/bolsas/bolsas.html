@@ -1,9 +1,12 @@
-<main>
-    <h2 id="page-title">Bolsas Oferecidas</h2>
-    <div id="bolsas">
-        <app-div-bolsa></app-div-bolsa>
-        <app-div-bolsa></app-div-bolsa>
-        <app-div-bolsa></app-div-bolsa>
-        <app-div-bolsa></app-div-bolsa>
+<h2 class="page-title">Bolsas Oferecidas</h2>
+<div class="grid-view">
+  <div *ngFor="let bolsa of bolsas" class="grid-item">
+    <div class="grid-item-title">{{ bolsa.getNome() }}</div>
+    <p class="grid-item-descricao">{{ bolsa.getDescricaoResumida() }}</p>
+
+    <div class="btn-container">
+        <a class="btn-default btn-link" routerLink="processosSeletivos">Processos Seletivos</a>
+        <a class="btn-default btn-link" routerLink="bolsa">Detalhes</a>
     </div>
-</main>
+  </div>
+</div>
