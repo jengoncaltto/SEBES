@@ -1,15 +1,14 @@
-#container{
-    max-width: 100%;
-    display: flex;
-    flex-direction: row;
+.container {
+    display: inline-flex;
+    height: 100vh; /* ocupa a tela inteira, se desejar */
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px 0 0 20px;
 }
-.sidebar{
-    max-width: 15%;
-}
-.main{
-    max-width: 70%;
-}
-.page{
-    width: 100vw;
-    height: 100vh;
+
+.conteudo {
+    display: inline;
+    justify-content: center;
+    padding: 10px 0 0 30px;
+    min-width: 400px;
 }
