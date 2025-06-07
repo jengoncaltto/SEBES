@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
-import { BolsaResumidaDTO } from '../../core/models/BolsaResumidaDTO';
+import { BolsaResumidaDTO } from '@core/models/BolsaResumidaDTO';
 
 @Component({
   selector: 'app-bolsas',
