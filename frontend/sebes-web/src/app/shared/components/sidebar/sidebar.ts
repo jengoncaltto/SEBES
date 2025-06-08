@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { filter } from 'rxjs/operators';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,15 +10,14 @@ import { Component } from '@angular/core';
   
 })
 export class Sidebar{
-  isDiscente = true;
-  textoOpcaoInscricoes = "";
-  isLogado = true;
+   showSideBar = true;
 
-  constructor() {
-    if(this.isDiscente){
-      this.textoOpcaoInscricoes = "Minhas inscrições";
-    } else {
-      this.textoOpcaoInscricoes = "Inscrições Recebidas";
-    }
+  constructor(private router: Router){
+    this.router.events
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe((event: NavigationEnd)=> (
+      this.showSideBar = event.urlAfterRedirects !== '/pagina-inicial'
+    ));
   }
+
 }

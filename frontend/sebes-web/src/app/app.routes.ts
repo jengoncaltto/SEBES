@@ -9,6 +9,7 @@ import { Cadastro } from './pages/cadastro/cadastro';
 import { ProcessosSeletivos } from './pages/processoSeletivo/processos-seletivos/processos-seletivos';
 import { Bolsas } from './pages/bolsas/bolsas';
 import { Bolsa } from './pages/bolsas/bolsa/bolsa';
+import { MeuPerfil } from './pages/meuperfil/meuperfil';
 
 export const routes: Routes = [
     {
@@ -34,5 +35,9 @@ export const routes: Routes = [
 	{
 		path: "bolsas/bolsa",
 		component: Bolsa
-	}
+	},
+	{
+		path: "meuperfil",
+		component: MeuPerfil
+	},
 ];
