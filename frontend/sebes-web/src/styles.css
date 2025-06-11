@@ -16,6 +16,8 @@
 
     --grid-item-bg-default: #f5f5f5;
     --grid-item-desc-font-color: #999999;
+    
+    --blue-default:#2A6083;
 }   
 
 *{
@@ -94,7 +96,7 @@ body{
     padding: 8px 12px;
     margin: 5px 10px 5px 0;
     border-radius: 5px;
-    background-color: var(--btn-bg-default);
+    background-color: var(--blue-default);
     color: white;
     font-size: 0.85rem;
     transition: background-color 0.2s ease;
