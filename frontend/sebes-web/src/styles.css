@@ -9,10 +9,12 @@
     --border-default: 2px solid #cccccc;
 
     /* colors */
-    --btn-bg-default: #25597e;
+    --btn-bg-default: #2A6083;
     --btn-bg-hover-default: #22455c;
     
     --list-item-bg-default: #f5f5f5;
+
+    --background-color-default:#f5f5f5;
 
     --grid-item-bg-default: #f5f5f5;
     --grid-item-desc-font-color: #999999;

@@ -7,25 +7,18 @@ button{
 }
 
 /* Estilização do main */
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-
-    height: 100vh;
-}
-
 main {
     background-color: #f5f5f5;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    height: 95vh;
+    height: 92vh;
+    width: 100vw;
 }
 
 /* Título */
 #page-title {
-    font-size: 1.5rem;
+    font-size: var(--page-title-font-size);
     margin-bottom: 20px;
 }
 
@@ -47,7 +40,7 @@ main {
 }
 
 /* Container dos botões de seleção */
-#form-cadastro-aluno div, #form-cadastro-funcionario div {
+#form-cadastro div{
     margin: 15px 0;
 }
 
@@ -68,32 +61,34 @@ form{
     cursor: pointer;
     margin: 0 5px;
     transition: opacity 0.3s ease;
-    background-color: #25597e;
-
+    background-color: rgb(71, 71, 71);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.267);
 }
-
+/* botão cinza: quando clicar muda "permanentemente" de cor */
 /* Verde: #2e7d32 */
 
 
 .cadastro-aluno:hover, .cadastro-funcionario:hover {
-    opacity: 0.8;
+    background-color: #2e7d32c0;
+
 }
 
 /* Botão de submit */
-#form-cadastro-aluno button[type="submit"], #form-cadastro-funcionario button[type="submit"] {
+#form-cadastro button[type="submit"]{
     margin-top: 10px;
     padding: 10px 25px;
     border: none;
     border-radius: 20px;
-    background-color: #333;
+    background-color: var(--btn-bg-default);
     color: #fff;
     font-size: 0.9rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.267);
 }
 
-#form-cadastro-aluno button[type="submit"]:hover,  #form-cadastro-funcionario button[type="submit"]:hover {
-    background-color: #555;
+#form-cadastro button[type="submit"]:hover {
+    background-color:var(--btn-bg-hover-default);
 }
 
 main{

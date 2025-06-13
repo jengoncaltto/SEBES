@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
 export class Sidebar{
   isDiscente = true;
   textoOpcaoInscricoes = "";
-  isLogado = true;
+  isLogado = false;
 
   constructor() {
     if(this.isDiscente){
