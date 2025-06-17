@@ -1,10 +1,9 @@
-
-
 header {
     background-color: var(--blue-default); 
     padding: 10px 20px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     max-height: 100px;
+    margin-bottom: 1%;
 }
 
 nav {
@@ -22,7 +21,7 @@ nav {
 #img-logo {
     width: 50px; 
     height: 50px;
-    background-color: white;
+    background-color:var(--background-default);
     border-radius: 28px;
     margin-right: 10px;
 }
@@ -30,22 +29,20 @@ nav {
 
 #logo-titulo span {
     font-size: 1.2rem;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     color: white;
 }
 
 
 nav .hover {
-    text-decoration: none;
     margin-left: 20px;
-    padding: 10px;
-    border-radius: 20px;
+    padding: 13px;
+    border-radius: 25px;
     font-size: 1rem;
     transition: color 0.3s ease;
     border: solid 1px var(--blue-default);
     color: white;
-    font-weight: bold;
-    
+    font-weight: var(--font-weight-bold);
 }
 
 
