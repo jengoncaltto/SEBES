@@ -1,25 +1,11 @@
-*{
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif ;
-    
-}
-
-body{
-    width: 100%;
-}
-button{
-    border: none;
-    background-color: #00000000;
-}
-
 main {
-    background-color: #f5f5f5;
+    background-color: var(--background-default);
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    height: 100vh;
-    width: 100vw;
+    align-content: center;
+    height: 92vh;
+    width: 90vw;
 }
 
 #page-title {
@@ -37,7 +23,6 @@ main {
     background-color: #e0e0e0;
     font-size: 0.9rem;
     outline: none;
-    transition: background-color 0.3s ease;
 }
 
 .input:focus {
@@ -55,53 +40,20 @@ main {
     align-items: center;
 }
 
-/* Botões Aluno e Funcionário */
-.cadastro-aluno, .cadastro-funcionario {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    color: white;
-    font-size: 0.9rem;
-    cursor: pointer;
-    margin: 0 5px;
-    transition: opacity 0.3s ease;
-    background-color: #25597e;
-}
-/* Verde: #2e7d32 */
-
-
-.cadastro-aluno:hover, .cadastro-funcionario:hover {
-    opacity: 0.8;
-}
-
 /* Botão de submit */
 #form-login button[type="submit"] {
     margin-top: 10px;
     padding: 10px 25px;
     border: none;
     border-radius: 20px;
-    background-color: #333;
+    background-color:var(--btn-bg-default);
     color: #fff;
     font-size: 0.9rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-#form-login button[type="submit"]{
-        margin-top: 10px;
-    padding: 10px 25px;
-    border: none;
-    border-radius: 20px;
-    background-color: #333;
-    color: #fff;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
 #form-login button[type="submit"]:hover {
-    background-color: #555;
+    background-color:var(--btn-bg-hover-default);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.425);
 }
 
-main{
-    align-content: center;
-}
