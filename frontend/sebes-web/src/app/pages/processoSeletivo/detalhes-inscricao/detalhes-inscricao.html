@@ -1,15 +1,12 @@
-<title>Bolsa de Alimentação</title>
-
 <main>
     <h1 id="page-title">Bolsa Alimentação</h1>
     <div class="lista-documentos">
-            <div class=" grid-item">
-                <div class="linha-documento" *ngFor="let documento of documentos">
-                    <div class="grid-item-title"> {{ documento.getNome() }}</div>
-                    
+            <div class="grid-item">
+                <div class="linha-documento" *ngFor="let documentos of documentos">
+                    <div class="grid-item-title"> {{ documentos.getNome() }}</div>
                 </div>
                 <div>
-                    <p class="documento-upload">{{ documento.getStatus() }}</p>
+                    <p class="documento-upload">{{ documentos.getStatus() }}</p>
                     <button class="upload-btn">Upload</button>
                 </div>
             </div>

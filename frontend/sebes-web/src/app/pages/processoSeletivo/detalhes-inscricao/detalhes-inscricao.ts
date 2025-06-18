@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { testeDTO } from '../../../core/models/teste';
 
 @Component({
   selector: 'app-detalhes-inscricao',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './detalhes-inscricao.html',
   styleUrl: './detalhes-inscricao.css'
 })
