@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SelecaoBolsaComponent } from '../../shared/selecao-bolsa/selecao-bolsa.component';
+import { SelecaoBolsaComponent } from '../../../shared/components/selecao-bolsa/selecao-bolsa.component';
 
 
 @Component({

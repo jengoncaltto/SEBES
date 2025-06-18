@@ -3,6 +3,20 @@
 <main>
     <h1 id="page-title">Bolsa Alimentação</h1>
     <div class="lista-documentos">
+            <div class=" grid-item">
+                <div class="linha-documento" *ngFor="let documento of documentos">
+                    <div class="grid-item-title"> {{ documento.getNome() }}</div>
+                    
+                </div>
+                <div>
+                    <p class="documento-upload">{{ documento.getStatus() }}</p>
+                    <button class="upload-btn">Upload</button>
+                </div>
+            </div>
+            
+
+
+<!--
             <div class="linha-documento">
             
                 <div class="esquerda">
@@ -28,10 +42,10 @@
 
             </div>
             <button class="enviar" formmethod="post" type="submit">Finalizar</button>
+    
+    
+    -->
     </div>
-    
-    
-    
 </main>    
 
 
