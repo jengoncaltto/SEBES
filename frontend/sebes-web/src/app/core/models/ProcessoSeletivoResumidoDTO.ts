@@ -1,0 +1,32 @@
+export class ProcessoSeletivoResumidoDTO {
+    constructor(
+      private nome: string,
+      private descricao: string,
+      //private datainicio:VarDate?
+      //private datafim:VarDate?
+    ) {}
+
+    getNome(): string {
+      return this.nome;
+    }
+
+    setNome(value: string) {
+      this.nome = value;
+    }
+
+    getDescricao(): string {
+      return this.descricao;
+    }
+
+    getDescricaoResumida(): string{
+        const limit = 95;
+        if (this.descricao != '' && this.descricao.length > limit){
+            return this.descricao.substring(0, limit) + '...';
+        }
+        return this.descricao;
+    }
+
+    setDescricao(value: string) {
+        this.descricao = value;
+    }
+}
