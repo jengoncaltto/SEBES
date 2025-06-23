@@ -9,6 +9,9 @@ import { Cadastro } from './pages/cadastro/cadastro';
 import { ProcessosSeletivos } from './pages/processoSeletivo/processos-seletivos/processos-seletivos';
 import { Bolsas } from './pages/bolsas/bolsas';
 import { Bolsa } from './pages/bolsas/bolsa/bolsa';
+import { DetalhesInscricao } from './pages/processoSeletivo/detalhes-inscricao/detalhes-inscricao';
+import { InscricoesProcessoSeletivo } from './pages/processoSeletivo/inscricoes-processo-seletivo/inscricoes-processo-seletivo';
+import { AnexosProcessoSeletivo } from './pages/processoSeletivo/anexos-processo-seletivo/anexos-processo-seletivo';
 
 export const routes: Routes = [
     {
@@ -38,5 +41,22 @@ export const routes: Routes = [
 	{
 		path: "bolsas/bolsa",
 		component: Bolsa
+	},
+	/* Para facilitar testes */
+	{
+		path: "detalhes",
+		component: DetalhesInscricao
+	},
+	{
+		path: "inscricoesProcesso",
+		component: InscricoesProcessoSeletivo
+	},
+	{
+		path: "anexosProcesso",
+		component: AnexosProcessoSeletivo
+	},
+	{
+		path: "meuperfil",
+		component: PaginaInicial
 	}
 ];
