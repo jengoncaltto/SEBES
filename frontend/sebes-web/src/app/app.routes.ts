@@ -16,27 +16,45 @@ export const routes: Routes = [
 		component: PaginaInicial 
 	},
 	{
+		/* Página Inicial */
 		path: "inicio",
 		component: PaginaInicial 
 	},
 	{
+		/* Página do Login */
 		path: "login",
 		component: Login
 	},
 	{
+		/* Página do Cadastro */
 		path: "cadastro",
 		component: Cadastro
 	},
 	{
+		/* Publicações */
 		path: "processosSeletivos",
 		component: ProcessosSeletivos
 	},
 	{
+		/* Mostra todas as bolsas oferecidas */
 		path: "bolsas",
 		component: Bolsas
 	},
 	{
+		/* Detalhes de um Processo seletivo para uma bolsa */
 		path: "bolsas/bolsa",
 		component: Bolsa
+	},
+	{
+		/* Perfil do Usuário */
+		path: "meuPerfil",
+		component: PaginaInicial 
+		/* Mudar quando for criada a página */
+	},
+	{
+		/* Configurações */
+		path: "config",
+		component: PaginaInicial 
+		/* Mudar quando for criada a página */
 	}
 ];
