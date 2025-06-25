@@ -1,4 +1,4 @@
-package com.example.sebes.Entity;
+package br.uniriotec.prae.sebes.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,8 +1,8 @@
-package com.example.sebes.Repositorio;
+package br.uniriotec.prae.sebes.Repositorio;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.sebes.Entity.Analise;
+import br.uniriotec.prae.sebes.Entity.Analise;
 
 public interface AnaliseRepository extends JpaRepository<Analise, Integer> {
     

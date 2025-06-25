@@ -1,8 +1,10 @@
-package com.example.sebes.Repositorio;
+package br.uniriotec.prae.sebes.Repositorio;
 
 import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.sebes.Entity.Bolsa;
+
+import br.uniriotec.prae.sebes.Entity.Bolsa;
 
 public interface BolsaRepository extends JpaRepository<Bolsa, Integer> {
 

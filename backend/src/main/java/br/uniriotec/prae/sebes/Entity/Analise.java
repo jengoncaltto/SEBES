@@ -1,4 +1,4 @@
-package com.example.sebes.Entity;
+package br.uniriotec.prae.sebes.Entity;
 
 import java.sql.Timestamp;
 
@@ -12,8 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
-
 
 @Entity
 @Table (name = "analise")

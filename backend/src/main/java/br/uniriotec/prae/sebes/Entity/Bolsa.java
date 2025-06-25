@@ -1,7 +1,8 @@
-package com.example.sebes.Entity;
+package br.uniriotec.prae.sebes.Entity;
 import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.*;
 
 

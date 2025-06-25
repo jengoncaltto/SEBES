@@ -1,4 +1,4 @@
-package br.edu.unirio.bsi.pi2;
+package br.uniriotec.prae.sebes;
 
 import static org.junit.Assert.assertTrue;
 

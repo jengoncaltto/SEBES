@@ -1,22 +1,22 @@
 export class BolsaResumidaDTO {
     constructor(
-      private nome: string,
-      private descricao: string,
+      private nome: String,
+      private descricao: String,
     ) {}
 
-    getNome(): string {
+    getNome(): String {
       return this.nome;
     }
 
-    setNome(value: string) {
+    setNome(value: String) {
       this.nome = value;
     }
 
-    getDescricao(): string {
+    getDescricao(): String {
       return this.descricao;
     }
 
-    getDescricaoResumida(): string{
+    getDescricaoResumida(): String{
         const limit = 95;
         if (this.descricao != '' && this.descricao.length > limit){
             return this.descricao.substring(0, limit) + '...';
@@ -24,7 +24,7 @@ export class BolsaResumidaDTO {
         return this.descricao;
     }
 
-    setDescricao(value: string) {
+    setDescricao(value: String) {
         this.descricao = value;
     }
 }

@@ -1,16 +1,16 @@
-package com.example.sebes.Controller;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import com.example.sebes.Entity.Bolsa;
-import com.example.sebes.Repositorio.BolsaRepository;
+package br.uniriotec.prae.sebes.Controller;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import br.uniriotec.prae.sebes.Entity.Bolsa;
+import br.uniriotec.prae.sebes.Repositorio.BolsaRepository;
 
 @RestController
 @RequestMapping("/bolsa")

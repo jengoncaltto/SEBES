@@ -1,8 +1,8 @@
-package com.example.sebes.Repositorio;
+package br.uniriotec.prae.sebes.Repositorio;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.sebes.Entity.ProcessoSeletivo;
+import br.uniriotec.prae.sebes.Entity.ProcessoSeletivo;
 
 
 public interface ProcessoSeletivoRepository extends JpaRepository<ProcessoSeletivo, Integer> {

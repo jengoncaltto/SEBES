@@ -1,4 +1,4 @@
-package com.example.sebes;
+package br.uniriotec.prae.sebes;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

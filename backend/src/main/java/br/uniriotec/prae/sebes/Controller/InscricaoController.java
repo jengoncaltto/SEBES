@@ -1,4 +1,4 @@
-package com.example.sebes.Controller;
+package br.uniriotec.prae.sebes.Controller;
 
 import java.util.List;
 import java.util.Map;
@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import com.example.sebes.Entity.Inscricao;
-import com.example.sebes.Repositorio.InscricaoRepository;
+import br.uniriotec.prae.sebes.Entity.Inscricao;
+import br.uniriotec.prae.sebes.Repositorio.InscricaoRepository;
 
 @RestController
 @RequestMapping("/inscricao")

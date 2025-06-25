@@ -1,10 +1,7 @@
-package com.example.sebes.Controller;
-
-
+package br.uniriotec.prae.sebes.Controller;
 
 import java.util.Map;
 import java.util.Optional;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import com.example.sebes.Entity.Usuario;
-import com.example.sebes.Repositorio.UsuarioRepository;
+import br.uniriotec.prae.sebes.Entity.Usuario;
+import br.uniriotec.prae.sebes.Repositorio.UsuarioRepository;
 
 @RestController
 @RequestMapping("/usuario")

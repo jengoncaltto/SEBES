@@ -1,4 +1,4 @@
-package com.example.sebes.Controller;
+package br.uniriotec.prae.sebes.Controller;
 
 //import java.util.Map;
 import java.util.Optional;
@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.sebes.Entity.ServidorPrae;
-//import com.example.sebes.Entity.Usuario;
-import com.example.sebes.Repositorio.ServidorPraeRepository;
+import br.uniriotec.prae.sebes.Entity.ServidorPrae;
+import br.uniriotec.prae.sebes.Repositorio.ServidorPraeRepository;
 
 
 @RestController
