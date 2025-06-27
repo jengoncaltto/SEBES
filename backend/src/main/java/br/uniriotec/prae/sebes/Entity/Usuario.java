@@ -14,15 +14,18 @@ import jakarta.persistence.Table;
 public class Usuario {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", updatable = false, nullable = false, length = 36)
     @JsonProperty("id")
-    @Column(name = "id")
-    private Integer idDiscente;
+    private String id;
 
     @JsonProperty("nome")
     @Column(name = "nome")
     private String nome;
+
+    @JsonProperty("nome_social")
+    @Column(name = "nome_social")
+    private String nomeSocial;
 
     @JsonProperty("email")
     @Column(name = "email")
@@ -37,19 +40,21 @@ public class Usuario {
     @Column(name = "telefone")
     private String telefone;
 
+    @JsonProperty("status")
+    @Column(name = "status")
     public boolean status = true;
 
 
     public Usuario(){} //Construtor
 
 
-    public Integer getIdDiscente() {
-        return idDiscente;
+    public String getId() {
+        return id;
     }
 
 
-    public void setIdDiscente(Integer idDiscente) {
-        this.idDiscente = idDiscente;
+    public void setId(String id) {
+        this.id = id;
     }
 
 
@@ -57,9 +62,16 @@ public class Usuario {
         return nome;
     }
 
-
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    
+    public String getNomeSocial() {
+        return nomeSocial;
+    }
+
+    public void setNomeSocial(String nomeSocial) {
+        this.nomeSocial = nomeSocial;
     }
 
 

@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.uniriotec.prae.sebes.Entity.Usuario;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer>  {
+public interface UsuarioRepository extends JpaRepository<Usuario, String>  {
     
 }

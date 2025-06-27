@@ -32,10 +32,9 @@ public class UsuarioController {
 
     }
 
-    
     @PatchMapping("/{id}")
     public ResponseEntity <Usuario> atualizarUsuario(
-        @PathVariable Integer id,
+        @PathVariable String id,
         @RequestBody Map<String, Object> dadosParaAtualizar) {
         
         Optional<Usuario> estudanteOptional = usuario.findById(id);
@@ -66,7 +65,7 @@ public class UsuarioController {
     
     @GetMapping("/buscar")
     public ResponseEntity<Usuario> buscarEstudante(
-    @RequestParam(required = false) Integer id,
+    @RequestParam(required = false) String id,
     @RequestParam(required = false) String matricula) 
     {
         
@@ -81,7 +80,7 @@ public class UsuarioController {
     
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> alterarStatus(@PathVariable Integer id)
+    public ResponseEntity<Usuario> alterarStatus(@PathVariable String id)
     {
         Optional<Usuario> resultado = usuario.findById(id);
         if(!resultado.isPresent())
