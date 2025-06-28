@@ -1,11 +1,11 @@
 package br.uniriotec.prae.sebes.Controller;
-
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,96 +17,125 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.uniriotec.prae.sebes.Entity.ProcessoSeletivo;
+import br.uniriotec.prae.sebes.Repositorio.BolsaRepository;
 import br.uniriotec.prae.sebes.Repositorio.ProcessoSeletivoRepository;
 
 
-
 @RestController
-@RequestMapping("/processo_seletivo")
+@RequestMapping("/processos")
 public class ProcessoSeletivoController {
     
     @Autowired
-    ProcessoSeletivoRepository processo;
+    ProcessoSeletivoRepository processoRepository;
     
+    @Autowired
+    BolsaRepository bolsaRepository;
     
+    /* POST */
     
     @PostMapping
-    public ProcessoSeletivo criaProcessoSeletivo(@RequestBody ProcessoSeletivo prs)
-    {
-        return processo.save(prs);
+    public ResponseEntity<?> criar(@RequestBody ProcessoSeletivo processo) {
+        // Verifica se a bolsa existe
+        if (processo.getBolsa() == null || processo.getBolsa().getId() == null) {
+            return ResponseEntity.badRequest().body("Bolsa deve ser informada.");
+        }
+
+        boolean bolsaExiste = bolsaRepository.existsById(processo.getBolsa().getId());
+        if (!bolsaExiste) {
+            return ResponseEntity.badRequest().body("Bolsa informada não existe.");
+        }
+
+        // Salva processo seletivo
+        ProcessoSeletivo salvo = processoRepository.save(processo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
+    
+    /* GET */
 
     @GetMapping
-    public List<ProcessoSeletivo> getProcessos()
-    {
-        return processo.findAll();
+    public ResponseEntity<List<ProcessoSeletivo>> listarTodos() {
+        return ResponseEntity.ok(processoRepository.findAll());
     }
-
-
+    
     @GetMapping("/{id}")
-    public ResponseEntity<ProcessoSeletivo> buscarPorId(@PathVariable Integer id)
-    {
-        Optional<ProcessoSeletivo> resultado = processo.findById(id);
-
-        if (resultado.isPresent()) {
-
-            return ResponseEntity.ok(resultado.get());
-        } 
-        
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<?> buscarPorId(@PathVariable String id) {
+        Optional<ProcessoSeletivo> result = processoRepository.findById(id);
+        if (result.isPresent()) {
+            return ResponseEntity.ok(result.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .body("Processo seletivo não encontrado.");
+        }
     }
     
 
+    // Buscar por status
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<ProcessoSeletivo>> buscarPorStatus(@PathVariable String status) {
+        return ResponseEntity.ok(processoRepository.findAllByStatus(status));
+    }
+
+    // Buscar por idBolsa
+    @GetMapping("/bolsa/{idBolsa}")
+    public ResponseEntity<List<ProcessoSeletivo>> buscarPorBolsa(@PathVariable String idBolsa) {
+        return ResponseEntity.ok(processoRepository.findAllByIdBolsa(idBolsa));
+    }
+    
+    /* PATCH */
 
     @PatchMapping("/{id}")
-    public ResponseEntity <ProcessoSeletivo> editarProcesso(
-        @PathVariable Integer id,
-        @RequestBody Map<String, Object> dadosParaAtualizar)
-    {
-        
-        Optional<ProcessoSeletivo> processOptional = processo.findById(id);
-
-        if(!processOptional.isPresent())
-        {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<?> atualizarParcial(@PathVariable String id, @RequestBody Map<String, Object> updates) {
+        Optional<ProcessoSeletivo> processoOpt = processoRepository.findById(id);
+        if (!processoOpt.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Processo seletivo com id " + id + " não encontrado.");
         }
 
-        ProcessoSeletivo processoExiste = processOptional.get();
+        ProcessoSeletivo processo = processoOpt.get();
 
-        if(dadosParaAtualizar.containsKey("status"))
-        {
-            processoExiste.setStatus((String)dadosParaAtualizar.get("status"));
+        // Atualiza dataInicio se presente
+        if (updates.containsKey("dataInicio")) {
+            try {
+                String dataInicioStr = (String) updates.get("dataInicio");
+                LocalDateTime dataInicio = LocalDateTime.parse(dataInicioStr);
+                processo.setDataInicio(dataInicio);
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body("Formato inválido para dataInicio. Use 'yyyy-[m]m-[d]d hh:mm:ss[.f...]'");
+            }
         }
 
-        if(dadosParaAtualizar.containsKey("data_inicio"))
-        {
-            processoExiste.setDataInicio((Timestamp)dadosParaAtualizar.get("data_inicio"));
+        // Atualiza dataEncerramento se presente
+        if (updates.containsKey("dataEncerramento")) {
+            try {
+                String dataEncerramentoStr = (String) updates.get("dataEncerramento");
+                LocalDateTime dataEncerramento = LocalDateTime.parse(dataEncerramentoStr);
+                processo.setDataEncerramento(dataEncerramento);
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body("Formato inválido para dataEncerramento. Use 'yyyy-[m]m-[d]d hh:mm:ss[.f...]'");
+            }
         }
 
-        if(dadosParaAtualizar.containsKey("data_encerramento"))
-        {
-            processoExiste.setDataEncerramento((Timestamp)dadosParaAtualizar.get("data_encerramento"));
+        // Atualiza status se presente
+        if (updates.containsKey("status")) {
+            String status = (String) updates.get("status");
+            processo.setStatus(status);
         }
 
-
-        processo.save(processoExiste);
-        return ResponseEntity.ok(processoExiste);
-        
+        processoRepository.save(processo);
+        return ResponseEntity.ok(processo);
     }
-    
 
     
-    
+    /* DELETE */
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<ProcessoSeletivo> excluirBolsa(@PathVariable Integer id)
-    {
-        if(processo.existsById(id))
-        {
-            processo.deleteById(id);
+    public ResponseEntity<?> deletarEtapa(@PathVariable String id) {
+        if(processoRepository.existsById(id)) {
+        	processoRepository.deleteById(id);
             return ResponseEntity.noContent().build();
         }
-        else
-            return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Processo seletivo não encontrada.");
     }
     
 }

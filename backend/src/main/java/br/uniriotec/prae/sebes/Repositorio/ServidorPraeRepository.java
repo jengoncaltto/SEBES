@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import br.uniriotec.prae.sebes.Entity.ServidorPrae;
 
 @Repository
-public interface ServidorPraeRepository extends JpaRepository<ServidorPrae, Integer>{
+public interface ServidorPraeRepository extends JpaRepository<ServidorPrae, String>{
 
     boolean existsByCargo(String cargo);
     boolean existsBySetor(String setor);

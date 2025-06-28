@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,10 +27,36 @@ public class BolsaController {
     @Autowired
     private BolsaRepository bolsaRepository;
 
+    /* POST */
+    
+    @PostMapping("/cadastrar")
+    public ResponseEntity<?> cadastrarBolsa(@RequestBody Bolsa request) {
+        if (request.getNome() == null || request.getNome().isBlank()) {
+            return ResponseEntity.badRequest().body("O nome da bolsa é obrigatório.");
+        }
+
+        if (request.getValor() == null || request.getValor().doubleValue() <= 0) {
+            return ResponseEntity.badRequest().body("O valor da bolsa deve ser maior que zero.");
+        }
+
+        if (request.getPeriodo() == null || request.getPeriodo() <= 0) {
+            return ResponseEntity.badRequest().body("O período da bolsa deve ser informado e maior que zero.");
+        }
+
+        if (request.getDescricao() == null || request.getDescricao().isBlank()) {
+            return ResponseEntity.badRequest().body("A descrição da bolsa é obrigatória.");
+        }
+
+        Bolsa bolsaSalva = bolsaRepository.save(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(bolsaSalva);
+    }
+
+    
     /* GET */
     
     @GetMapping
-    public List<Bolsa> getBolsas() {
+    public List<Bolsa> listarTodas() {
         return bolsaRepository.findAll();
     }
 
@@ -40,7 +67,7 @@ public class BolsaController {
             return ResponseEntity.ok(result.get());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                 .body("Bolsa com id " + id + " não encontrada.");
+                                 .body("Bolsa não encontrada.");
         }
     }
 
@@ -53,7 +80,7 @@ public class BolsaController {
         Optional<Bolsa> bolsaOpt = bolsaRepository.findById(id);
         if (!bolsaOpt.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                 .body("Bolsa com id " + id + " não encontrada.");
+                                 .body("Bolsa não encontrada.");
         }
 
         Bolsa bolsa = bolsaOpt.get();

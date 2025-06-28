@@ -142,7 +142,7 @@ public class EtapaController {
    }
 
    
-   /**/
+   /* DELETE */
    @DeleteMapping("/{id}")
    public ResponseEntity<?> deletarEtapa(@PathVariable String id) {
        if(etapaRepository.existsById(id)) {

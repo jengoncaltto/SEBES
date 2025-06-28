@@ -15,27 +15,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.uniriotec.prae.sebes.Entity.ServidorPrae;
+import br.uniriotec.prae.sebes.Entity.Discente;
 import br.uniriotec.prae.sebes.Entity.Usuario;
-import br.uniriotec.prae.sebes.Repositorio.ServidorPraeRepository;
+import br.uniriotec.prae.sebes.Repositorio.DiscenteRepository;
 import br.uniriotec.prae.sebes.Repositorio.UsuarioRepository;
-import br.uniriotec.prae.sebes.dto.CadastroServidorRequest;
+import br.uniriotec.prae.sebes.dto.CadastroDiscenteRequest;
 
 
 @RestController
-@RequestMapping("/usuarios/servidores")
-public class ServidorPraeController {
+@RequestMapping("/usuarios/discentes")
+public class DiscenteController {
     
     @Autowired
     UsuarioRepository usuarioRepository;
-    
+
     @Autowired
-    ServidorPraeRepository servidorRepository;
+    DiscenteRepository discenteRepository;
 
     /* POST */
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<?> cadastrarServidor(@RequestBody CadastroServidorRequest request) {
+    public ResponseEntity<?> cadastrarDiscente(@RequestBody CadastroDiscenteRequest request) {
         // Validações básicas
         if (request.getNome() == null || request.getNome().isBlank()) {
             return ResponseEntity.badRequest().body("O nome é obrigatório.");
@@ -43,17 +43,14 @@ public class ServidorPraeController {
         if (request.getEmail() == null || request.getEmail().isBlank()) {
             return ResponseEntity.badRequest().body("O email é obrigatório.");
         }
-        if (request.getCargo() == null || request.getCargo().isBlank()) {
-            return ResponseEntity.badRequest().body("O cargo é obrigatório.");
-        }
-        if (request.getSetor() == null || request.getSetor().isBlank()) {
-            return ResponseEntity.badRequest().body("O setor é obrigatório.");
+        if (request.getCurso() == null) {
+            return ResponseEntity.badRequest().body("A matrícula é obrigatória.");
         }
         // Verifica se email já existe
         if (usuarioRepository.existsByEmail(request.getEmail())) {
             return ResponseEntity.badRequest().body("Email já cadastrado.");
         }
-
+        
         // Criar usuário
         Usuario usuario = new Usuario();
         usuario.setNome(request.getNome());
@@ -63,49 +60,48 @@ public class ServidorPraeController {
         usuario.setTelefone(request.getTelefone());
         usuario.setStatus(request.getStatus());
 
-        Usuario usuarioCadastrado = usuarioRepository.save(usuario);
+        Usuario usuarioSalvo = usuarioRepository.save(usuario);
 
-        // Criar servidor
-        ServidorPrae servidor = new ServidorPrae();
-        servidor.setUsuario(usuarioCadastrado);
-        servidor.setCargo(request.getCargo());
-        servidor.setSetor(request.getSetor());
+        // Criar discente
+        Discente discente = new Discente();
+        discente.setUsuario(usuarioSalvo);
+        discente.setCurso(request.getCurso());
 
-        ServidorPrae servidorSalvo = servidorRepository.save(servidor);
+        Discente discenteSalvo = discenteRepository.save(discente);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(servidorSalvo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(discenteSalvo);
     }
-    
+
     
     /* GET */
     
     @GetMapping
     public ResponseEntity<?> listarTodos() {
-        return ResponseEntity.ok(servidorRepository.findAll());
+        return ResponseEntity.ok(discenteRepository.findAll());
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable String id) {
-        Optional<ServidorPrae> result = servidorRepository.findById(id);
+        Optional<Discente> result = discenteRepository.findById(id);
         if (result.isPresent()) {
             return ResponseEntity.ok(result.get());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                 .body("Servidor(a) PRAE não encontrado(a).");
+                                 .body("Discente não encontrado.");
         }
     }
     
     /* PATCH */
-    
+
     @PatchMapping("/{id}")
-    public ResponseEntity<?> atualizarServidor(@PathVariable String id, @RequestBody CadastroServidorRequest request) {
-        Optional<ServidorPrae> result = servidorRepository.findById(id);
+    public ResponseEntity<?> atualizarDiscente(@PathVariable String id, @RequestBody CadastroDiscenteRequest request) {
+        Optional<Discente> result = discenteRepository.findById(id);
         if (!result.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Servidor(a) não encontrado(a).");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Discente não encontrado.");
         }
 
-        ServidorPrae servidor = result.get();
-        Usuario usuario = servidor.getUsuario();
+        Discente discente = result.get();
+        Usuario usuario = discente.getUsuario();
 
         // Atualiza dados do usuário
         if (request.getNome() != null) usuario.setNome(request.getNome());
@@ -114,14 +110,13 @@ public class ServidorPraeController {
         if (request.getTelefone() != null) usuario.setTelefone(request.getTelefone());
         if (request.getStatus() != null) usuario.setStatus(request.getStatus());
 
-        // Atualiza dados específicos do servidor
-        if (request.getCargo() != null) servidor.setCargo(request.getCargo());
-        if (request.getSetor() != null) servidor.setSetor(request.getSetor());
+        // Atualiza dados específicos do discente
+        if (request.getCurso() != null) discente.setCurso(request.getCurso());
 
         usuarioRepository.save(usuario);
-        servidorRepository.save(servidor);
+        discenteRepository.save(discente);
 
-        return ResponseEntity.ok(servidor);
+        return ResponseEntity.ok(discente);
     }
-
+   
 }
