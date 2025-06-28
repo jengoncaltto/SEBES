@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import br.uniriotec.prae.sebes.Entity.RespostaFormulario;
 
 @Repository
-public interface RespostaFormularioRepository extends JpaRepository<RespostaFormulario, Integer>{
+public interface RespostaFormularioRepository extends JpaRepository<RespostaFormulario, String>{
 	
 	List<RespostaFormulario> findAllByStatus(String status);
 	
@@ -20,4 +20,6 @@ public interface RespostaFormularioRepository extends JpaRepository<RespostaForm
 	
 	List<RespostaFormulario> findAllByDataEnvio(LocalDateTime dataEnvio);
 	
+	List<RespostaFormulario> findAllByIdRespostaAssociada(String idRespostaAssociada);
+
 }
