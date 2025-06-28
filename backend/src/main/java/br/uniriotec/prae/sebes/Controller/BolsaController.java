@@ -6,107 +6,96 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import br.uniriotec.prae.sebes.Entity.Bolsa;
 import br.uniriotec.prae.sebes.Repositorio.BolsaRepository;
 
 @RestController
-@RequestMapping("/bolsa")
+@RequestMapping("/bolsas")
 public class BolsaController {
 
     @Autowired
-    private BolsaRepository b;
+    private BolsaRepository bolsaRepository;
 
-    // Criar nova bolsa
-    @PostMapping
-    public Bolsa cadastrarBolsa(@RequestBody Bolsa bolsa) {
-        return b.save(bolsa);
-    }
-
-    // Buscar todas as bolsas
+    /* GET */
+    
     @GetMapping
     public List<Bolsa> getBolsas() {
-        return b.findAll();
+        return bolsaRepository.findAll();
     }
 
-    // Buscar por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Bolsa> buscarPorId(@PathVariable Integer id) {
-        Optional<Bolsa> resultado = b.findById(id);
-
-        if (resultado.isPresent()) {
-            return ResponseEntity.ok(resultado.get());
+    public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
+        Optional<Bolsa> bolsaOpt = bolsaRepository.findById(id);
+        if (bolsaOpt.isPresent()) {
+            return ResponseEntity.ok(bolsaOpt.get());
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .body("Bolsa com id " + id + " não encontrada.");
         }
     }
 
-    // Buscar por ID e/ou tipo
-    @GetMapping("/buscar")
-    public ResponseEntity<List<Bolsa>> buscarBolsa(
-            @RequestParam(required = false) Integer idBolsa,
-            @RequestParam(required = false) String tipo) {
 
-        List<Bolsa> resultado;
-
-        if (idBolsa != null && tipo != null) {
-            resultado = b.findByIdBolsaAndTipo(idBolsa, tipo);
-        } else if (idBolsa != null) {
-            resultado = b.findByIdBolsa(idBolsa);
-        } else if (tipo != null) {
-            resultado = b.findByTipo(tipo);
-        } else {
-            return ResponseEntity.badRequest().build(); // Nenhum parâmetro
-        }
-
-        return resultado.isEmpty()
-                ? ResponseEntity.notFound().build()
-                : ResponseEntity.ok(resultado);
-    }
+    /* PATCH */
 
     // Editar apenas campos específicos
-      @PatchMapping("/{id}")
-        public ResponseEntity <Bolsa> editarBolsa(
-        @PathVariable Integer id,
-        @RequestBody Map<String, Object> dadosParaAtualizar)
-        
-        {
-            Optional<Bolsa> bolsaOptional = b.findById(id);
-
-            if(!bolsaOptional.isPresent())
-            {
-                return ResponseEntity.notFound().build();
-
-            }
-
-            Bolsa bolsaExistente = bolsaOptional.get();
-
-            if(dadosParaAtualizar.containsKey("valor"))
-                {
-                    bolsaExistente.setValor((BigDecimal)dadosParaAtualizar.get("valor"));
-                }
-
-            if(dadosParaAtualizar.containsKey("tipo"))
-            {
-                bolsaExistente.setTipo((String)dadosParaAtualizar.get("tipo"));
-            }
-
-                b.save(bolsaExistente);
-                return ResponseEntity.ok(bolsaExistente);
-
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> atualizarParcial(@PathVariable Integer id, @RequestBody Map<String, Object> updates) {
+        Optional<Bolsa> bolsaOpt = bolsaRepository.findById(id);
+        if (!bolsaOpt.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .body("Bolsa com id " + id + " não encontrada.");
         }
-       
 
-    // Excluir bolsa por ID
+        Bolsa bolsa = bolsaOpt.get();
+
+        updates.forEach((chave, valor) -> {
+            switch (chave) {
+                case "nome":
+                    bolsa.setNome((String) valor);
+                    break;
+                case "descricao":
+                    bolsa.setDescricao((String) valor);
+                    break;
+                case "valor":
+                    // pode precisar converter para BigDecimal
+                    if (valor instanceof Number) {
+                        bolsa.setValor(BigDecimal.valueOf(((Number) valor).doubleValue()));
+                    } else if (valor instanceof String) {
+                        bolsa.setValor(new BigDecimal((String) valor));
+                    }
+                    break;
+                case "periodo":
+                    if (valor instanceof Number) {
+                        bolsa.setPeriodo(((Number) valor).intValue());
+                    }
+                    break;
+                // adiciona outros campos conforme necessário
+            }
+        });
+
+        Bolsa bolsaAtualizada = bolsaRepository.save(bolsa);
+        return ResponseEntity.ok(bolsaAtualizada);
+    }
+
+    /* DELETE */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluirBolsa(@PathVariable Integer id) {
-        if (b.existsById(id)) {
-            b.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build(); // 404
+    public ResponseEntity<?> deletarBolsa(@PathVariable Integer id) {
+        Optional<Bolsa> bolsaOpt = bolsaRepository.findById(id);
+        if (!bolsaOpt.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .body("Bolsa com id " + id + " não encontrada.");
         }
+        bolsaRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
