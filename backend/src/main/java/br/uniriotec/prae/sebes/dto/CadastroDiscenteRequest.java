@@ -7,8 +7,9 @@ public class CadastroDiscenteRequest {
     private String emailRecuperacao;
     private String telefone;
     private String curso;
+    private String status;
 
-    // Getters e Setters
+	// Getters e Setters
     public String getNome() {
         return nome;
     }
@@ -56,6 +57,14 @@ public class CadastroDiscenteRequest {
     public void setCurso(String curso) {
         this.curso = curso;
     }
+
+    public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }
 
 

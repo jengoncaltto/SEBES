@@ -57,7 +57,7 @@ public class CadastroController {
         usuario.setEmail(request.getEmail());
         usuario.setEmailRecuperacao(request.getEmailRecuperacao());
         usuario.setTelefone(request.getTelefone());
-        usuario.setStatus(true);
+        usuario.setStatus(request.getStatus());
 
         Usuario usuarioSalvo = usuarioRepository.save(usuario);
 
@@ -98,7 +98,7 @@ public class CadastroController {
         usuario.setEmail(request.getEmail());
         usuario.setEmailRecuperacao(request.getEmailRecuperacao());
         usuario.setTelefone(request.getTelefone());
-        usuario.setStatus(true);
+        usuario.setStatus(request.getStatus());
 
         Usuario usuarioCadastrado = usuarioRepository.save(usuario);
 

@@ -6,6 +6,7 @@ public class CadastroServidorRequest {
     private String email;
     private String emailRecuperacao;
     private String telefone;
+    private String status;
     private String cargo;
     private String setor;
 
@@ -65,6 +66,14 @@ public class CadastroServidorRequest {
     public void setSetor(String setor) {
         this.setor = setor;
     }
+
+    public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }
 
 
