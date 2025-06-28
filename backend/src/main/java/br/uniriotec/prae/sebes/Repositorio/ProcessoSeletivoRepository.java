@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import br.uniriotec.prae.sebes.Entity.ProcessoSeletivo;
 
 @Repository
-public interface ProcessoSeletivoRepository extends JpaRepository<ProcessoSeletivo, Integer> {
+public interface ProcessoSeletivoRepository extends JpaRepository<ProcessoSeletivo, String> {
 	
 	List<ProcessoSeletivo> findAllByStatus(String status);
 

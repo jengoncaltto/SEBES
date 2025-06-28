@@ -35,9 +35,9 @@ public class BolsaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
-        Optional<Bolsa> bolsaOpt = bolsaRepository.findById(id);
-        if (bolsaOpt.isPresent()) {
-            return ResponseEntity.ok(bolsaOpt.get());
+        Optional<Bolsa> result = bolsaRepository.findById(id);
+        if (result.isPresent()) {
+            return ResponseEntity.ok(result.get());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                                  .body("Bolsa com id " + id + " não encontrada.");
@@ -90,12 +90,11 @@ public class BolsaController {
     /* DELETE */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletarBolsa(@PathVariable Integer id) {
-        Optional<Bolsa> bolsaOpt = bolsaRepository.findById(id);
-        if (!bolsaOpt.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                 .body("Bolsa com id " + id + " não encontrada.");
+        if(bolsaRepository.existsById(id)) {
+        	bolsaRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
         }
-        bolsaRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Bolsa não encontrada.");
     }
 }

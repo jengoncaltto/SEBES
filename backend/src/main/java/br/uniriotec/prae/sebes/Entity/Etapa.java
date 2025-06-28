@@ -1,6 +1,6 @@
 package br.uniriotec.prae.sebes.Entity;
 
-import java.security.Timestamp;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,10 +23,10 @@ public class Etapa {
     private String tipoEtapa;
 
     @Column(name = "data_inicio")
-    private Timestamp dataInicio;
+    private LocalDateTime dataInicio;
 
     @Column(name = "data_encerramento")
-    private Timestamp dataEncerramento;
+    private LocalDateTime dataEncerramento;
 
     private String status;
 
@@ -69,22 +69,22 @@ public class Etapa {
     this.processoSeletivo = processoSeletivo;
 }
 
-    public Timestamp getDataInicio() {
+    public LocalDateTime getDataInicio() {
         return dataInicio;
     }
 
 
-    public void setDataInicio(Timestamp dataInicio) {
+    public void setDataInicio(LocalDateTime dataInicio) {
         this.dataInicio = dataInicio;
     }
 
 
-    public Timestamp getDataEncerramento() {
+    public LocalDateTime getDataEncerramento() {
         return dataEncerramento;
     }
 
 
-    public void setDataEncerramento(Timestamp dataEncerramento) {
+    public void setDataEncerramento(LocalDateTime dataEncerramento) {
         this.dataEncerramento = dataEncerramento;
     }
 
