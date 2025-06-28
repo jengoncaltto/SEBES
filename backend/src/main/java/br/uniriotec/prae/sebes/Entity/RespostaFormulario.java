@@ -1,6 +1,6 @@
 package br.uniriotec.prae.sebes.Entity;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +14,7 @@ public class RespostaFormulario {
     private String id;
 
     @Column(name = "data_envio")
-    private Timestamp dataEnvio;
+    private LocalDateTime dataEnvio;
 
     @Column(name = "tipo_forms")
     private String tipoForms;
@@ -43,11 +43,11 @@ public class RespostaFormulario {
         this.id = id;
     }
 
-    public Timestamp getDataEnvio() {
+    public LocalDateTime getDataEnvio() {
         return dataEnvio;
     }
 
-    public void setDataEnvio(Timestamp dataEnvio) {
+    public void setDataEnvio(LocalDateTime dataEnvio) {
         this.dataEnvio = dataEnvio;
     }
 
