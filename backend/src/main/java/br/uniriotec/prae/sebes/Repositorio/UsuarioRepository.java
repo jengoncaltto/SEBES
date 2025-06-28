@@ -6,5 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import br.uniriotec.prae.sebes.Entity.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, String>  {
-    
+
+    boolean existsByEmail(String email);
+
 }

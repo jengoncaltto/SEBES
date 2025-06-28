@@ -1,6 +1,5 @@
 package br.uniriotec.prae.sebes.Entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -20,8 +19,7 @@ public class Discente {
     @JoinColumn(name = "id")
     private Usuario usuario;
 
-    @Column(name = "matricula", nullable = false, length = 11)
-    private Long matricula;
+    private String curso;
 
     public Discente() {}
 
@@ -43,11 +41,11 @@ public class Discente {
         this.usuario = usuario;
     }
 
-    public Long getMatricula() {
-        return matricula;
+    public String getCurso() {
+        return curso;
     }
 
-    public void setMatricula(Long matricula) {
-        this.matricula = matricula;
+    public void setCurso(String curso) {
+        this.curso = curso;
     }
 }

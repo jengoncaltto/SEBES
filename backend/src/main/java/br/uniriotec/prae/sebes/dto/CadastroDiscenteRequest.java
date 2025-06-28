@@ -6,7 +6,7 @@ public class CadastroDiscenteRequest {
     private String email;
     private String emailRecuperacao;
     private String telefone;
-    private Long matricula;
+    private String curso;
 
     // Getters e Setters
     public String getNome() {
@@ -49,12 +49,12 @@ public class CadastroDiscenteRequest {
         this.telefone = telefone;
     }
 
-    public Long getMatricula() {
-        return matricula;
+    public String getCurso() {
+        return curso;
     }
 
-    public void setMatricula(Long matricula) {
-        this.matricula = matricula;
+    public void setCurso(String curso) {
+        this.curso = curso;
     }
 }
 
