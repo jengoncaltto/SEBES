@@ -12,106 +12,91 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "usuario")
 public class Usuario {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", updatable = false, nullable = false, length = 36)
-    @JsonProperty("id")
-    private String id;
 
-    @JsonProperty("nome")
-    @Column(name = "nome")
-    private String nome;
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id", updatable = false, nullable = false, length = 36)
+	private String id;
 
-    @JsonProperty("nome_social")
-    @Column(name = "nome_social")
-    private String nomeSocial;
+	@JsonProperty("nome")
+	@Column(name = "nome")
+	private String nome;
 
-    @JsonProperty("email")
-    @Column(name = "email")
-    private String email;
+	@JsonProperty("nome_social")
+	@Column(name = "nome_social")
+	private String nomeSocial;
 
-    @JsonProperty("email_recuperacao")
-    @Column(name = "email_recuperacao")
-    private String emailRecuperacao;
+	@JsonProperty("email")
+	@Column(name = "email")
+	private String email;
 
-    
-    @JsonProperty("telefone")
-    @Column(name = "telefone")
-    private String telefone;
+	@JsonProperty("email_recuperacao")
+	@Column(name = "email_recuperacao")
+	private String emailRecuperacao;
 
-    @JsonProperty("status")
-    @Column(name = "status")
-    public boolean status = true;
+	@JsonProperty("telefone")
+	@Column(name = "telefone")
+	private String telefone;
 
+	@Column(name = "status")
+	public boolean status = true;
 
-    public Usuario(){} //Construtor
+	public Usuario() {
+	} // Construtor
 
+	public String getId() {
+		return id;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
+	public String getNome() {
+		return nome;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
+	public String getNomeSocial() {
+		return nomeSocial;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public void setNomeSocial(String nomeSocial) {
+		this.nomeSocial = nomeSocial;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    
-    public String getNomeSocial() {
-        return nomeSocial;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setNomeSocial(String nomeSocial) {
-        this.nomeSocial = nomeSocial;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
+	public String getEmailRecuperacao() {
+		return emailRecuperacao;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setEmailRecuperacao(String emailRecuperacao) {
+		this.emailRecuperacao = emailRecuperacao;
+	}
 
+	public String getTelefone() {
+		return telefone;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
+	public boolean getStatus() {
+		return status;
+	}
 
-    public String getEmailRecuperacao() {
-        return emailRecuperacao;
-    }
-
-
-    public void setEmailRecuperacao(String emailRecuperacao) {
-        this.emailRecuperacao = emailRecuperacao;
-    }
-
-
-    public String getTelefone() {
-        return telefone;
-    }
- 
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public boolean getStatus()
-    {
-        return status;
-    }
-
-    public void setStatus(Boolean novoStatus)
-    {
-        this.status = novoStatus;
-    }
+	public void setStatus(Boolean novoStatus) {
+		this.status = novoStatus;
+	}
 }
-

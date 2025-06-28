@@ -15,29 +15,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.uniriotec.prae.sebes.Entity.Discente;
 import br.uniriotec.prae.sebes.Entity.Usuario;
+import br.uniriotec.prae.sebes.Repositorio.DiscenteRepository;
 import br.uniriotec.prae.sebes.Repositorio.UsuarioRepository;
+import br.uniriotec.prae.sebes.dto.CadastroDiscenteRequest;
 
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
     
     @Autowired
-    UsuarioRepository usuario;
+    UsuarioRepository usuarioRepository;
+    
 
-    @PostMapping
-    public Usuario criaUsuario(@RequestBody Usuario discente)
-    {
-        return usuario.save(discente);
-
-    }
-
+    /* PUT */
     @PatchMapping("/{id}")
     public ResponseEntity <Usuario> atualizarUsuario(
         @PathVariable String id,
         @RequestBody Map<String, Object> dadosParaAtualizar) {
         
-        Optional<Usuario> estudanteOptional = usuario.findById(id);
+        Optional<Usuario> estudanteOptional = usuarioRepository.findById(id);
 
         if(!estudanteOptional.isPresent())
         {
@@ -58,7 +56,7 @@ public class UsuarioController {
 
 
 
-        usuario.save(estudanteExiste);
+        usuarioRepository.save(estudanteExiste);
         return ResponseEntity.ok(estudanteExiste);
         
     } 
@@ -71,7 +69,7 @@ public class UsuarioController {
         
         if(id != null)
         {
-            Optional<Usuario> resultadoPorID = usuario.findById(id);
+            Optional<Usuario> resultadoPorID = usuarioRepository.findById(id);
             return ResponseEntity.ok(resultadoPorID.get());
         }
         else
@@ -82,7 +80,7 @@ public class UsuarioController {
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> alterarStatus(@PathVariable String id)
     {
-        Optional<Usuario> resultado = usuario.findById(id);
+        Optional<Usuario> resultado = usuarioRepository.findById(id);
         if(!resultado.isPresent())
                 return ResponseEntity.notFound().build();
         
@@ -91,7 +89,7 @@ public class UsuarioController {
         //Inverte o status do usuario por conta do !(negacao)
         usuarioExiste.setStatus(!usuarioExiste.getStatus());
 
-        usuario.save(usuarioExiste);
+        usuarioRepository.save(usuarioExiste);
 
         return ResponseEntity.ok(usuarioExiste);
         

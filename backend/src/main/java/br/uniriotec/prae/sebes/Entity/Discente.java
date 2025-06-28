@@ -1,5 +1,6 @@
 package br.uniriotec.prae.sebes.Entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -8,8 +9,8 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "servidor_prae")
-public class ServidorPrae {
+@Table(name = "discente")
+public class Discente {
 
     @Id
     private String id;
@@ -19,13 +20,13 @@ public class ServidorPrae {
     @JoinColumn(name = "id")
     private Usuario usuario;
 
-    private String cargo;
-    private String setor;
+    @Column(name = "matricula", nullable = false, length = 11)
+    private Long matricula;
 
-    public ServidorPrae() {}
-
+    public Discente() {}
 
     // Getters e Setters
+
     public String getId() {
         return id;
     }
@@ -33,7 +34,7 @@ public class ServidorPrae {
     public void setId(String id) {
         this.id = id;
     }
-    
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -42,20 +43,11 @@ public class ServidorPrae {
         this.usuario = usuario;
     }
 
-    public String getCargo() {
-        return cargo;
+    public Long getMatricula() {
+        return matricula;
     }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
+    public void setMatricula(Long matricula) {
+        this.matricula = matricula;
     }
-
-    public String getSetor() {
-        return setor;
-    }
-
-    public void setSetor(String setor) {
-        this.setor = setor;
-    }
-
 }
