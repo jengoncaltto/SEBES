@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.uniriotec.prae.sebes.Entity.Bolsa;
 import br.uniriotec.prae.sebes.Entity.Discente;
 import br.uniriotec.prae.sebes.Entity.ServidorPrae;
 import br.uniriotec.prae.sebes.Entity.Usuario;
+import br.uniriotec.prae.sebes.Repositorio.BolsaRepository;
 import br.uniriotec.prae.sebes.Repositorio.DiscenteRepository;
 import br.uniriotec.prae.sebes.Repositorio.ServidorPraeRepository;
 import br.uniriotec.prae.sebes.Repositorio.UsuarioRepository;
@@ -28,6 +30,8 @@ public class CadastroController {
     private DiscenteRepository discenteRepository;
     @Autowired
     private ServidorPraeRepository servidorPraeRepository;
+    @Autowired
+    private BolsaRepository bolsaRepository;
     
     @PostMapping("/discente")
     public ResponseEntity<?> cadastrarDiscente(@RequestBody CadastroDiscenteRequest request) {
@@ -108,5 +112,29 @@ public class CadastroController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(servidorSalvo);
     }
+    
+    @PostMapping("/bolsa")
+    public ResponseEntity<?> cadastrarBolsa(@RequestBody Bolsa request) {
+        if (request.getNome() == null || request.getNome().isBlank()) {
+            return ResponseEntity.badRequest().body("O nome da bolsa é obrigatório.");
+        }
+
+        if (request.getValor() == null || request.getValor().doubleValue() <= 0) {
+            return ResponseEntity.badRequest().body("O valor da bolsa deve ser maior que zero.");
+        }
+
+        if (request.getPeriodo() == null || request.getPeriodo() <= 0) {
+            return ResponseEntity.badRequest().body("O período da bolsa deve ser informado e maior que zero.");
+        }
+
+        if (request.getDescricao() == null || request.getDescricao().isBlank()) {
+            return ResponseEntity.badRequest().body("A descrição da bolsa é obrigatória.");
+        }
+
+        Bolsa bolsaSalva = bolsaRepository.save(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(bolsaSalva);
+    }
+
 
 }
