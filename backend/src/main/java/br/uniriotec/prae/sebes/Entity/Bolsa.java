@@ -2,9 +2,11 @@ package br.uniriotec.prae.sebes.Entity;
 
 import java.math.BigDecimal;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "bolsa")
@@ -12,25 +14,12 @@ public class Bolsa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    @JsonProperty("id")
     private Integer id;
 
-    @Column(name = "nome", nullable = false, length = 255)
-    @JsonProperty("nome")
     private String nome;
-
-    @Column(name = "descricao", nullable = false, length = 500)
-    @JsonProperty("descricao")
     private String descricao;
-
-    @Column(name = "valor", nullable = false, precision = 10, scale = 2)
-    @JsonProperty("valor")
-    private BigDecimal valor;
-
-    @Column(name = "periodo", nullable = false)
-    @JsonProperty("periodo")
     private Integer periodo;
+    private BigDecimal valor;
 
     public Bolsa() {}
 

@@ -1,7 +1,5 @@
 package br.uniriotec.prae.sebes.Entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,31 +13,20 @@ public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	@Column(name = "id", updatable = false, nullable = false, length = 36)
 	private String id;
 
-	@JsonProperty("nome")
-	@Column(name = "nome")
-	private String nome;
+    private String nome;
 
-	@JsonProperty("nome_social")
-	@Column(name = "nome_social")
-	private String nomeSocial;
+    @Column(name = "nome_social")
+    private String nomeSocial;
 
-	@JsonProperty("email")
-	@Column(name = "email")
-	private String email;
+    private String email;
 
-	@JsonProperty("email_recuperacao")
-	@Column(name = "email_recuperacao")
-	private String emailRecuperacao;
+    @Column(name = "email_recuperacao")
+    private String emailRecuperacao;
 
-	@JsonProperty("telefone")
-	@Column(name = "telefone")
-	private String telefone;
-
-	@Column(name = "status")
-	public boolean status = true;
+    private String telefone;
+    private String status;
 
 	public Usuario() {
 	} // Construtor
@@ -92,11 +79,11 @@ public class Usuario {
 		this.telefone = telefone;
 	}
 
-	public boolean getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Boolean novoStatus) {
-		this.status = novoStatus;
+	public void setStatus(String Status) {
+		this.status = Status;
 	}
 }

@@ -2,8 +2,6 @@ package br.uniriotec.prae.sebes.Entity;
 
 import java.security.Timestamp;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,45 +14,33 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "etapa")
 public class Etapa {
-
+	
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
-    
-    @JsonProperty("id")
-    @Column(name = "id") 
-    private Integer id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
-
-    @JsonProperty("tipo_etada")
-    @Column(name = "tipo_etapa") 
+    @Column(name = "tipo_etapa")
     private String tipoEtapa;
 
-    private String status;
-    
-    
-    @ManyToOne
-    @JoinColumn(name = "id_processo_seletivo", referencedColumnName = "id")
-    private ProcessoSeletivo idProcessoSeletivo;
-    
-    @JsonProperty("data_inicio")
-    @Column(name = "data_inicio") 
+    @Column(name = "data_inicio")
     private Timestamp dataInicio;
-    
-    @JsonProperty("data_encerramento")
-    @Column(name = "data_encerramento") 
+
+    @Column(name = "data_encerramento")
     private Timestamp dataEncerramento;
 
+    private String status;
 
+    @ManyToOne
+    @JoinColumn(name = "id_processo_seletivo")
+    private ProcessoSeletivo processoSeletivo;
 
     public Etapa(){}
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -63,27 +49,24 @@ public class Etapa {
         return tipoEtapa;
     }
 
-
     public void setTipoEtapa(String tipoEtapa) {
         this.tipoEtapa = tipoEtapa;
     }
 
-
     public String getStatus() {
         return status;
     }
-
 
     public void setStatus(String status) {
         this.status = status;
     }
 
     public ProcessoSeletivo getProcessoSeletivo() {
-        return idProcessoSeletivo;
+        return processoSeletivo;
     }
 
     public void setProcessoSeletivo(ProcessoSeletivo processoSeletivo) {
-    this.idProcessoSeletivo = processoSeletivo;
+    this.processoSeletivo = processoSeletivo;
 }
 
     public Timestamp getDataInicio() {
