@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.uniriotec.prae.sebes.Entity.Bolsa;
 import br.uniriotec.prae.sebes.Entity.ProcessoSeletivo;
 import br.uniriotec.prae.sebes.Repositorio.BolsaRepository;
 import br.uniriotec.prae.sebes.Repositorio.ProcessoSeletivoRepository;
+import br.uniriotec.prae.sebes.dto.ProcessoRequest;
 
 
 @RestController
@@ -33,22 +35,31 @@ public class ProcessoSeletivoController {
     
     /* POST */
     
-    @PostMapping
-    public ResponseEntity<?> criar(@RequestBody ProcessoSeletivo processo) {
-        // Verifica se a bolsa existe
-        if (processo.getBolsa() == null || processo.getBolsa().getId() == null) {
-            return ResponseEntity.badRequest().body("Bolsa deve ser informada.");
+    @PostMapping("/criar")
+    public ResponseEntity<?> criar(@RequestBody ProcessoRequest request) {
+        // Verifica se o ID da bolsa foi informado
+        if (request.getIdBolsa() == null) {
+            return ResponseEntity.badRequest().body("O ID da bolsa deve ser informado.");
         }
 
-        boolean bolsaExiste = bolsaRepository.existsById(processo.getBolsa().getId());
-        if (!bolsaExiste) {
+        // Busca a bolsa no banco
+        Optional<Bolsa> bolsaOpt = bolsaRepository.findById(request.getIdBolsa());
+        if (bolsaOpt.isEmpty()) {
             return ResponseEntity.badRequest().body("Bolsa informada não existe.");
         }
 
-        // Salva processo seletivo
+        // Cria o processo seletivo a partir do request
+        ProcessoSeletivo processo = new ProcessoSeletivo();
+        processo.setDataInicio(request.getDataInicio());
+        processo.setDataEncerramento(request.getDataEncerramento());
+        processo.setStatus(request.getStatus());
+        processo.setBolsa(bolsaOpt.get());
+
+        // Salva o processo
         ProcessoSeletivo salvo = processoRepository.save(processo);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
+
     
     /* GET */
 
@@ -77,8 +88,8 @@ public class ProcessoSeletivoController {
 
     // Buscar por idBolsa
     @GetMapping("/bolsa/{idBolsa}")
-    public ResponseEntity<List<ProcessoSeletivo>> buscarPorBolsa(@PathVariable String idBolsa) {
-        return ResponseEntity.ok(processoRepository.findAllByIdBolsa(idBolsa));
+    public ResponseEntity<List<ProcessoSeletivo>> buscarPorBolsa(@PathVariable Integer idBolsa) {
+        return ResponseEntity.ok(processoRepository.findAllByBolsa_Id(idBolsa));
     }
     
     /* PATCH */
@@ -129,7 +140,7 @@ public class ProcessoSeletivoController {
     /* DELETE */
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletarEtapa(@PathVariable String id) {
+    public ResponseEntity<?> deletarProcesso(@PathVariable String id) {
         if(processoRepository.existsById(id)) {
         	processoRepository.deleteById(id);
             return ResponseEntity.noContent().build();

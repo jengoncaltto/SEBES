@@ -12,6 +12,6 @@ public interface ProcessoSeletivoRepository extends JpaRepository<ProcessoSeleti
 	
 	List<ProcessoSeletivo> findAllByStatus(String status);
 
-	List<ProcessoSeletivo> findAllByIdBolsa(String idBolsa);
+	List<ProcessoSeletivo> findAllByBolsa_Id(Integer idBolsa);
 	
 }

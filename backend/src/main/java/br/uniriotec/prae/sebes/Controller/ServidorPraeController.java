@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 //import org.springframework.web.bind.annotation.PatchMapping;
@@ -19,7 +20,7 @@ import br.uniriotec.prae.sebes.Entity.ServidorPrae;
 import br.uniriotec.prae.sebes.Entity.Usuario;
 import br.uniriotec.prae.sebes.Repositorio.ServidorPraeRepository;
 import br.uniriotec.prae.sebes.Repositorio.UsuarioRepository;
-import br.uniriotec.prae.sebes.dto.CadastroServidorRequest;
+import br.uniriotec.prae.sebes.dto.ServidorRequest;
 
 
 @RestController
@@ -35,7 +36,7 @@ public class ServidorPraeController {
     /* POST */
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<?> cadastrarServidor(@RequestBody CadastroServidorRequest request) {
+    public ResponseEntity<?> cadastrarServidor(@RequestBody ServidorRequest request) {
         // Validações básicas
         if (request.getNome() == null || request.getNome().isBlank()) {
             return ResponseEntity.badRequest().body("O nome é obrigatório.");
@@ -98,7 +99,7 @@ public class ServidorPraeController {
     /* PATCH */
     
     @PatchMapping("/{id}")
-    public ResponseEntity<?> atualizarServidor(@PathVariable String id, @RequestBody CadastroServidorRequest request) {
+    public ResponseEntity<?> atualizarServidor(@PathVariable String id, @RequestBody ServidorRequest request) {
         Optional<ServidorPrae> result = servidorRepository.findById(id);
         if (!result.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Servidor(a) não encontrado(a).");
@@ -123,5 +124,20 @@ public class ServidorPraeController {
 
         return ResponseEntity.ok(servidor);
     }
+    
+    /* DELETE */
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletarServidor(@PathVariable String id) {
+        Optional<ServidorPrae> servidorOpt = servidorRepository.findById(id);
+        if (!servidorOpt.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Servidor não encontrado.");
+        }
+
+        servidorRepository.deleteById(id);
+        usuarioRepository.deleteById(id); // Deleta o usuário vinculado
+        return ResponseEntity.ok("Servidor e usuário deletados com sucesso.");
+    }
+
 
 }

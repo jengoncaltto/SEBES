@@ -1,15 +1,16 @@
 package br.uniriotec.prae.sebes.dto;
 
-public class CadastroDiscenteRequest {
+public class ServidorRequest {
     private String nome;
     private String nomeSocial;
     private String email;
     private String emailRecuperacao;
     private String telefone;
-    private String curso;
     private String status;
+    private String cargo;
+    private String setor;
 
-	// Getters e Setters
+    // Getters e Setters
     public String getNome() {
         return nome;
     }
@@ -50,12 +51,20 @@ public class CadastroDiscenteRequest {
         this.telefone = telefone;
     }
 
-    public String getCurso() {
-        return curso;
+    public String getCargo() {
+        return cargo;
     }
 
-    public void setCurso(String curso) {
-        this.curso = curso;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public String getSetor() {
+        return setor;
+    }
+
+    public void setSetor(String setor) {
+        this.setor = setor;
     }
 
     public String getStatus() {

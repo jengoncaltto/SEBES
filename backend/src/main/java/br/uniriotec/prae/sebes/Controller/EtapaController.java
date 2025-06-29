@@ -18,44 +18,55 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.uniriotec.prae.sebes.Entity.Etapa;
+import br.uniriotec.prae.sebes.Entity.ProcessoSeletivo;
 import br.uniriotec.prae.sebes.Repositorio.EtapaRepository;
 import br.uniriotec.prae.sebes.Repositorio.ProcessoSeletivoRepository;
+import br.uniriotec.prae.sebes.dto.EtapaRequest;
 
 @RestController
-@RequestMapping("/etapa")
+@RequestMapping("/etapas")
 public class EtapaController {
     
     @Autowired
     EtapaRepository etapaRepository;
 
     @Autowired
-    ProcessoSeletivoRepository processoSeletivoRepository;
-
-
+    ProcessoSeletivoRepository processoRepository;
+    
     /* POST */
     
-    @PostMapping
-    public ResponseEntity<?> criarEtapa(@RequestBody Etapa novaEtapa) {
-        // Verificar se processo seletivo existe
-        if (novaEtapa.getProcessoSeletivo() == null ||
-            novaEtapa.getProcessoSeletivo().getId() == null ||
-            !processoSeletivoRepository.existsById(novaEtapa.getProcessoSeletivo().getId())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Processo seletivo inválido.");
+    @PostMapping("/criar")
+    public ResponseEntity<?> criar(@RequestBody EtapaRequest request) {
+        // Valida ID do processo seletivo
+        if (request.getIdProcessoSeletivo() == null || !processoRepository.existsById(request.getIdProcessoSeletivo())) {
+            return ResponseEntity.badRequest().body("Processo seletivo inválido ou inexistente.");
         }
 
-        // Verificar unicidade do tipoEtapa para esse processo seletivo
-        List<Etapa> etapasDoProcesso = etapaRepository.findAllByProcessoSeletivoId(novaEtapa.getProcessoSeletivo().getId());
-        boolean tipoExistente = etapasDoProcesso.stream()
-                .anyMatch(e -> e.getTipoEtapa().equalsIgnoreCase(novaEtapa.getTipoEtapa()));
+        // Verifica unicidade do tipoEtapa no processo
+        List<Etapa> etapasExistentes = etapaRepository.findAllByProcessoSeletivoId(request.getIdProcessoSeletivo());
+        boolean tipoJaExiste = etapasExistentes.stream()
+            .anyMatch(e -> e.getTipoEtapa().equalsIgnoreCase(request.getTipoEtapa()));
 
-        if (tipoExistente) {
+        if (tipoJaExiste) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body("Já existe uma etapa do tipo '" + novaEtapa.getTipoEtapa() + "' para este processo seletivo.");
+                    .body("Já existe uma etapa do tipo '" + request.getTipoEtapa() + "' para este processo seletivo.");
         }
 
-        Etapa etapaSalva = etapaRepository.save(novaEtapa);
-        return ResponseEntity.status(HttpStatus.CREATED).body(etapaSalva);
+        // Recupera o processo seletivo
+        ProcessoSeletivo processo = processoRepository.findById(request.getIdProcessoSeletivo()).get();
+
+        // Cria e salva a etapa
+        Etapa novaEtapa = new Etapa();
+        novaEtapa.setTipoEtapa(request.getTipoEtapa());
+        novaEtapa.setDataInicio(request.getDataInicio());
+        novaEtapa.setDataEncerramento(request.getDataEncerramento());
+        novaEtapa.setStatus(request.getStatus());
+        novaEtapa.setProcessoSeletivo(processo);
+
+        Etapa salva = etapaRepository.save(novaEtapa);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salva);
     }
+
 
     //* GET */
     
@@ -66,46 +77,14 @@ public class EtapaController {
             return ResponseEntity.ok(result.get());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                 .body("Bolsa com id " + id + " não encontrada.");
+                                 .body("Bolsa não encontrada.");
         }
     }
-
-  
-   @PatchMapping("/{id}")
-   public ResponseEntity<Etapa> editarEtapas(@PathVariable String id, 
-   Map<String, Object> dadosParaAtualizar)
-
-   {
-        Optional<Etapa> etapaOptional = etapaRepository.findById(id);
-        
-        if(!etapaOptional.isPresent())
-            return ResponseEntity.notFound().build();
-        
-        Etapa etapaExiste = etapaOptional.get();
-
-        if(dadosParaAtualizar.containsKey("data_inicio"))
-        {
-            etapaExiste.setDataInicio((LocalDateTime)dadosParaAtualizar.get("data_inicio"));
-        }
-
-        if(dadosParaAtualizar.containsKey("data_encerramento"))
-        {
-            etapaExiste.setDataEncerramento((LocalDateTime)dadosParaAtualizar.get("data_encerramento"));
-        }
-
-        if(dadosParaAtualizar.containsKey("status"))
-        {
-            etapaExiste.setStatus((String)dadosParaAtualizar.get("status"));
-        }
-
-        etapaRepository.save(etapaExiste);
-        return ResponseEntity.ok(etapaExiste);
-   }
    
    /* PATCH */
    
    @PatchMapping("/{id}")
-   public ResponseEntity<?> atualizarParcial(@PathVariable String id, @RequestBody Map<String, Object> body) {
+   public ResponseEntity<?> atualizarEtapa(@PathVariable String id, @RequestBody Map<String, Object> body) {
        Optional<Etapa> result = etapaRepository.findById(id);
        if (!result.isPresent()) {
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Etapa não encontrada.");

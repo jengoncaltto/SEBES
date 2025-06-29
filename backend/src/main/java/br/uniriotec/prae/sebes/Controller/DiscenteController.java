@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 //import org.springframework.web.bind.annotation.PatchMapping;
@@ -19,7 +20,7 @@ import br.uniriotec.prae.sebes.Entity.Discente;
 import br.uniriotec.prae.sebes.Entity.Usuario;
 import br.uniriotec.prae.sebes.Repositorio.DiscenteRepository;
 import br.uniriotec.prae.sebes.Repositorio.UsuarioRepository;
-import br.uniriotec.prae.sebes.dto.CadastroDiscenteRequest;
+import br.uniriotec.prae.sebes.dto.DiscenteRequest;
 
 
 @RestController
@@ -35,7 +36,7 @@ public class DiscenteController {
     /* POST */
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<?> cadastrarDiscente(@RequestBody CadastroDiscenteRequest request) {
+    public ResponseEntity<?> cadastrarDiscente(@RequestBody DiscenteRequest request) {
         // Validações básicas
         if (request.getNome() == null || request.getNome().isBlank()) {
             return ResponseEntity.badRequest().body("O nome é obrigatório.");
@@ -94,7 +95,7 @@ public class DiscenteController {
     /* PATCH */
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> atualizarDiscente(@PathVariable String id, @RequestBody CadastroDiscenteRequest request) {
+    public ResponseEntity<?> atualizarDiscente(@PathVariable String id, @RequestBody DiscenteRequest request) {
         Optional<Discente> result = discenteRepository.findById(id);
         if (!result.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Discente não encontrado.");
@@ -117,6 +118,20 @@ public class DiscenteController {
         discenteRepository.save(discente);
 
         return ResponseEntity.ok(discente);
+    }
+    
+    /* DELETE */
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletarDiscente(@PathVariable String id) {
+        Optional<Discente> discenteOpt = discenteRepository.findById(id);
+        if (!discenteOpt.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Discente não encontrado.");
+        }
+
+        discenteRepository.deleteById(id);
+        usuarioRepository.deleteById(id); // Deleta o usuário vinculado
+        return ResponseEntity.ok("Discente e usuário deletados com sucesso.");
     }
    
 }
