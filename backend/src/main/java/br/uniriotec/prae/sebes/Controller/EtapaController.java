@@ -1,14 +1,15 @@
-package com.example.sebes.Controller;
+package br.uniriotec.prae.sebes.Controller;
 
-import java.security.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,81 +17,119 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import com.example.sebes.Entity.Etapa;
-import com.example.sebes.Repositorio.EtapaRepository;
-import com.example.sebes.Repositorio.ProcessoSeletivoRepository;
+import br.uniriotec.prae.sebes.Entity.Etapa;
+import br.uniriotec.prae.sebes.Entity.ProcessoSeletivo;
+import br.uniriotec.prae.sebes.Repositorio.EtapaRepository;
+import br.uniriotec.prae.sebes.Repositorio.ProcessoSeletivoRepository;
+import br.uniriotec.prae.sebes.dto.EtapaRequest;
 
 @RestController
-@RequestMapping("/etapa")
+@RequestMapping("/etapas")
 public class EtapaController {
     
     @Autowired
-    EtapaRepository etapa;
+    EtapaRepository etapaRepository;
 
     @Autowired
-    ProcessoSeletivoRepository processo;
+    ProcessoSeletivoRepository processoRepository;
+    
+    /* POST */
+    
+    @PostMapping("/criar")
+    public ResponseEntity<?> criar(@RequestBody EtapaRequest request) {
+        // Valida ID do processo seletivo
+        if (request.getIdProcessoSeletivo() == null || !processoRepository.existsById(request.getIdProcessoSeletivo())) {
+            return ResponseEntity.badRequest().body("Processo seletivo inválido ou inexistente.");
+        }
 
+        // Verifica unicidade do tipoEtapa no processo
+        List<Etapa> etapasExistentes = etapaRepository.findAllByProcessoSeletivoId(request.getIdProcessoSeletivo());
+        boolean tipoJaExiste = etapasExistentes.stream()
+            .anyMatch(e -> e.getTipoEtapa().equalsIgnoreCase(request.getTipoEtapa()));
 
-    @PostMapping
-    public ResponseEntity<Etapa> criarEtapa(@RequestBody Etapa et)
-    {
-        if (et.getProcessoSeletivo() == null || et.getProcessoSeletivo().getId() == null) {
-            return ResponseEntity.badRequest().body(null);
+        if (tipoJaExiste) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Já existe uma etapa do tipo '" + request.getTipoEtapa() + "' para este processo seletivo.");
+        }
+
+        // Recupera o processo seletivo
+        ProcessoSeletivo processo = processoRepository.findById(request.getIdProcessoSeletivo()).get();
+
+        // Cria e salva a etapa
+        Etapa novaEtapa = new Etapa();
+        novaEtapa.setTipoEtapa(request.getTipoEtapa());
+        novaEtapa.setDataInicio(request.getDataInicio());
+        novaEtapa.setDataEncerramento(request.getDataEncerramento());
+        novaEtapa.setStatus(request.getStatus());
+        novaEtapa.setProcessoSeletivo(processo);
+
+        Etapa salva = etapaRepository.save(novaEtapa);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salva);
     }
 
-    // Verifica se o processo seletivo com esse ID existe no banco
-    if (!processo.existsById(et.getProcessoSeletivo().getId())) {
-        return ResponseEntity.badRequest().build();
-    }
-        Etapa etapaNova = etapa.save(et);
-        return ResponseEntity.ok(etapaNova);
-    }
 
-
-  
+    //* GET */
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarPorId(@PathVariable String id) {
+        Optional<Etapa> result = etapaRepository.findById(id);
+        if (result.isPresent()) {
+            return ResponseEntity.ok(result.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .body("Bolsa não encontrada.");
+        }
+    }
+   
+   /* PATCH */
+   
    @PatchMapping("/{id}")
-   public ResponseEntity<Etapa> editarEtapas(@PathVariable Integer id, 
-   Map<String, Object> dadosParaAtualizar)
+   public ResponseEntity<?> atualizarEtapa(@PathVariable String id, @RequestBody Map<String, Object> body) {
+       Optional<Etapa> result = etapaRepository.findById(id);
+       if (!result.isPresent()) {
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Etapa não encontrada.");
+       }
 
-   {
-        Optional<Etapa> etapaOptional = etapa.findById(id);
-        
-        if(!etapaOptional.isPresent())
-            return ResponseEntity.notFound().build();
-        
-        Etapa etapaExiste = etapaOptional.get();
+       Etapa etapa = result.get();
 
-        if(dadosParaAtualizar.containsKey("data_inicio"))
-        {
-            etapaExiste.setDataInicio((Timestamp)dadosParaAtualizar.get("data_inicio"));
-        }
+       if (body.containsKey("dataInicio")) {
+           try {
+               String dataInicioStr = body.get("dataInicio").toString();
+               LocalDateTime dataInicio = LocalDateTime.parse(dataInicioStr);
+               etapa.setDataInicio(dataInicio);
+           } catch (IllegalArgumentException e) {
+               return ResponseEntity.badRequest().body("Formato inválido para dataInicio. Use yyyy-MM-dd HH:mm:ss[.fffffffff]");
+           }
+       }
 
-        if(dadosParaAtualizar.containsKey("data_encerramento"))
-        {
-            etapaExiste.setDataEncerramento((Timestamp)dadosParaAtualizar.get("data_encerramento"));
-        }
+       if (body.containsKey("dataEncerramento")) {
+           try {
+               String dataEncerramentoStr = body.get("dataEncerramento").toString();
+               LocalDateTime dataEncerramento = LocalDateTime.parse(dataEncerramentoStr);
+               etapa.setDataEncerramento(dataEncerramento);
+           } catch (IllegalArgumentException e) {
+               return ResponseEntity.badRequest().body("Formato inválido para dataEncerramento. Use yyyy-MM-dd HH:mm:ss[.fffffffff]");
+           }
+       }
 
-        if(dadosParaAtualizar.containsKey("status"))
-        {
-            etapaExiste.setStatus((String)dadosParaAtualizar.get("status"));
-        }
+       if (body.containsKey("status")) {
+           etapa.setStatus(body.get("status").toString());
+       }
 
-        etapa.save(etapaExiste);
-        return ResponseEntity.ok(etapaExiste);
+       etapaRepository.save(etapa);
+       return ResponseEntity.ok(etapa);
    }
+
    
-   
+   /* DELETE */
    @DeleteMapping("/{id}")
-   public ResponseEntity<Etapa> excluirEtapa(@PathVariable Integer id)
-   {
-        if(etapa.existsById(id))
-        {
-            etapa.deleteById(id);
-            return ResponseEntity.ok().build();
-        }
-        else
-            return ResponseEntity.noContent().build();
+   public ResponseEntity<?> deletarEtapa(@PathVariable String id) {
+       if(etapaRepository.existsById(id)) {
+    	   etapaRepository.deleteById(id);
+           return ResponseEntity.noContent().build();
+       }
+       return ResponseEntity.status(HttpStatus.NOT_FOUND)
+               .body("Etapa não encontrada.");
    }
 
 }

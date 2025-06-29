@@ -1,11 +1,16 @@
-package com.example.sebes.Repositorio;
-
+package br.uniriotec.prae.sebes.Repositorio;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import com.example.sebes.Entity.Usuario;
+import br.uniriotec.prae.sebes.Entity.Usuario;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer>  {
-    
+@Repository
+public interface UsuarioRepository extends JpaRepository<Usuario, String>  {
+
+    boolean existsByEmail(String email);
+
+    boolean existsByStatus(String status);
+
 }

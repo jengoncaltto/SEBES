@@ -1,11 +1,17 @@
-package com.example.sebes.Repositorio;
+package br.uniriotec.prae.sebes.Repositorio;
+
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import com.example.sebes.Entity.ProcessoSeletivo;
+import br.uniriotec.prae.sebes.Entity.ProcessoSeletivo;
 
+@Repository
+public interface ProcessoSeletivoRepository extends JpaRepository<ProcessoSeletivo, String> {
+	
+	List<ProcessoSeletivo> findAllByStatus(String status);
 
-public interface ProcessoSeletivoRepository extends JpaRepository<ProcessoSeletivo, Integer> {
-     // Aqui você já herda métodos para CRUD, como save, findAll, findById, deleteById etc.
-    
+	List<ProcessoSeletivo> findAllByBolsa_Id(Integer idBolsa);
+	
 }

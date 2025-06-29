@@ -1,8 +1,14 @@
-package com.example.sebes.Repositorio;
+package br.uniriotec.prae.sebes.Repositorio;
+
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.sebes.Entity.Etapa;
+import org.springframework.stereotype.Repository;
 
-public interface EtapaRepository extends JpaRepository<Etapa, Integer>{
-    //Pegas os cruds
+import br.uniriotec.prae.sebes.Entity.Etapa;
+
+@Repository
+public interface EtapaRepository extends JpaRepository<Etapa, String>{
+	
+	List<Etapa> findAllByProcessoSeletivoId(String idProcessoSeletivo);
 }

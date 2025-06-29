@@ -1,60 +1,66 @@
-package com.example.sebes.Entity;
+package br.uniriotec.prae.sebes.Entity;
+
 import java.math.BigDecimal;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table (name = "bolsa")
-
+@Table(name = "bolsa")
 public class Bolsa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-
-
-    @JsonProperty("id")
-    @Column(name = "id")
-    private Integer idBolsa;
-    
-    
-    private String tipo;
+    private String nome;
+    private String descricao;
+    private Integer periodo;
     private BigDecimal valor;
 
+    public Bolsa() {}
 
-    public Bolsa(){}
-
-
-    public Integer getIdBolsa() {
-        return idBolsa;
+    // Getters e Setters
+    public Integer getId() {
+        return id;
     }
 
-
-    public void setIdBolsa(Integer idBolsa) {
-        this.idBolsa = idBolsa;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-
-    public String getTipo() {
-        return tipo;
+    public String getNome() {
+        return nome;
     }
 
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
     public BigDecimal getValor() {
         return valor;
     }
 
-
     public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 
-    
+    public Integer getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(Integer periodo) {
+        this.periodo = periodo;
+    }
 }

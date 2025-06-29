@@ -1,15 +1,10 @@
-package com.example.sebes.Repositorio;
+package br.uniriotec.prae.sebes.Repositorio;
 
-import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.sebes.Entity.Bolsa;
+import org.springframework.stereotype.Repository;
 
+import br.uniriotec.prae.sebes.Entity.Bolsa;
+
+@Repository
 public interface BolsaRepository extends JpaRepository<Bolsa, Integer> {
-
-    List<Bolsa> findByTipo(String tipo);
-
-    // Usa exatamente o nome dos atributos da entidade Bolsa
-    List<Bolsa> findByIdBolsaAndTipo(Integer idBolsa, String tipo);
-
-    List<Bolsa> findByIdBolsa(Integer idBolsa);
 }

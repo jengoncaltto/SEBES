@@ -1,112 +1,116 @@
-package com.example.sebes.Controller;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import com.example.sebes.Entity.Bolsa;
-import com.example.sebes.Repositorio.BolsaRepository;
+package br.uniriotec.prae.sebes.Controller;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.uniriotec.prae.sebes.Entity.Bolsa;
+import br.uniriotec.prae.sebes.Repositorio.BolsaRepository;
+
 @RestController
-@RequestMapping("/bolsa")
+@RequestMapping("/bolsas")
 public class BolsaController {
 
     @Autowired
-    private BolsaRepository b;
+    private BolsaRepository bolsaRepository;
 
-    // Criar nova bolsa
-    @PostMapping
-    public Bolsa cadastrarBolsa(@RequestBody Bolsa bolsa) {
-        return b.save(bolsa);
+    /* POST */
+    
+    @PostMapping("/cadastrar")
+    public ResponseEntity<?> cadastrarBolsa(@RequestBody Bolsa request) {
+        if (request.getNome() == null || request.getNome().isBlank()) {
+            return ResponseEntity.badRequest().body("O nome da bolsa é obrigatório.");
+        }
+
+        if (request.getValor() == null || request.getValor().doubleValue() <= 0) {
+            return ResponseEntity.badRequest().body("O valor da bolsa deve ser maior que zero.");
+        }
+
+        if (request.getPeriodo() == null || request.getPeriodo() <= 0) {
+            return ResponseEntity.badRequest().body("O período da bolsa deve ser informado e maior que zero.");
+        }
+
+        if (request.getDescricao() == null || request.getDescricao().isBlank()) {
+            return ResponseEntity.badRequest().body("A descrição da bolsa é obrigatória.");
+        }
+
+        Bolsa bolsaSalva = bolsaRepository.save(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(bolsaSalva);
     }
 
-    // Buscar todas as bolsas
+    
+    /* GET */
+    
     @GetMapping
-    public List<Bolsa> getBolsas() {
-        return b.findAll();
+    public List<Bolsa> listarTodas() {
+        return bolsaRepository.findAll();
     }
 
-    // Buscar por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Bolsa> buscarPorId(@PathVariable Integer id) {
-        Optional<Bolsa> resultado = b.findById(id);
-
-        if (resultado.isPresent()) {
-            return ResponseEntity.ok(resultado.get());
+    public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
+        Optional<Bolsa> result = bolsaRepository.findById(id);
+        if (result.isPresent()) {
+            return ResponseEntity.ok(result.get());
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .body("Bolsa não encontrada.");
         }
     }
 
-    // Buscar por ID e/ou tipo
-    @GetMapping("/buscar")
-    public ResponseEntity<List<Bolsa>> buscarBolsa(
-            @RequestParam(required = false) Integer idBolsa,
-            @RequestParam(required = false) String tipo) {
 
-        List<Bolsa> resultado;
-
-        if (idBolsa != null && tipo != null) {
-            resultado = b.findByIdBolsaAndTipo(idBolsa, tipo);
-        } else if (idBolsa != null) {
-            resultado = b.findByIdBolsa(idBolsa);
-        } else if (tipo != null) {
-            resultado = b.findByTipo(tipo);
-        } else {
-            return ResponseEntity.badRequest().build(); // Nenhum parâmetro
-        }
-
-        return resultado.isEmpty()
-                ? ResponseEntity.notFound().build()
-                : ResponseEntity.ok(resultado);
-    }
+    /* PATCH */
 
     // Editar apenas campos específicos
-      @PatchMapping("/{id}")
-        public ResponseEntity <Bolsa> editarBolsa(
-        @PathVariable Integer id,
-        @RequestBody Map<String, Object> dadosParaAtualizar)
-        
-        {
-            Optional<Bolsa> bolsaOptional = b.findById(id);
-
-            if(!bolsaOptional.isPresent())
-            {
-                return ResponseEntity.notFound().build();
-
-            }
-
-            Bolsa bolsaExistente = bolsaOptional.get();
-
-            if(dadosParaAtualizar.containsKey("valor"))
-                {
-                    bolsaExistente.setValor((BigDecimal)dadosParaAtualizar.get("valor"));
-                }
-
-            if(dadosParaAtualizar.containsKey("tipo"))
-            {
-                bolsaExistente.setTipo((String)dadosParaAtualizar.get("tipo"));
-            }
-
-                b.save(bolsaExistente);
-                return ResponseEntity.ok(bolsaExistente);
-
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> atualizarParcial(@PathVariable Integer id, @RequestBody Map<String, Object> updates) {
+        Optional<Bolsa> bolsaOpt = bolsaRepository.findById(id);
+        if (!bolsaOpt.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .body("Bolsa não encontrada.");
         }
-       
 
-    // Excluir bolsa por ID
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluirBolsa(@PathVariable Integer id) {
-        if (b.existsById(id)) {
-            b.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build(); // 404
-        }
+        Bolsa bolsa = bolsaOpt.get();
+
+        updates.forEach((chave, valor) -> {
+            switch (chave) {
+                case "nome":
+                    bolsa.setNome((String) valor);
+                    break;
+                case "descricao":
+                    bolsa.setDescricao((String) valor);
+                    break;
+                case "valor":
+                    // pode precisar converter para BigDecimal
+                    if (valor instanceof Number) {
+                        bolsa.setValor(BigDecimal.valueOf(((Number) valor).doubleValue()));
+                    } else if (valor instanceof String) {
+                        bolsa.setValor(new BigDecimal((String) valor));
+                    }
+                    break;
+                case "periodo":
+                    if (valor instanceof Number) {
+                        bolsa.setPeriodo(((Number) valor).intValue());
+                    }
+                    break;
+                // adiciona outros campos conforme necessário
+            }
+        });
+
+        Bolsa bolsaAtualizada = bolsaRepository.save(bolsa);
+        return ResponseEntity.ok(bolsaAtualizada);
     }
+
 }

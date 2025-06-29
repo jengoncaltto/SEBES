@@ -1,6 +1,4 @@
-package com.example.sebes.Entity;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+package br.uniriotec.prae.sebes.Entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,94 +10,80 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "usuario")
 public class Usuario {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    @JsonProperty("id")
-    @Column(name = "id")
-    private Integer idDiscente;
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private String id;
 
-    @JsonProperty("nome")
-    @Column(name = "nome")
     private String nome;
 
-    @JsonProperty("email")
-    @Column(name = "email")
+    @Column(name = "nome_social")
+    private String nomeSocial;
+
     private String email;
 
-    @JsonProperty("email_recuperacao")
     @Column(name = "email_recuperacao")
     private String emailRecuperacao;
 
-    
-    @JsonProperty("telefone")
-    @Column(name = "telefone")
     private String telefone;
+    private String status;
 
-    public boolean status = true;
+	public Usuario() {
+	} // Construtor
 
+	public String getId() {
+		return id;
+	}
 
-    public Usuario(){} //Construtor
+	public void setId(String id) {
+		this.id = id;
+	}
 
+	public String getNome() {
+		return nome;
+	}
 
-    public Integer getIdDiscente() {
-        return idDiscente;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
+	public String getNomeSocial() {
+		return nomeSocial;
+	}
 
-    public void setIdDiscente(Integer idDiscente) {
-        this.idDiscente = idDiscente;
-    }
+	public void setNomeSocial(String nomeSocial) {
+		this.nomeSocial = nomeSocial;
+	}
 
+	public String getEmail() {
+		return email;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
+	public String getEmailRecuperacao() {
+		return emailRecuperacao;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public void setEmailRecuperacao(String emailRecuperacao) {
+		this.emailRecuperacao = emailRecuperacao;
+	}
 
+	public String getTelefone() {
+		return telefone;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
+	public String getStatus() {
+		return status;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-    public String getEmailRecuperacao() {
-        return emailRecuperacao;
-    }
-
-
-    public void setEmailRecuperacao(String emailRecuperacao) {
-        this.emailRecuperacao = emailRecuperacao;
-    }
-
-
-    public String getTelefone() {
-        return telefone;
-    }
- 
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public boolean getStatus()
-    {
-        return status;
-    }
-
-    public void setStatus(Boolean novoStatus)
-    {
-        this.status = novoStatus;
-    }
+	public void setStatus(String Status) {
+		this.status = Status;
+	}
 }
-

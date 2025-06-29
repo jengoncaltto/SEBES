@@ -1,6 +1,6 @@
 <app-navbar />
 <div class="container">
-  <app-sidebar></app-sidebar>
+  <app-sidebar *ngIf="showSideBar"></app-sidebar>
   <main class="conteudo">
     <router-outlet></router-outlet>
   </main>

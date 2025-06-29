@@ -1,8 +1,13 @@
-package com.example.sebes.Repositorio;
+package br.uniriotec.prae.sebes.Repositorio;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.sebes.Entity.ServidorPrae;
+import org.springframework.stereotype.Repository;
 
-public interface ServidorPraeRepository extends JpaRepository<ServidorPrae, Integer>{
-    
+import br.uniriotec.prae.sebes.Entity.ServidorPrae;
+
+@Repository
+public interface ServidorPraeRepository extends JpaRepository<ServidorPrae, String>{
+
+    boolean existsByCargo(String cargo);
+    boolean existsBySetor(String setor);
 }
