@@ -1,9 +1,26 @@
-.lista-documentos{
+.formulario{
     margin-top: 30px;
     margin-left: 20px;   
     display: flex;
     flex-direction: column; 
     
+}
+.display-column{
+    display: flex;
+    flex-direction: column;
+}
+.display-row{
+    display: flex;
+    margin-left: 20px;
+}
+.pergunta{
+    background-color:#ccc;
+    padding: 12px;
+    margin:5px;
+    border-radius: 10px;
+}
+h4{
+    margin-top: 20px;
 }
 
 #page-title{

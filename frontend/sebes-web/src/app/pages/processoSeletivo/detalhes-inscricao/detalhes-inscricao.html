@@ -1,10 +1,348 @@
 <main>
-    <h1 id="page-title">Bolsa Alimentação</h1>
+    <h1 id="page-title">Alimentação</h1>
     
-    <div class="lista-documentos" >
-        <h3>Documentos necessários</h3>
-            <div *ngFor="let inscricao of inscricoes" class="linha-documento">
-            
+    <form class="formulario" >
+        <h2>Formulário</h2>
+        <div id="div-perguntas">
+            <div id="geral" class="display-column">
+                
+                <div class="display-column pergunta">
+                    <span>Email</span>
+                    <input type="email" name="" placeholder="Email" id="email-aluno">
+                </div>
+                <div class="display-column pergunta">
+                    <span>No momento, o estudante está <strong>ativo</strong> em alguma bolsa ou auxílio da PRAE? Se afirmativo, informe se houve  mudança na composição familiar</span>
+                    <div class="display-row">
+                        <input type="radio" name="bolsa-ativa?" id="opcao1"><label for="opcao1">Sim - sem mudança na composição familiar</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="bolsa-ativa?" id="opcao1"><label for="opcao1">Sim - com mudança na composição familiar</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="bolsa-ativa?" id="opcao1"><label for="opcao1">Não</label>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div id="dados-pessoais" class="display-column">
+                <h4>Dados Pessoais</h4>
+                <div class="display-column pergunta">
+                    <span>Nome Completo</span>
+                    <input type="text" id="nome-completo" placeholder="Nome Completo">
+                </div>
+                <div class="display-column pergunta">
+                    <span>Nome Social</span>
+                    <input type="text" id="nome-social" placeholder="Nome Social">
+                </div>
+                <div class="display-column pergunta">
+                    <span>Data Nascimento</span>
+                    <input type="date" name="" id="data-nascimento">
+                </div>
+                <div class="display-column pergunta">
+                    <span>CPF</span>
+                    <input type="text" maxlength="11" placeholder="CPF">
+                </div>
+                <div class="display-column pergunta">
+                    <span>Telefone de contato</span>
+                    <input type="tel" placeholder="Telefone">
+                </div>
+                <div class="display-column pergunta">
+                    <span>Endereço Estudante</span>
+                    <input type="text" placeholder="Endereço Aluno">
+                </div>
+                <div class="display-column pergunta">
+                    <span>Endereço Família</span>
+                    <input type="text" placeholder="Endereço Família">
+                </div>
+                <div class="display-column pergunta">
+                    <span>Estado Civil</span>
+                    <div class="display-row">
+                        <input type="radio" name="estado-civil">
+                        <label for="estado-civil">Solteiro</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="estado-civil">
+                        <label for="estado-civil">Casado</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="estado-civil">
+                        <label for="estado-civil">Divorciado</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="estado-civil">
+                        <label for="estado-civil">Viúvo</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="estado-civil">
+                        <label for="estado-civil">Vivem com companheiro(a)</label>
+                    </div>
+                </div>
+                <div class="display-column pergunta">
+                    <span>Cor/Etnia</span>
+                    <div class="display-row">
+                        <input type="radio" name="etnia">
+                        <label for="etnia">Branca</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="etnia">
+                        <label for="etnia">Preta</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="etnia">
+                        <label for="etnia">Parda</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="etnia">
+                        <label for="etnia">Indígena</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="etnia">
+                        <label for="etnia">Amarela</label>
+                    </div>
+                </div>
+                <div class="display-column pergunta">
+                    <span>Identidade de Gênero</span>
+                    <div class="display-row">
+                        <input type="radio" name="genero">
+                        <label for="genero">Mulher Cis</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="genero">
+                        <label for="genero">Homem Cis</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="genero">
+                        <label for="genero">Mulher Transexual</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="genero">
+                        <label for="genero">Homem Transexual</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="genero">
+                        <label for="genero">Outro</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="genero">
+                        <label for="genero">Prefiro não informar</label>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div id="dados-academicos" class="display-column">
+                <h4>Dados Acadêmicos</h4>
+                <div class="display-column pergunta">
+                    <span>Matrícula</span>
+                    <input type="text" placeholder="Matrícula" id="matricula">
+                </div>
+                <div class="display-column pergunta">
+                    <span>Curso</span>
+                    <input type="text" placeholder="Curso" id="curso">
+                </div>
+                <div class="display-column pergunta">
+                    <span>Período</span>
+                    <input type="text" placeholder="Período" id="periodo">
+                </div>
+                <div class="display-column pergunta">
+                    <span>Estudante Cotista?</span>
+                    <div class="display-row">
+                        <input type="radio" name="cotista?">
+                        <label for="cotista?">Sim</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="cotista?">
+                        <label for="cotista?">Não</label>
+                    </div>
+                </div>
+                <div class="display-column pergunta">
+                    <span>Possui outra graduação</span>
+                    <div class="display-row">
+                        <input type="radio" name="segunda-graduacao?">
+                        <label for="segunda-graduacao?">Sim</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="segunda-graduacao?">
+                        <label for="segunda-graduacao?">Não</label>
+                    </div>
+                </div>
+                <div class="display-column pergunta">
+                    <span>Instituição que cursou ensino médio</span>
+                    <input type="text" placeholder="Nome da Instituição">
+                </div>
+
+            </div>
+
+            <div id="situacao-economica" class="display-column">
+                <div class="display-column pergunta">
+                    <span>Recebe bolsa de permanência do MEC?</span>
+                    <div class="display-row">
+                        <input type="radio" name="bolsa-permanencia">
+                        <label for="bolsa-permanencia">Sim</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="bolsa-permanencia">
+                        <label for="bolsa-permanencia">Não</label>
+                    </div>
+                </div>
+                <div class="display-column pergunta">
+                    <span>Participa de alguma atividade acadêmica com bolsa?</span>
+                    <div class="display-row">
+                        <input type="radio" name="bolsa-academica">
+                        <label for="bolsa-academica">Sim</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="bolsa-academica">
+                        <label for="bolsa-academica">Não</label>
+                    </div>
+                </div>
+                <div class="display-column pergunta">
+                    <span>Tem um estágio?</span>
+                    <div class="display-row">
+                        <input type="radio" name="estagio">
+                        <label for="estagio">Sim</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="estagio">
+                        <label for="estagio">Não</label>
+                    </div>
+                </div>
+                <div class="display-column pergunta">
+                    <span>Recebe bolsa do PROMISAES?</span>
+                    <div class="display-row">
+                        <input type="radio" name="promisaes">
+                        <label for="promisaes">Sim</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="promisaes">
+                        <label for="promisaes">Não</label>
+                    </div>
+                </div>
+                <div class="display-column pergunta">
+                    <span>Atualmente, trabalha em alguma atividade remunerada?</span>
+                    <div class="display-row">
+                        <input type="radio" name="atividade-remunerada">
+                        <label for="atividade-remunerada">Sim, com vínculo empregatício</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="atividade-remunerada">
+                        <label for="atividade-remunerada">Sim, sem vínculo empregatício</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="atividade-remunerada">
+                        <label for="atividade-remunerada">Não</label>
+                    </div>
+                </div>
+                <div class="display-column pergunta">
+                    <span>Quem é responsável pela manutenção financeira do grupo familiar?</span>
+                    <div class="display-row">
+                        <input type="radio" name="manutencao-financeira">
+                        <label for="manutencao-financeira">Mãe e pai</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="manutencao-financeira">
+                        <label for="manutencao-financeira">Somente um dos pais</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="manutencao-financeira">
+                        <label for="manutencao-financeira">Cônjuge/Companheiro</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="manutencao-financeira">
+                        <label for="manutencao-financeira">Próprio estudante</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="manutencao-financeira">
+                        <label for="manutencao-financeira">Outros</label>
+                    </div>
+                </div>
+                <div class="display-column pergunta">
+                    <span>Alguém na família recebe benefício social pago pelo governo federal, estado ou município?</span>
+                    <div class="display-row">
+                        <input type="radio" name="beneficio-familiar">
+                        <label for="beneficio-familiar">Sim</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="beneficio-familiar">
+                        <label for="beneficio-familiar">Não</label>
+                    </div>
+                </div>
+                <div class="display-column pergunta">
+                    <span>Possui filho(s) menores de 6 anos?</span>
+                    <div class="display-row">
+                        <input type="radio" name="filhos">
+                        <label for="filhos">Sim</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="filhos">
+                        <label for="filhos">Não</label>
+                    </div>
+                </div>
+                <div class="display-column pergunta">
+                    <span>Renda bruta?</span>
+                    <div id="instrucao">
+                        <span>
+                            ATENÇÃo:
+                        </span>
+                    </div>
+                </div>
+                <div class="display-column pergunta">
+                    <span>Quantas pessoas no grupo familiar?</span>
+                </div>
+                <div class="display-column pergunta">
+                    <span>Descreva o grupo familiar e sua forma de manutenção financeira</span>
+                </div>
+            </div>
+
+            <div id="condicao-moradia" class="display-column">
+                <div class="display-column pergunta">
+                    <span>Domicílio do estudante</span>
+                </div>
+                <div class="display-column pergunta">
+                    <span>Condição de moradia do estudante?</span>    
+                </div>
+                <div class="display-column pergunta">
+                    <span>Condição do imóvel da família</span>    
+                </div>
+            </div>
+
+            <div id="transporte-alimentacao" class="display-column">
+                <div class="display-column pergunta">
+                    <span>Quanto meios de transporte para ir à universidade?</span>
+                </div>
+                <div class="display-column pergunta">
+                    <span>Onde você costuma realizar sua alimentação?</span>    
+                </div>
+            </div>
+
+            <div id="condicao-saude" class="display-column">
+                <div class="display-column pergunta">
+                    <span>Possui alguma deficiência?</span>        
+                </div>
+                <div class="display-column pergunta">
+                    <span>Possui alguma doença grave ou crônica?</span>    
+                </div>
+                <div class="display-column pergunta">
+                    <span>Algum outro membro do grupo familiar possui doença grave/crônica ou deficiência?</span>    
+                </div>
+            </div>
+
+            <div id="justificativa" class="display-column">
+                <div class="display-column pergunta">
+                    <span>Motivação para solicitação do benefício</span>        
+                </div>
+                <div class="display-column pergunta">
+                    <span>Li e concordo com o termos do edital</span>    
+                </div>
+                <div class="display-column pergunta">
+                    <span>Declaro sob penalidade previstas no art.299 do Código Penal Brasileiro</span>    
+                </div>
+            </div>
+
+            <h4>Documentação</h4>
+            <div id="documentacao" *ngFor="let inscricao of inscricoes" class="linha-documento display-column">
+                
                 <div class="esquerda">
                     <span class="titulo">{{inscricao.getNomeDocumento()}}</span>
                 </div>  
@@ -13,11 +351,11 @@
                     <span class="situacao">{{inscricao.getStatus()}}</span>
                     <button class="btn-default btn-link">Upload</button>
                 </div>
-
             </div>
-            
-            <button class="enviar btn-default btn-link" formmethod="post" type="submit">Finalizar</button>
-    </div>    
+        </div>
+        
+        <button class="enviar btn-default btn-link" formmethod="post" type="submit">Finalizar</button>
+    </form>
 </main>    
 
 
