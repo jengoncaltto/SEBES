@@ -1,3 +1,6 @@
+input[type="radio"]{
+    display: none;
+}
 .formulario{
     margin-top: 30px;
     margin-left: 20px;   
@@ -14,13 +17,17 @@
     margin-left: 20px;
 }
 .pergunta{
-    background-color:#ccc;
+    background-color:var(--question-bg-default);
     padding: 12px;
     margin:5px;
     border-radius: 10px;
 }
 h4{
     margin-top: 20px;
+}
+.instrucoes{
+    font-size: 13.5px;
+    color: rgb(58, 58, 58);
 }
 
 #page-title{
@@ -61,7 +68,6 @@ button{
     margin-left: 50px;
 }
 
-
 .direita{
     margin-left: 150px ;
     display: flex;
@@ -71,3 +77,4 @@ button{
     display: flex;
     justify-content: flex-end;
 }
+

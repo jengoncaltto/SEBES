@@ -3,6 +3,7 @@ import { InscricaoResumidaDTO } from '../../../core/models/InscricaoResumidaDTO'
 import { CommonModule } from '@angular/common';
 
 
+
 @Component({
   selector: 'app-detalhes-inscricao',
   imports: [CommonModule],

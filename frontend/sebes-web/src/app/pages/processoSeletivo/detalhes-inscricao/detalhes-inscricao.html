@@ -281,75 +281,235 @@
                 </div>
                 <div class="display-column pergunta">
                     <span>Renda bruta?</span>
-                    <div id="instrucao">
+                    <div class="instrucoes">
                         <span>
-                            ATENÇÃo:
+                            ATENÇÃO: <br>
+                            1. Considerar a RENDA BRUTA atual, sem descontos. <br>
+                            2. No caso de renda variável, considerar a média dos três últimos meses. <br>
+                            3. Não considerar mês de recebimento de férias e/ou décimo terceiro salário. <br>
+                            4. Não considerar valor referente a seguro-desemprego ou benefícios sociais. <br>
+                            5. No caso de recebimento de pensão alimentícia, informar os valores correspondentes<br>
                         </span>
                     </div>
+                    <input type="text" name="" id="renda-bruta" placeholder="Renda Bruta">
                 </div>
                 <div class="display-column pergunta">
                     <span>Quantas pessoas no grupo familiar?</span>
+                    <input type="text" id="qtd-grupo-familiar" placeholder="Número de Pessoas">
                 </div>
                 <div class="display-column pergunta">
                     <span>Descreva o grupo familiar e sua forma de manutenção financeira</span>
+                    <input type="text" id="descricao-familiar">
                 </div>
             </div>
-
+            <h4>Condição de moradia</h4>
             <div id="condicao-moradia" class="display-column">
                 <div class="display-column pergunta">
                     <span>Domicílio do estudante</span>
+                    <div class="display-row">
+                        <input type="radio" name="domicilio-estudante">
+                        <label for="domicilio-estudante">Reside no Rio de Janeiro</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="domicilio-estudante">
+                        <label for="domicilio-estudante">Reside em outro município</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="domicilio-estudante">
+                        <label for="domicilio-estudante">Reside em outro estado</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="domicilio-estudante">
+                        <label for="domicilio-estudante">Estudante estrangeiro</label>
+                    </div>
                 </div>
                 <div class="display-column pergunta">
                     <span>Condição de moradia do estudante?</span>    
+                    <div class="display-row">
+                        <input type="radio" name="condicao-moradia-estudante">
+                        <label for="condicao-moradia-estudante">Mora sozinho</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="condicao-moradia-estudante">
+                        <label for="condicao-moradia-estudante">Mora com os pais- ou somente um deles</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="condicao-moradia-estudante">
+                        <label for="condicao-moradia-estudante">Mora com o cônjuge e/ou filhos</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="condicao-moradia-estudante">
+                        <label for="condicao-moradia-estudante">Mora em casa de familiares/casa de amigos</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="condicao-moradia-estudante">
+                        <label for="condicao-moradia-estudante">Mora em república/quarto/pensão/pensionato</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="condicao-moradia-estudante">
+                        <label for="condicao-moradia-estudante">Outra situação</label>
+                    </div>
                 </div>
                 <div class="display-column pergunta">
                     <span>Condição do imóvel da família</span>    
+                    <div class="display-row">
+                        <input type="radio" name="condicao-moradia-familiar">
+                        <label for="condicao-moradia-familiar">Alugado</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="condicao-moradia-familiar">
+                        <label for="condicao-moradia-familiar">Próprio</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="condicao-moradia-familiar">
+                        <label for="condicao-moradia-familiar">Próprio - em pagamento</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="condicao-moradia-familiar">
+                        <label for="condicao-moradia-familiar">Cedido</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="condicao-moradia-familiar">
+                        <label for="condicao-moradia-familiar">Posse</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="condicao-moradia-familiar">
+                        <label for="condicao-moradia-familiar">Ocupação</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="condicao-moradia-familiar">
+                        <label for="condicao-moradia-familiar">Outra situação</label>
+                    </div>
                 </div>
             </div>
-
+            <h4>Despesas com transporte e alimentação</h4>
             <div id="transporte-alimentacao" class="display-column">
                 <div class="display-column pergunta">
                     <span>Quanto meios de transporte para ir à universidade?</span>
+                    <div class="display-row">
+                        <input type="radio" name="qtd-transporte">
+                        <label for="qtd-transporte">Uma condução</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="qtd-transporte">
+                        <label for="qtd-transporte">Duas conduções</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="qtd-transporte">
+                        <label for="qtd-transporte">Mais de duas conduções</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="qtd-transporte">
+                        <label for="qtd-transporte">Nenhuma</label>
+                    </div>
                 </div>
                 <div class="display-column pergunta">
-                    <span>Onde você costuma realizar sua alimentação?</span>    
+                    <span>Onde você costuma realizar sua alimentação?</span>
+                    <div class="display-row">
+                        <input type="radio" name="local-alimentacao">
+                        <label for="local-alimentacao">Realiza refeições em casa</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="local-alimentacao">
+                        <label for="local-alimentacao">Realiza refeições na UNIRIO(cantina e/ou RU)</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="local-alimentacao">
+                        <label for="local-alimentacao">Realiza refeições em restaurantes próximos</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="local-alimentacao">
+                        <label for="local-alimentacao">Traz as refeições de casa</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="local-alimentacao">
+                        <label for="local-alimentacao">Outros</label>
+                    </div>
                 </div>
             </div>
-
+            <h4>Condições de Saúde</h4>
             <div id="condicao-saude" class="display-column">
                 <div class="display-column pergunta">
-                    <span>Possui alguma deficiência?</span>        
+                    <span>Possui alguma deficiência?</span>
+                    <div class="display-row">
+                        <input type="radio" name="saude-deficiencia">
+                        <label for="saude-deficiencia">Sim</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="saude-deficiencia">
+                        <label for="saude-deficiencia">Não</label>
+                    </div>
                 </div>
                 <div class="display-column pergunta">
                     <span>Possui alguma doença grave ou crônica?</span>    
+                    <div class="display-row">
+                        <input type="radio" name="saude-doenca">
+                        <label for="saude-doenca">Sim</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="saude-doenca">
+                        <label for="saude-doenca">Não</label>
+                    </div>
                 </div>
                 <div class="display-column pergunta">
-                    <span>Algum outro membro do grupo familiar possui doença grave/crônica ou deficiência?</span>    
+                    <span>Algum outro membro do grupo familiar possui doença grave/crônica ou deficiência?</span> 
+                    <div class="display-row">
+                        <input type="radio" name="saude-familiar">
+                        <label for="saude-familiar">Sim</label>
+                    </div>
+                    <div class="display-row">
+                        <input type="radio" name="saude-familiar">
+                        <label for="saude-familiar">Não</label>
+                    </div>   
                 </div>
             </div>
-
+            <h4>Justificativa</h4>
             <div id="justificativa" class="display-column">
                 <div class="display-column pergunta">
-                    <span>Motivação para solicitação do benefício</span>        
+                    <span>Motivação para solicitação do benefício</span>  
+                    <input type="text" id="justificativa-solicitacao">      
                 </div>
-                <div class="display-column pergunta">
-                    <span>Li e concordo com o termos do edital</span>    
-                </div>
-                <div class="display-column pergunta">
-                    <span>Declaro sob penalidade previstas no art.299 do Código Penal Brasileiro</span>    
-                </div>
-            </div>
 
+            </div>
+            <div id="concordancia-edital">
+                <div class="display-column pergunta">
+                    <span>Declaro que li e estou de acordo com todos os termos do Edital do auxílio</span>    
+                    <div class="display-row">
+                        <input type="radio" id="checkbox-termos-edital" name="checkbox-termos-edital">
+                        <label for="checkbox-termos-edital">Sim</label>
+                    </div>   
+                </div>
+                <div class="display-column pergunta">
+                    <span>Declaro sob penalidade previstas no art.299 do Código Penal Brasileiro, que as informações prestadas, assim como a documentação apresentada, são verdadeiras e de minha inteira responsabilidade</span>    
+                    <div class="display-row">
+                        <input type="radio" id="checkbox-veracidade-documentos" name="checkbox-veracidade-documentos">
+                        <label for="checkbox-veracidade-documentos">Sim</label>
+                    </div> 
+                </div>
+                
+            </div>
+                
             <h4>Documentação</h4>
-            <div id="documentacao" *ngFor="let inscricao of inscricoes" class="linha-documento display-column">
+            <div class="pergunta instrucoes">
+                <span>
+                            Instruções para anexar corretamente sua documentação:<br>
+                            1. Separe toda a documentação necessária para inscrição e preste bastante atenção em cada item solicitado no Edital.<br>
+                            2. Digitalize todos os documentos em formato PDF ou JPEG. Observe a qualidade da imagem e dos arquivos anexados. <br>
+                            3. Toda documentação deverá ser anexada em <strong>ARQUIVO ÚNICO</strong>. Este procedimento de agrupamento de documentos poderá ser feito por meio do sítio Smallpdf, ou qualquer outro aplicativo de conhecimento e de preferência do estudante. <br>
+                            4. Nenhum documento será recebido por e-mail.<br>
+                            Em caso de dúvidas, acesse o <strong>Guia de Ajuda com documentos PRAE</strong><a href="http://www.unirio.br/prae/seso/documentos/AJUDAdocumentos_PRAE.pdf]"> AQUI.</a><br>
+                            ATENÇÃO: ORGANIZE SEUS DOCUMENTOS NA ORDEM DESCRITA NO EDITAL (ITEM 6.1)
+                        </span>
+            </div>
+            <div id="documentacao"  class="linha-documento display-column">
                 
                 <div class="esquerda">
-                    <span class="titulo">{{inscricao.getNomeDocumento()}}</span>
+                    <span class="titulo">Anexar Documento</span>
                 </div>  
             
                 <div class="direita">
-                    <span class="situacao">{{inscricao.getStatus()}}</span>
-                    <button class="btn-default btn-link">Upload</button>
+                    <span class="situacao">Status</span>
+                    <button class="btn-default btn-link" >Upload</button>
                 </div>
             </div>
         </div>
