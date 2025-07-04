@@ -1,0 +1,77 @@
+package br.uniriotec.prae.sebes.dto;
+
+public class DiscenteDTO {
+
+    private String id;
+    private String nome;
+    private String nomeSocial;
+    private String email;
+    private String emailRecuperacao;
+    private String telefone;
+    private String matricula;
+    private String idUsuario;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNomeSocial() {
+        return nomeSocial;
+    }
+
+    public void setNomeSocial(String nomeSocial) {
+        this.nomeSocial = nomeSocial;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmailRecuperacao() {
+        return emailRecuperacao;
+    }
+
+    public void setEmailRecuperacao(String emailRecuperacao) {
+        this.emailRecuperacao = emailRecuperacao;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+}
