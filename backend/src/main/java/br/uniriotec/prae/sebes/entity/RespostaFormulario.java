@@ -1,4 +1,4 @@
-package br.uniriotec.prae.sebes.Entity;
+package br.uniriotec.prae.sebes.entity;
 
 import java.time.LocalDateTime;
 
@@ -27,14 +27,15 @@ public class RespostaFormulario {
     @Column(name = "id_resposta_associada")
     private String idRespostaAssociada;
 
-	@Column(name = "id_usuario")
+    @Column(name = "id_usuario")
     private String idUsuario;
 
     @Column(name = "id_processo_seletivo")
     private String idProcessoSeletivo;
 
     // Construtor padrão
-    public RespostaFormulario() {}
+    public RespostaFormulario() {
+    }
 
     // Getters e Setters
 
@@ -77,14 +78,14 @@ public class RespostaFormulario {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    public String getIdRespostaAssociada() {
-		return idRespostaAssociada;
-	}
 
-	public void setIdRespostaAssociada(String idRespostaAssociada) {
-		this.idRespostaAssociada = idRespostaAssociada;
-	}
+    public String getIdRespostaAssociada() {
+        return idRespostaAssociada;
+    }
+
+    public void setIdRespostaAssociada(String idRespostaAssociada) {
+        this.idRespostaAssociada = idRespostaAssociada;
+    }
 
     public String getIdUsuario() {
         return idUsuario;

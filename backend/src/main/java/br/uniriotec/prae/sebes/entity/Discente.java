@@ -1,4 +1,4 @@
-package br.uniriotec.prae.sebes.Entity;
+package br.uniriotec.prae.sebes.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -21,7 +21,8 @@ public class Discente {
 
     private String curso;
 
-    public Discente() {}
+    public Discente() {
+    }
 
     // Getters e Setters
 

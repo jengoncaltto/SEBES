@@ -1,4 +1,4 @@
-package br.uniriotec.prae.sebes.Entity;
+package br.uniriotec.prae.sebes.entity;
 
 import java.math.BigDecimal;
 
@@ -21,7 +21,8 @@ public class Bolsa {
     private Integer periodo;
     private BigDecimal valor;
 
-    public Bolsa() {}
+    public Bolsa() {
+    }
 
     // Getters e Setters
     public Integer getId() {

@@ -1,4 +1,4 @@
-package br.uniriotec.prae.sebes.Controller;
+package br.uniriotec.prae.sebes.controller;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.uniriotec.prae.sebes.Services.BolsaService;
+import br.uniriotec.prae.sebes.services.BolsaService;
 import br.uniriotec.prae.sebes.dto.BolsaDTO;
 
 @RestController

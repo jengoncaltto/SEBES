@@ -1,4 +1,4 @@
-package br.uniriotec.prae.sebes.Controller;
+package br.uniriotec.prae.sebes.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.uniriotec.prae.sebes.Entity.RespostaFormulario;
-import br.uniriotec.prae.sebes.Repositorio.ProcessoSeletivoRepository;
-import br.uniriotec.prae.sebes.Repositorio.RespostaFormularioRepository;
-import br.uniriotec.prae.sebes.Repositorio.UsuarioRepository;
+import br.uniriotec.prae.sebes.entity.RespostaFormulario;
+import br.uniriotec.prae.sebes.repository.ProcessoSeletivoRepository;
+import br.uniriotec.prae.sebes.repository.RespostaFormularioRepository;
+import br.uniriotec.prae.sebes.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping("/respostas")
@@ -29,15 +29,15 @@ public class RespostaFormularioController {
 
     @Autowired
     private RespostaFormularioRepository respostaRepository;
-    
+
     @Autowired
     private UsuarioRepository usuarioRepository;
-    
+
     @Autowired
     private ProcessoSeletivoRepository processoRepository;
 
     /* POST */
-    
+
     @PostMapping("/criar")
     public ResponseEntity<?> criar(@RequestBody RespostaFormulario resposta) {
         // Validação de campos obrigatórios
@@ -76,15 +76,14 @@ public class RespostaFormularioController {
     }
 
 
-    
-    /* GET */    
-    
+    /* GET */
+
     @GetMapping
     public List<RespostaFormulario> listarTodas() {
         return respostaRepository.findAll();
     }
 
-    
+
     // Buscar por ID
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable String id) {
@@ -93,7 +92,7 @@ public class RespostaFormularioController {
             return ResponseEntity.ok(result.get());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                 .body("Resposta com id " + id + " não encontrada.");
+                    .body("Resposta com id " + id + " não encontrada.");
         }
     }
 
@@ -126,7 +125,7 @@ public class RespostaFormularioController {
     public List<RespostaFormulario> buscarPorDataEnvio(@PathVariable String dataEnvio) {
         return respostaRepository.findAllByDataEnvio(LocalDateTime.parse(dataEnvio));
     }
-    
+
 
     // Buscar por idRespostaAssociada
     @GetMapping("/processo/{idRespostaAssociada}")
@@ -167,9 +166,9 @@ public class RespostaFormularioController {
 
         return ResponseEntity.ok(resposta);
     }
-    
+
     /* DELETE */
-    
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletarResposta(@PathVariable String id) {
         Optional<RespostaFormulario> respostaOpt = respostaRepository.findById(id);

@@ -1,4 +1,4 @@
-package br.uniriotec.prae.sebes.Entity;
+package br.uniriotec.prae.sebes.entity;
 
 import java.time.LocalDateTime;
 
@@ -14,9 +14,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "etapa")
 public class Etapa {
-	
+
     @Id
-	@GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @Column(name = "tipo_etapa")
@@ -34,7 +34,8 @@ public class Etapa {
     @JoinColumn(name = "id_processo_seletivo")
     private ProcessoSeletivo processoSeletivo;
 
-    public Etapa(){}
+    public Etapa() {
+    }
 
     public String getId() {
         return id;
@@ -66,8 +67,8 @@ public class Etapa {
     }
 
     public void setProcessoSeletivo(ProcessoSeletivo processoSeletivo) {
-    this.processoSeletivo = processoSeletivo;
-}
+        this.processoSeletivo = processoSeletivo;
+    }
 
     public LocalDateTime getDataInicio() {
         return dataInicio;

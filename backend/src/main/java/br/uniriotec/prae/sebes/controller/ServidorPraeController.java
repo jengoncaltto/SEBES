@@ -1,4 +1,4 @@
-package br.uniriotec.prae.sebes.Controller;
+package br.uniriotec.prae.sebes.controller;
 
 //import java.util.Map;
 import java.util.Optional;
@@ -16,20 +16,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.uniriotec.prae.sebes.Entity.ServidorPrae;
-import br.uniriotec.prae.sebes.Entity.Usuario;
-import br.uniriotec.prae.sebes.Repositorio.ServidorPraeRepository;
-import br.uniriotec.prae.sebes.Repositorio.UsuarioRepository;
 import br.uniriotec.prae.sebes.dto.ServidorDTO;
+import br.uniriotec.prae.sebes.entity.ServidorPrae;
+import br.uniriotec.prae.sebes.entity.Usuario;
+import br.uniriotec.prae.sebes.repository.ServidorPraeRepository;
+import br.uniriotec.prae.sebes.repository.UsuarioRepository;
 
 
 @RestController
 @RequestMapping("/usuarios/servidores")
 public class ServidorPraeController {
-    
+
     @Autowired
     UsuarioRepository usuarioRepository;
-    
+
     @Autowired
     ServidorPraeRepository servidorRepository;
 
@@ -76,15 +76,15 @@ public class ServidorPraeController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(servidorSalvo);
     }
-    
-    
+
+
     /* GET */
-    
+
     @GetMapping
     public ResponseEntity<?> listarTodos() {
         return ResponseEntity.ok(servidorRepository.findAll());
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable String id) {
         Optional<ServidorPrae> result = servidorRepository.findById(id);
@@ -92,12 +92,12 @@ public class ServidorPraeController {
             return ResponseEntity.ok(result.get());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                 .body("Servidor(a) PRAE não encontrado(a).");
+                    .body("Servidor(a) PRAE não encontrado(a).");
         }
     }
-    
+
     /* PATCH */
-    
+
     @PatchMapping("/{id}")
     public ResponseEntity<?> atualizarServidor(@PathVariable String id, @RequestBody ServidorDTO request) {
         Optional<ServidorPrae> result = servidorRepository.findById(id);
@@ -109,24 +109,31 @@ public class ServidorPraeController {
         Usuario usuario = servidor.getUsuario();
 
         // Atualiza dados do usuário
-        if (request.getNome() != null) usuario.setNome(request.getNome());
-        if (request.getNomeSocial() != null) usuario.setNomeSocial(request.getNomeSocial());
-        if (request.getEmailRecuperacao() != null) usuario.setEmailRecuperacao(request.getEmailRecuperacao());
-        if (request.getTelefone() != null) usuario.setTelefone(request.getTelefone());
-        if (request.getStatus() != null) usuario.setStatus(request.getStatus());
+        if (request.getNome() != null)
+            usuario.setNome(request.getNome());
+        if (request.getNomeSocial() != null)
+            usuario.setNomeSocial(request.getNomeSocial());
+        if (request.getEmailRecuperacao() != null)
+            usuario.setEmailRecuperacao(request.getEmailRecuperacao());
+        if (request.getTelefone() != null)
+            usuario.setTelefone(request.getTelefone());
+        if (request.getStatus() != null)
+            usuario.setStatus(request.getStatus());
 
         // Atualiza dados específicos do servidor
-        if (request.getCargo() != null) servidor.setCargo(request.getCargo());
-        if (request.getSetor() != null) servidor.setSetor(request.getSetor());
+        if (request.getCargo() != null)
+            servidor.setCargo(request.getCargo());
+        if (request.getSetor() != null)
+            servidor.setSetor(request.getSetor());
 
         usuarioRepository.save(usuario);
         servidorRepository.save(servidor);
 
         return ResponseEntity.ok(servidor);
     }
-    
+
     /* DELETE */
-    
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletarServidor(@PathVariable String id) {
         Optional<ServidorPrae> servidorOpt = servidorRepository.findById(id);

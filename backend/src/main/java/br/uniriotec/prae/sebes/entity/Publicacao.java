@@ -1,4 +1,4 @@
-package br.uniriotec.prae.sebes.Entity;
+package br.uniriotec.prae.sebes.entity;
 
 import java.time.LocalDateTime;
 
@@ -24,7 +24,7 @@ public class Publicacao {
 
     @Column(name = "data_atualizacao")
     private LocalDateTime dataAtualizacao;
-    
+
     @Column(name = "conteudo", columnDefinition = "TEXT")
     private String conteudo;
 
@@ -36,7 +36,8 @@ public class Publicacao {
     @JoinColumn(name = "id_bolsa", nullable = false)
     private Bolsa bolsa;
 
-    public Publicacao() {}
+    public Publicacao() {
+    }
 
     // Getters e Setters
 

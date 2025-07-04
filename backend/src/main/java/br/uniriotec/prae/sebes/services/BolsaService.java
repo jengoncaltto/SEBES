@@ -1,4 +1,4 @@
-package br.uniriotec.prae.sebes.Services;
+package br.uniriotec.prae.sebes.services;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.uniriotec.prae.sebes.Entity.Bolsa;
-import br.uniriotec.prae.sebes.Repositorio.BolsaRepository;
 import br.uniriotec.prae.sebes.dto.BolsaDTO;
+import br.uniriotec.prae.sebes.entity.Bolsa;
+import br.uniriotec.prae.sebes.repository.BolsaRepository;
 
 @Service
 public class BolsaService {
@@ -20,13 +20,13 @@ public class BolsaService {
     public List<BolsaDTO> listarTodas() {
         return bolsaRepository.findAll().stream()
                 .map(bolsa -> entityToDTO(bolsa))
-            .collect(Collectors.toList());
+                .collect(Collectors.toList());
     }
 
     public BolsaDTO buscarPorId(Integer id) {
         Bolsa bolsa = bolsaRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Bolsa não encontrada"));
-        
+                .orElseThrow(() -> new RuntimeException("Bolsa não encontrada"));
+
         return entityToDTO(bolsa);
     }
 
@@ -64,7 +64,7 @@ public class BolsaService {
 
     public BolsaDTO atualizarParcial(Integer id, BolsaDTO dto) {
         Bolsa bolsa = bolsaRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Bolsa não encontrada"));
+                .orElseThrow(() -> new RuntimeException("Bolsa não encontrada"));
 
         if (dto.getNome() != null && !dto.getNome().isBlank()) {
             bolsa.setNome(dto.getNome());
@@ -83,7 +83,7 @@ public class BolsaService {
         }
 
         Bolsa bolsaAtualizada = bolsaRepository.save(bolsa);
-        
+
         return entityToDTO(bolsaAtualizada);
     }
 
@@ -101,13 +101,13 @@ public class BolsaService {
 
     private BolsaDTO entityToDTO(Bolsa bolsa) {
         BolsaDTO dto = new BolsaDTO();
-        
+
         dto.setId(bolsa.getId());
         dto.setNome(bolsa.getNome());
         dto.setDescricao(bolsa.getDescricao());
         dto.setValor(bolsa.getValor());
         dto.setPeriodo(bolsa.getPeriodo());
-        
+
         return dto;
     }
 }

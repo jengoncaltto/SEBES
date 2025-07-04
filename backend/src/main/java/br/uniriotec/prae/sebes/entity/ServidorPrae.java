@@ -1,4 +1,4 @@
-package br.uniriotec.prae.sebes.Entity;
+package br.uniriotec.prae.sebes.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -22,7 +22,8 @@ public class ServidorPrae {
     private String cargo;
     private String setor;
 
-    public ServidorPrae() {}
+    public ServidorPrae() {
+    }
 
 
     // Getters e Setters
@@ -33,7 +34,7 @@ public class ServidorPrae {
     public void setId(String id) {
         this.id = id;
     }
-    
+
     public Usuario getUsuario() {
         return usuario;
     }

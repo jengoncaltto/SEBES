@@ -1,4 +1,4 @@
-package br.uniriotec.prae.sebes.Controller;
+package br.uniriotec.prae.sebes.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.uniriotec.prae.sebes.Entity.Bolsa;
-import br.uniriotec.prae.sebes.Entity.Publicacao;
-import br.uniriotec.prae.sebes.Entity.ServidorPrae;
-import br.uniriotec.prae.sebes.Repositorio.BolsaRepository;
-import br.uniriotec.prae.sebes.Repositorio.PublicacaoRepository;
-import br.uniriotec.prae.sebes.Repositorio.ServidorPraeRepository;
 import br.uniriotec.prae.sebes.dto.PublicacaoDTO;
+import br.uniriotec.prae.sebes.entity.Bolsa;
+import br.uniriotec.prae.sebes.entity.Publicacao;
+import br.uniriotec.prae.sebes.entity.ServidorPrae;
+import br.uniriotec.prae.sebes.repository.BolsaRepository;
+import br.uniriotec.prae.sebes.repository.PublicacaoRepository;
+import br.uniriotec.prae.sebes.repository.ServidorPraeRepository;
 
 @RestController
 @RequestMapping("/publicacoes")
@@ -69,7 +69,7 @@ public class PublicacaoController {
         publicacao.setConteudo(request.getConteudo());
         publicacao.setServidor(servidorOpt.get());
         publicacao.setBolsa(bolsaOpt.get());
-        
+
         LocalDateTime dataHoraPublicacao = LocalDateTime.now();
         publicacao.setDataPublicacao(dataHoraPublicacao);
         publicacao.setDataAtualizacao(dataHoraPublicacao);
@@ -80,7 +80,7 @@ public class PublicacaoController {
 
 
     /* GET */
-    
+
     @GetMapping
     public List<Publicacao> listarTodas() {
         return publicacaoRepository.findAllByOrderByDataPublicacaoDesc();
@@ -93,7 +93,7 @@ public class PublicacaoController {
             return ResponseEntity.ok(result.get());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                 .body("Discente não encontrado.");
+                    .body("Discente não encontrado.");
         }
     }
 
@@ -106,9 +106,9 @@ public class PublicacaoController {
     public List<Publicacao> buscarPorBolsa(@PathVariable Integer idBolsa) {
         return publicacaoRepository.findAllByBolsa_Id(idBolsa);
     }
-    
+
     /* PATCH */
-    
+
     @PatchMapping("/{id}")
     public ResponseEntity<?> atualizarPublicacao(@PathVariable Integer id, @RequestBody Publicacao publicacaoAtualizada) {
         Optional<Publicacao> result = publicacaoRepository.findById(id);
@@ -134,9 +134,8 @@ public class PublicacaoController {
     }
 
 
-    
     /* DELETE */
-    
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletarPublicacao(@PathVariable Integer id) {
         if (!publicacaoRepository.existsById(id)) {

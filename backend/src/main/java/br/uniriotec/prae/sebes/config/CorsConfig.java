@@ -1,4 +1,4 @@
-package br.uniriotec.prae.sebes.Config;
+package br.uniriotec.prae.sebes.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

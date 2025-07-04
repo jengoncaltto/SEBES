@@ -1,4 +1,4 @@
-package br.uniriotec.prae.sebes.Controller;
+package br.uniriotec.prae.sebes.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,24 +17,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.uniriotec.prae.sebes.Entity.Etapa;
-import br.uniriotec.prae.sebes.Entity.ProcessoSeletivo;
-import br.uniriotec.prae.sebes.Repositorio.EtapaRepository;
-import br.uniriotec.prae.sebes.Repositorio.ProcessoSeletivoRepository;
 import br.uniriotec.prae.sebes.dto.EtapaDTO;
+import br.uniriotec.prae.sebes.entity.Etapa;
+import br.uniriotec.prae.sebes.entity.ProcessoSeletivo;
+import br.uniriotec.prae.sebes.repository.EtapaRepository;
+import br.uniriotec.prae.sebes.repository.ProcessoSeletivoRepository;
 
 @RestController
 @RequestMapping("/etapas")
 public class EtapaController {
-    
+
     @Autowired
     EtapaRepository etapaRepository;
 
     @Autowired
     ProcessoSeletivoRepository processoRepository;
-    
+
     /* POST */
-    
+
     @PostMapping("/criar")
     public ResponseEntity<?> criar(@RequestBody EtapaDTO request) {
         // Valida ID do processo seletivo
@@ -45,7 +45,7 @@ public class EtapaController {
         // Verifica unicidade do tipoEtapa no processo
         List<Etapa> etapasExistentes = etapaRepository.findAllByProcessoSeletivoId(request.getIdProcessoSeletivo());
         boolean tipoJaExiste = etapasExistentes.stream()
-            .anyMatch(e -> e.getTipoEtapa().equalsIgnoreCase(request.getTipoEtapa()));
+                .anyMatch(e -> e.getTipoEtapa().equalsIgnoreCase(request.getTipoEtapa()));
 
         if (tipoJaExiste) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -68,8 +68,8 @@ public class EtapaController {
     }
 
 
-    //* GET */
-    
+    // * GET */
+
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable String id) {
         Optional<Etapa> result = etapaRepository.findById(id);
@@ -77,63 +77,63 @@ public class EtapaController {
             return ResponseEntity.ok(result.get());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                 .body("Bolsa não encontrada.");
+                    .body("Bolsa não encontrada.");
         }
     }
-   
-   /* PATCH */
-   
-   @PatchMapping("/{id}")
-   public ResponseEntity<?> atualizarEtapa(@PathVariable String id, @RequestBody Map<String, Object> body) {
-       Optional<Etapa> result = etapaRepository.findById(id);
-       if (!result.isPresent()) {
-           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Etapa não encontrada.");
-       }
 
-       Etapa etapa = result.get();
+    /* PATCH */
 
-       if (body.containsKey("dataInicio")) {
-           try {
-               String dataInicioStr = body.get("dataInicio").toString();
-               LocalDateTime dataInicio = LocalDateTime.parse(dataInicioStr);
-               etapa.setDataInicio(dataInicio);
-           } catch (IllegalArgumentException e) {
-               return ResponseEntity.badRequest().body("Formato inválido para dataInicio. Use yyyy-MM-dd HH:mm:ss[.fffffffff]");
-           }
-       }
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> atualizarEtapa(@PathVariable String id, @RequestBody Map<String, Object> body) {
+        Optional<Etapa> result = etapaRepository.findById(id);
+        if (!result.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Etapa não encontrada.");
+        }
 
-       if (body.containsKey("dataEncerramento")) {
-           try {
-               String dataEncerramentoStr = body.get("dataEncerramento").toString();
-               LocalDateTime dataEncerramento = LocalDateTime.parse(dataEncerramentoStr);
-               etapa.setDataEncerramento(dataEncerramento);
-           } catch (IllegalArgumentException e) {
-               return ResponseEntity.badRequest().body("Formato inválido para dataEncerramento. Use yyyy-MM-dd HH:mm:ss[.fffffffff]");
-           }
-       }
+        Etapa etapa = result.get();
 
-       if (body.containsKey("status")) {
-           etapa.setStatus(body.get("status").toString());
-       }
+        if (body.containsKey("dataInicio")) {
+            try {
+                String dataInicioStr = body.get("dataInicio").toString();
+                LocalDateTime dataInicio = LocalDateTime.parse(dataInicioStr);
+                etapa.setDataInicio(dataInicio);
+            } catch (IllegalArgumentException e) {
+                return ResponseEntity.badRequest().body("Formato inválido para dataInicio. Use yyyy-MM-dd HH:mm:ss[.fffffffff]");
+            }
+        }
 
-       etapaRepository.save(etapa);
-       return ResponseEntity.ok(etapa);
-   }
+        if (body.containsKey("dataEncerramento")) {
+            try {
+                String dataEncerramentoStr = body.get("dataEncerramento").toString();
+                LocalDateTime dataEncerramento = LocalDateTime.parse(dataEncerramentoStr);
+                etapa.setDataEncerramento(dataEncerramento);
+            } catch (IllegalArgumentException e) {
+                return ResponseEntity.badRequest().body("Formato inválido para dataEncerramento. Use yyyy-MM-dd HH:mm:ss[.fffffffff]");
+            }
+        }
 
-   
-   /* DELETE */
-   @DeleteMapping("/{id}")
-   public ResponseEntity<?> deletarEtapa(@PathVariable String id) {
-       if(etapaRepository.existsById(id)) {
-    	   etapaRepository.deleteById(id);
-           return ResponseEntity.noContent().build();
-       }
-       return ResponseEntity.status(HttpStatus.NOT_FOUND)
-               .body("Etapa não encontrada.");
-   }
+        if (body.containsKey("status")) {
+            etapa.setStatus(body.get("status").toString());
+        }
+
+        etapaRepository.save(etapa);
+        return ResponseEntity.ok(etapa);
+    }
+
+
+    /* DELETE */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletarEtapa(@PathVariable String id) {
+        if (etapaRepository.existsById(id)) {
+            etapaRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Etapa não encontrada.");
+    }
 
 }
 
-//Criar (deve ser ligada a um processo)
-//Editar (apenas datas e status)
-//Excluir */
+// Criar (deve ser ligada a um processo)
+// Editar (apenas datas e status)
+// Excluir */

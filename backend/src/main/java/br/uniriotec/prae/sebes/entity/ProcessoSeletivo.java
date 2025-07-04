@@ -1,4 +1,4 @@
-package br.uniriotec.prae.sebes.Entity;
+package br.uniriotec.prae.sebes.entity;
 
 import java.time.LocalDateTime;
 
@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 public class ProcessoSeletivo {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @Column(name = "data_inicio")
@@ -31,7 +31,8 @@ public class ProcessoSeletivo {
     @JoinColumn(name = "id_bolsa")
     private Bolsa bolsa;
 
-    public ProcessoSeletivo() {}
+    public ProcessoSeletivo() {
+    }
 
     // Getters e Setters
 
