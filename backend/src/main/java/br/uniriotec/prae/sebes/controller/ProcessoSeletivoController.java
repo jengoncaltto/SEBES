@@ -1,9 +1,6 @@
 package br.uniriotec.prae.sebes.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,137 +14,71 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.uniriotec.prae.sebes.dto.ProcessoDTO;
-import br.uniriotec.prae.sebes.entity.Bolsa;
-import br.uniriotec.prae.sebes.entity.ProcessoSeletivo;
-import br.uniriotec.prae.sebes.repository.BolsaRepository;
-import br.uniriotec.prae.sebes.repository.ProcessoSeletivoRepository;
-
+import br.uniriotec.prae.sebes.dto.ProcessoSeletivoDTO;
+import br.uniriotec.prae.sebes.services.ProcessoSeletivoService;
 
 @RestController
 @RequestMapping("/processos")
 public class ProcessoSeletivoController {
 
     @Autowired
-    ProcessoSeletivoRepository processoRepository;
-
-    @Autowired
-    BolsaRepository bolsaRepository;
-
-    /* POST */
+    private ProcessoSeletivoService processoService;
 
     @PostMapping("/criar")
-    public ResponseEntity<?> criar(@RequestBody ProcessoDTO request) {
-        // Verifica se o ID da bolsa foi informado
-        if (request.getIdBolsa() == null) {
-            return ResponseEntity.badRequest().body("O ID da bolsa deve ser informado.");
+    public ResponseEntity<?> criar(@RequestBody ProcessoSeletivoDTO dto) {
+        try {
+            ProcessoSeletivoDTO criado = processoService.criar(dto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(criado);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-
-        // Busca a bolsa no banco
-        Optional<Bolsa> bolsaOpt = bolsaRepository.findById(request.getIdBolsa());
-        if (bolsaOpt.isEmpty()) {
-            return ResponseEntity.badRequest().body("Bolsa informada não existe.");
-        }
-
-        // Cria o processo seletivo a partir do request
-        ProcessoSeletivo processo = new ProcessoSeletivo();
-        processo.setDataInicio(request.getDataInicio());
-        processo.setDataEncerramento(request.getDataEncerramento());
-        processo.setStatus(request.getStatus());
-        processo.setBolsa(bolsaOpt.get());
-
-        // Salva o processo
-        ProcessoSeletivo salvo = processoRepository.save(processo);
-        return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
 
-
-    /* GET */
-
     @GetMapping
-    public ResponseEntity<List<ProcessoSeletivo>> listarTodos() {
-        return ResponseEntity.ok(processoRepository.findAll());
+    public ResponseEntity<List<ProcessoSeletivoDTO>> listarTodos() {
+        return ResponseEntity.ok(processoService.listarTodos());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable String id) {
-        Optional<ProcessoSeletivo> result = processoRepository.findById(id);
-        if (result.isPresent()) {
-            return ResponseEntity.ok(result.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Processo seletivo não encontrado.");
+        try {
+            return ResponseEntity.ok(processoService.buscarPorId(id));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
-
-    // Buscar por status
     @GetMapping("/status/{status}")
-    public ResponseEntity<List<ProcessoSeletivo>> buscarPorStatus(@PathVariable String status) {
-        return ResponseEntity.ok(processoRepository.findAllByStatus(status));
+    public ResponseEntity<List<ProcessoSeletivoDTO>> buscarPorStatus(@PathVariable String status) {
+        return ResponseEntity.ok(processoService.buscarPorStatus(status));
     }
 
-    // Buscar por idBolsa
     @GetMapping("/bolsa/{idBolsa}")
-    public ResponseEntity<List<ProcessoSeletivo>> buscarPorBolsa(@PathVariable Integer idBolsa) {
-        return ResponseEntity.ok(processoRepository.findAllByBolsa_Id(idBolsa));
+    public ResponseEntity<List<ProcessoSeletivoDTO>> buscarPorBolsa(@PathVariable Integer idBolsa) {
+        return ResponseEntity.ok(processoService.buscarPorBolsa(idBolsa));
     }
-
-    /* PATCH */
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> atualizarParcial(@PathVariable String id, @RequestBody Map<String, Object> updates) {
-        Optional<ProcessoSeletivo> processoOpt = processoRepository.findById(id);
-        if (!processoOpt.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Processo seletivo com id " + id + " não encontrado.");
+    public ResponseEntity<?> atualizar(@PathVariable String id, @RequestBody ProcessoSeletivoDTO dto) {
+        try {
+            ProcessoSeletivoDTO atualizado = processoService.atualizarParcial(id, dto);
+            return ResponseEntity.ok(atualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-
-        ProcessoSeletivo processo = processoOpt.get();
-
-        // Atualiza dataInicio se presente
-        if (updates.containsKey("dataInicio")) {
-            try {
-                String dataInicioStr = (String) updates.get("dataInicio");
-                LocalDateTime dataInicio = LocalDateTime.parse(dataInicioStr);
-                processo.setDataInicio(dataInicio);
-            } catch (Exception e) {
-                return ResponseEntity.badRequest().body("Formato inválido para dataInicio. Use 'yyyy-[m]m-[d]d hh:mm:ss[.f...]'");
-            }
-        }
-
-        // Atualiza dataEncerramento se presente
-        if (updates.containsKey("dataEncerramento")) {
-            try {
-                String dataEncerramentoStr = (String) updates.get("dataEncerramento");
-                LocalDateTime dataEncerramento = LocalDateTime.parse(dataEncerramentoStr);
-                processo.setDataEncerramento(dataEncerramento);
-            } catch (Exception e) {
-                return ResponseEntity.badRequest().body("Formato inválido para dataEncerramento. Use 'yyyy-[m]m-[d]d hh:mm:ss[.f...]'");
-            }
-        }
-
-        // Atualiza status se presente
-        if (updates.containsKey("status")) {
-            String status = (String) updates.get("status");
-            processo.setStatus(status);
-        }
-
-        processoRepository.save(processo);
-        return ResponseEntity.ok(processo);
     }
-
-
-    /* DELETE */
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletarProcesso(@PathVariable String id) {
-        if (processoRepository.existsById(id)) {
-            processoRepository.deleteById(id);
+    public ResponseEntity<?> deletar(@PathVariable String id) {
+        try {
+            processoService.deletar(id);
             return ResponseEntity.noContent().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("Processo seletivo não encontrada.");
     }
-
 }

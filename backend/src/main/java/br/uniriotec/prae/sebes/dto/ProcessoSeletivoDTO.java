@@ -2,7 +2,7 @@ package br.uniriotec.prae.sebes.dto;
 
 import java.time.LocalDateTime;
 
-public class ProcessoDTO {
+public class ProcessoSeletivoDTO {
 
     private LocalDateTime dataInicio;
     private LocalDateTime dataEncerramento;
