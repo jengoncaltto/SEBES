@@ -1,6 +1,7 @@
 package br.uniriotec.prae.sebes.dto;
 
-public class DiscenteRequest {
+public class DiscenteDTO {
+    private String id;
     private String nome;
     private String nomeSocial;
     private String email;
@@ -9,7 +10,14 @@ public class DiscenteRequest {
     private String curso;
     private String status;
 
-	// Getters e Setters
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
