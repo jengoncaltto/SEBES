@@ -1,29 +1,11 @@
-package br.uniriotec.prae.sebes.entity;
+package br.uniriotec.prae.sebes.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+public class UsuarioDTO {
 
-@Entity
-@Table(name = "usuario")
-public class Usuario {
-
-    @Id
-    @Column(length = 36)
     private String id;
-
-    @Column(name = "nome_usuario", length = 20, nullable = false)
     private String nomeUsuario;
-
-    @Column(nullable = false)
     private String email;
-
-    @Column(name = "email_recuperacao", nullable = false)
     private String emailRecuperacao;
-
-    public Usuario() {
-    }
 
     public String getId() {
         return id;
