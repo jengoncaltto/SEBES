@@ -1,5 +1,6 @@
 package br.uniriotec.prae.sebes.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +13,6 @@ public interface PublicacaoRepository extends JpaRepository<Publicacao, Integer>
 
     List<Publicacao> findAllByServidor_Id(String idServidor);
 
-    List<Publicacao> findAllByBolsa_Id(Integer idBolsa);
+    List<Publicacao> findAllByDataPublicacao(LocalDateTime dataPublicacao);
 
-    List<Publicacao> findAllByOrderByDataPublicacaoDesc();
 }

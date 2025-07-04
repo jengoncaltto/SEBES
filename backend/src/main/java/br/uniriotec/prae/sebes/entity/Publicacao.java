@@ -29,8 +29,8 @@ public class Publicacao {
     private String conteudo;
 
     @ManyToOne
-    @JoinColumn(name = "id_servidor", nullable = false)
-    private ServidorPrae servidor;
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_bolsa", nullable = false)
@@ -73,12 +73,12 @@ public class Publicacao {
         this.conteudo = conteudo;
     }
 
-    public ServidorPrae getServidor() {
-        return servidor;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setServidor(ServidorPrae servidor) {
-        this.servidor = servidor;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Bolsa getBolsa() {

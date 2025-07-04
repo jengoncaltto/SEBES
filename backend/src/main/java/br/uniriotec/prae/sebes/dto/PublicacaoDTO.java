@@ -1,12 +1,29 @@
 package br.uniriotec.prae.sebes.dto;
 
+import java.time.LocalDateTime;
+
 public class PublicacaoDTO {
 
+    private Integer id;
+    private LocalDateTime dataPublicacao;
     private String conteudo;
-    private String idServidor;
-    private Integer idBolsa;
+    private String idUsuario;
 
-    // Getters e Setters
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDataPublicacao() {
+        return dataPublicacao;
+    }
+
+    public void setDataPublicacao(LocalDateTime dataPublicacao) {
+        this.dataPublicacao = dataPublicacao;
+    }
 
     public String getConteudo() {
         return conteudo;
@@ -16,19 +33,11 @@ public class PublicacaoDTO {
         this.conteudo = conteudo;
     }
 
-    public String getIdServidor() {
-        return idServidor;
+    public String getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setIdServidor(String idServidor) {
-        this.idServidor = idServidor;
-    }
-
-    public Integer getIdBolsa() {
-        return idBolsa;
-    }
-
-    public void setIdBolsa(Integer idBolsa) {
-        this.idBolsa = idBolsa;
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }

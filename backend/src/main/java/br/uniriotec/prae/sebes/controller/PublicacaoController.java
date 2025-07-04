@@ -1,8 +1,6 @@
 package br.uniriotec.prae.sebes.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,132 +15,54 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.uniriotec.prae.sebes.dto.PublicacaoDTO;
-import br.uniriotec.prae.sebes.entity.Bolsa;
-import br.uniriotec.prae.sebes.entity.Publicacao;
-import br.uniriotec.prae.sebes.entity.ServidorPrae;
-import br.uniriotec.prae.sebes.repository.BolsaRepository;
-import br.uniriotec.prae.sebes.repository.PublicacaoRepository;
-import br.uniriotec.prae.sebes.repository.ServidorPraeRepository;
+import br.uniriotec.prae.sebes.services.PublicacaoService;
 
 @RestController
 @RequestMapping("/publicacoes")
 public class PublicacaoController {
 
     @Autowired
-    private PublicacaoRepository publicacaoRepository;
+    private PublicacaoService publicacaoService;
 
-    @Autowired
-    private ServidorPraeRepository servidorRepository;
-
-    @Autowired
-    private BolsaRepository bolsaRepository;
-
-    // Criar nova publicação
-    @PostMapping("/publicar")
-    public ResponseEntity<?> publicar(@RequestBody PublicacaoDTO request) {
-        // Validações manuais
-        if (request.getConteudo() == null || request.getConteudo().trim().isEmpty()) {
-            return ResponseEntity.badRequest().body("O conteúdo da publicação é obrigatório.");
+    @PostMapping("/criar")
+    public ResponseEntity<?> criar(@RequestBody PublicacaoDTO dto) {
+        try {
+            return publicacaoService.criar(dto);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-
-        if (request.getIdServidor() == null) {
-            return ResponseEntity.badRequest().body("O ID do servidor é obrigatório.");
-        }
-
-        if (request.getIdBolsa() == null) {
-            return ResponseEntity.badRequest().body("O ID da bolsa é obrigatório.");
-        }
-
-        // Buscar entidades
-        Optional<ServidorPrae> servidorOpt = servidorRepository.findById(request.getIdServidor());
-        if (servidorOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Servidor não encontrado.");
-        }
-
-        Optional<Bolsa> bolsaOpt = bolsaRepository.findById(request.getIdBolsa());
-        if (bolsaOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bolsa não encontrada.");
-        }
-
-        // Criar e salvar publicação
-        Publicacao publicacao = new Publicacao();
-        publicacao.setConteudo(request.getConteudo());
-        publicacao.setServidor(servidorOpt.get());
-        publicacao.setBolsa(bolsaOpt.get());
-
-        LocalDateTime dataHoraPublicacao = LocalDateTime.now();
-        publicacao.setDataPublicacao(dataHoraPublicacao);
-        publicacao.setDataAtualizacao(dataHoraPublicacao);
-
-        Publicacao salva = publicacaoRepository.save(publicacao);
-        return ResponseEntity.status(HttpStatus.CREATED).body(salva);
     }
 
-
-    /* GET */
-
     @GetMapping
-    public List<Publicacao> listarTodas() {
-        return publicacaoRepository.findAllByOrderByDataPublicacaoDesc();
+    public List<PublicacaoDTO> listarTodas() {
+        return publicacaoService.listarTodas();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
-        Optional<Publicacao> result = publicacaoRepository.findById(id);
-        if (result.isPresent()) {
-            return ResponseEntity.ok(result.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Discente não encontrado.");
+        try {
+            PublicacaoDTO dto = publicacaoService.buscarPorId(id);
+            return ResponseEntity.ok(dto);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-
-    @GetMapping("/servidor/{idServidor}")
-    public List<Publicacao> buscarPorServidor(@PathVariable String idServidor) {
-        return publicacaoRepository.findAllByServidor_Id(idServidor);
-    }
-
-    @GetMapping("/bolsa/{idBolsa}")
-    public List<Publicacao> buscarPorBolsa(@PathVariable Integer idBolsa) {
-        return publicacaoRepository.findAllByBolsa_Id(idBolsa);
-    }
-
-    /* PATCH */
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> atualizarPublicacao(@PathVariable Integer id, @RequestBody Publicacao publicacaoAtualizada) {
-        Optional<Publicacao> result = publicacaoRepository.findById(id);
-
-        if (!result.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Publicação não encontrada.");
+    public ResponseEntity<?> atualizarParcial(@PathVariable Integer id, @RequestBody PublicacaoDTO dto) {
+        try {
+            return publicacaoService.atualizarParcial(id, dto);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-
-        Publicacao publicacao = result.get();
-
-        // Atualiza os campos permitidos
-        if (publicacaoAtualizada.getConteudo() != null && !publicacaoAtualizada.getConteudo().trim().isEmpty()) {
-            publicacao.setConteudo(publicacaoAtualizada.getConteudo());
-        }
-
-        LocalDateTime dataHoraAtualizacao = LocalDateTime.now();
-        // Sempre atualiza a data de atualização para o momento atual, ou usa a enviada (se desejar)
-        publicacao.setDataAtualizacao(dataHoraAtualizacao);
-
-        publicacaoRepository.save(publicacao);
-
-        return ResponseEntity.ok(publicacao);
     }
 
-
-    /* DELETE */
-
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletarPublicacao(@PathVariable Integer id) {
-        if (!publicacaoRepository.existsById(id)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Publicação com ID " + id + " não encontrada.");
+    public ResponseEntity<?> deletar(@PathVariable Integer id) {
+        try {
+            return publicacaoService.deletar(id);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-        publicacaoRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
     }
 }
