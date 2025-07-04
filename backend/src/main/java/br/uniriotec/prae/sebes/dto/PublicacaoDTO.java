@@ -1,6 +1,6 @@
 package br.uniriotec.prae.sebes.dto;
 
-public class PublicacaoRequest {
+public class PublicacaoDTO {
 
     private String conteudo;
     private String idServidor;

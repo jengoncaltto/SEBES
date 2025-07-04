@@ -2,7 +2,7 @@ package br.uniriotec.prae.sebes.dto;
 
 import java.time.LocalDateTime;
 
-public class EtapaRequest {
+public class EtapaDTO {
     private String tipoEtapa;
     private LocalDateTime dataInicio;
     private LocalDateTime dataEncerramento;

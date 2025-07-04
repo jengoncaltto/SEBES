@@ -1,6 +1,6 @@
 package br.uniriotec.prae.sebes.dto;
 
-public class ServidorRequest {
+public class ServidorDTO {
     private String nome;
     private String nomeSocial;
     private String email;
