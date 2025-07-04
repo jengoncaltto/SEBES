@@ -20,7 +20,7 @@ import br.uniriotec.prae.sebes.Entity.ServidorPrae;
 import br.uniriotec.prae.sebes.Entity.Usuario;
 import br.uniriotec.prae.sebes.Repositorio.ServidorPraeRepository;
 import br.uniriotec.prae.sebes.Repositorio.UsuarioRepository;
-import br.uniriotec.prae.sebes.dto.ServidorRequest;
+import br.uniriotec.prae.sebes.dto.ServidorDTO;
 
 
 @RestController
@@ -36,7 +36,7 @@ public class ServidorPraeController {
     /* POST */
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<?> cadastrarServidor(@RequestBody ServidorRequest request) {
+    public ResponseEntity<?> cadastrarServidor(@RequestBody ServidorDTO request) {
         // Validações básicas
         if (request.getNome() == null || request.getNome().isBlank()) {
             return ResponseEntity.badRequest().body("O nome é obrigatório.");
@@ -99,7 +99,7 @@ public class ServidorPraeController {
     /* PATCH */
     
     @PatchMapping("/{id}")
-    public ResponseEntity<?> atualizarServidor(@PathVariable String id, @RequestBody ServidorRequest request) {
+    public ResponseEntity<?> atualizarServidor(@PathVariable String id, @RequestBody ServidorDTO request) {
         Optional<ServidorPrae> result = servidorRepository.findById(id);
         if (!result.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Servidor(a) não encontrado(a).");

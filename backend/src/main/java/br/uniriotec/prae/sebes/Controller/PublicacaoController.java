@@ -22,7 +22,7 @@ import br.uniriotec.prae.sebes.Entity.ServidorPrae;
 import br.uniriotec.prae.sebes.Repositorio.BolsaRepository;
 import br.uniriotec.prae.sebes.Repositorio.PublicacaoRepository;
 import br.uniriotec.prae.sebes.Repositorio.ServidorPraeRepository;
-import br.uniriotec.prae.sebes.dto.PublicacaoRequest;
+import br.uniriotec.prae.sebes.dto.PublicacaoDTO;
 
 @RestController
 @RequestMapping("/publicacoes")
@@ -39,7 +39,7 @@ public class PublicacaoController {
 
     // Criar nova publicação
     @PostMapping("/publicar")
-    public ResponseEntity<?> publicar(@RequestBody PublicacaoRequest request) {
+    public ResponseEntity<?> publicar(@RequestBody PublicacaoDTO request) {
         // Validações manuais
         if (request.getConteudo() == null || request.getConteudo().trim().isEmpty()) {
             return ResponseEntity.badRequest().body("O conteúdo da publicação é obrigatório.");

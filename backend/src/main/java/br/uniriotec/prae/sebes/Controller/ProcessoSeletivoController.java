@@ -20,7 +20,7 @@ import br.uniriotec.prae.sebes.Entity.Bolsa;
 import br.uniriotec.prae.sebes.Entity.ProcessoSeletivo;
 import br.uniriotec.prae.sebes.Repositorio.BolsaRepository;
 import br.uniriotec.prae.sebes.Repositorio.ProcessoSeletivoRepository;
-import br.uniriotec.prae.sebes.dto.ProcessoRequest;
+import br.uniriotec.prae.sebes.dto.ProcessoDTO;
 
 
 @RestController
@@ -36,7 +36,7 @@ public class ProcessoSeletivoController {
     /* POST */
     
     @PostMapping("/criar")
-    public ResponseEntity<?> criar(@RequestBody ProcessoRequest request) {
+    public ResponseEntity<?> criar(@RequestBody ProcessoDTO request) {
         // Verifica se o ID da bolsa foi informado
         if (request.getIdBolsa() == null) {
             return ResponseEntity.badRequest().body("O ID da bolsa deve ser informado.");

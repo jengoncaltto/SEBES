@@ -21,7 +21,7 @@ import br.uniriotec.prae.sebes.Entity.Etapa;
 import br.uniriotec.prae.sebes.Entity.ProcessoSeletivo;
 import br.uniriotec.prae.sebes.Repositorio.EtapaRepository;
 import br.uniriotec.prae.sebes.Repositorio.ProcessoSeletivoRepository;
-import br.uniriotec.prae.sebes.dto.EtapaRequest;
+import br.uniriotec.prae.sebes.dto.EtapaDTO;
 
 @RestController
 @RequestMapping("/etapas")
@@ -36,7 +36,7 @@ public class EtapaController {
     /* POST */
     
     @PostMapping("/criar")
-    public ResponseEntity<?> criar(@RequestBody EtapaRequest request) {
+    public ResponseEntity<?> criar(@RequestBody EtapaDTO request) {
         // Valida ID do processo seletivo
         if (request.getIdProcessoSeletivo() == null || !processoRepository.existsById(request.getIdProcessoSeletivo())) {
             return ResponseEntity.badRequest().body("Processo seletivo inválido ou inexistente.");
