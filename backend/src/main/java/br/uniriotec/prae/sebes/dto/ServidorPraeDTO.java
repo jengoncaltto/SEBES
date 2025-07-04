@@ -1,16 +1,25 @@
 package br.uniriotec.prae.sebes.dto;
 
-public class ServidorDTO {
+public class ServidorPraeDTO {
+
+    private String id;
     private String nome;
     private String nomeSocial;
     private String email;
     private String emailRecuperacao;
     private String telefone;
-    private String status;
-    private String cargo;
     private String setor;
+    private String cargo;
+    private String idUsuario;
 
-    // Getters e Setters
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -51,14 +60,6 @@ public class ServidorDTO {
         this.telefone = telefone;
     }
 
-    public String getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-
     public String getSetor() {
         return setor;
     }
@@ -67,13 +68,19 @@ public class ServidorDTO {
         this.setor = setor;
     }
 
-    public String getStatus() {
-		return status;
-	}
+    public String getCargo() {
+        return cargo;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 }
-
-

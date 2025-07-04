@@ -1,16 +1,19 @@
 package br.uniriotec.prae.sebes.services;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.uniriotec.prae.sebes.dto.DiscenteDTO;
+import br.uniriotec.prae.sebes.dto.UsuarioDTO;
 import br.uniriotec.prae.sebes.entity.Discente;
 import br.uniriotec.prae.sebes.entity.Usuario;
 import br.uniriotec.prae.sebes.repository.DiscenteRepository;
-import br.uniriotec.prae.sebes.repository.UsuarioRepository;
 
 @Service
 public class DiscenteService {
@@ -19,108 +22,106 @@ public class DiscenteService {
     private DiscenteRepository discenteRepository;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioService usuarioService;
 
-    public List<DiscenteDTO> listarTodos() {
-        return discenteRepository.findAll().stream().map(this::entityToDTO).collect(Collectors.toList());
-    }
-
-    public DiscenteDTO buscarPorId(String id) {
-        Discente discente = discenteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Discente não encontrado."));
-        return entityToDTO(discente);
-    }
-
-    public DiscenteDTO cadastrar(DiscenteDTO dto) {
+    public ResponseEntity<?> criar(DiscenteDTO dto) {
         if (dto == null) {
-            throw new IllegalArgumentException("Dados do discente são obrigatórios.");
+            return ResponseEntity.badRequest().body("Dados do discente são obrigatórios.");
         }
-        if (dto.getId() == null || dto.getId().isBlank()) {
-            throw new IllegalArgumentException("ID do usuário é obrigatório.");
+        if (dto.getIdUsuario() == null || dto.getIdUsuario().isBlank()) {
+            return ResponseEntity.badRequest().body("ID do usuário é obrigatório.");
         }
-        if (dto.getCurso() == null || dto.getCurso().isBlank()) {
-            throw new IllegalArgumentException("Curso é obrigatório.");
+        if (dto.getMatricula() == null || dto.getMatricula().isBlank()) {
+            return ResponseEntity.badRequest().body("Matrícula é obrigatória.");
+        }
+        if (dto.getNome() == null || dto.getNome().isBlank()) {
+            return ResponseEntity.badRequest().body("Nome é obrigatório.");
+        }
+        if (dto.getTelefone() == null || dto.getTelefone().isBlank()) {
+            return ResponseEntity.badRequest().body("Telefone é obrigatório.");
         }
 
-        Usuario usuario = usuarioRepository.findById(dto.getId())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado para o ID informado."));
+        Usuario usuario = usuarioService.buscarEntityPorId(dto.getIdUsuario());
+        if (usuario == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário não encontrado.");
+        }
 
-        if (discenteRepository.existsById(dto.getId())) {
-            throw new RuntimeException("Discente com esse ID já existe.");
+        if (discenteRepository.existsById(dto.getIdUsuario())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Discente já cadastrado com esse usuário.");
         }
 
         Discente discente = new Discente();
-        discente.setId(dto.getId());
+        discente.setId(dto.getIdUsuario()); // Id do usuario é id do discente
         discente.setUsuario(usuario);
-        discente.setCurso(dto.getCurso());
+        discente.setMatricula(dto.getMatricula());
+        discente.setNome(dto.getNome());
+        discente.setNomeSocial(dto.getNomeSocial());
+        discente.setTelefone(dto.getTelefone());
 
         Discente salvo = discenteRepository.save(discente);
-
-        return entityToDTO(salvo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(entityToDTO(salvo));
     }
 
-    public DiscenteDTO atualizarParcial(String id, DiscenteDTO dto) {
+    public List<DiscenteDTO> listarTodos() {
+        return discenteRepository.findAll()
+                .stream()
+                .map(this::entityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public DiscenteDTO buscarPorId(String id) {
+        return discenteRepository.findById(id)
+                .map(this::entityToDTO)
+                .orElseThrow(() -> new RuntimeException("Discente não encontrado."));
+    }
+
+    public UsuarioDTO obterUsuario(String idUsuario) {
+        return usuarioService.buscarPorId(idUsuario);
+    }
+
+    public ResponseEntity<?> atualizarParcial(String id, Map<String, Object> updates) {
         Discente discente = discenteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Discente não encontrado."));
 
-        if (dto == null) {
-            throw new IllegalArgumentException("Dados do discente são obrigatórios para atualização.");
+        if (updates.containsKey("matricula")) {
+            discente.setMatricula((String) updates.get("matricula"));
+        }
+        if (updates.containsKey("nome")) {
+            discente.setNome((String) updates.get("nome"));
+        }
+        if (updates.containsKey("nomeSocial")) {
+            discente.setNomeSocial((String) updates.get("nomeSocial"));
+        }
+        if (updates.containsKey("telefone")) {
+            discente.setTelefone((String) updates.get("telefone"));
         }
 
-        if (dto.getCurso() != null && !dto.getCurso().isBlank()) {
-            discente.setCurso(dto.getCurso());
-        }
-
-        Usuario usuario = discente.getUsuario();
-        if (dto.getNome() != null && !dto.getNome().isBlank()) {
-            usuario.setNome(dto.getNome());
-        }
-        if (dto.getNomeSocial() != null) {
-            usuario.setNomeSocial(dto.getNomeSocial());
-        }
-        if (dto.getEmail() != null && !dto.getEmail().isBlank()) {
-            usuario.setEmail(dto.getEmail());
-        }
-        if (dto.getEmailRecuperacao() != null) {
-            usuario.setEmailRecuperacao(dto.getEmailRecuperacao());
-        }
-        if (dto.getTelefone() != null) {
-            usuario.setTelefone(dto.getTelefone());
-        }
-        if (dto.getStatus() != null) {
-            usuario.setStatus(dto.getStatus());
-        }
-
-        usuarioRepository.save(usuario);
         Discente atualizado = discenteRepository.save(discente);
-
-        return entityToDTO(atualizado);
+        return ResponseEntity.ok(entityToDTO(atualizado));
     }
 
-    public void deletar(String id) {
-        if (id == null || id.isBlank()) {
-            throw new IllegalArgumentException("ID do discente é obrigatório para exclusão.");
-        }
+    public ResponseEntity<?> deletar(String id) {
         if (!discenteRepository.existsById(id)) {
-            throw new RuntimeException("Discente não encontrado para exclusão.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Discente não encontrado.");
         }
         discenteRepository.deleteById(id);
+        return ResponseEntity.ok("Discente removido com sucesso.");
     }
 
     private DiscenteDTO entityToDTO(Discente discente) {
         DiscenteDTO dto = new DiscenteDTO();
-        Usuario u = discente.getUsuario();
 
         dto.setId(discente.getId());
-        dto.setCurso(discente.getCurso());
+        dto.setIdUsuario(discente.getUsuario().getId());
+        dto.setNome(discente.getNome());
+        dto.setNomeSocial(discente.getNomeSocial());
+        dto.setMatricula(discente.getMatricula());
+        dto.setTelefone(discente.getTelefone());
 
+        Usuario u = discente.getUsuario();
         if (u != null) {
-            dto.setNome(u.getNome());
-            dto.setNomeSocial(u.getNomeSocial());
             dto.setEmail(u.getEmail());
             dto.setEmailRecuperacao(u.getEmailRecuperacao());
-            dto.setTelefone(u.getTelefone());
-            dto.setStatus(u.getStatus());
         }
 
         return dto;

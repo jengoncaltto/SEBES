@@ -64,6 +64,12 @@ public class UsuarioService {
         return entityToDTO(usuario);
     }
 
+    public Usuario buscarEntityPorId(String id) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+        return usuario;
+    }
+
     // Listar todos usuários
     public List<UsuarioDTO> listarTodos() {
         return usuarioRepository.findAll().stream().map(this::entityToDTO).collect(Collectors.toList());

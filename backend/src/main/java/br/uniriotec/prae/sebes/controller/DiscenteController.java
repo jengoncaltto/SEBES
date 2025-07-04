@@ -1,9 +1,9 @@
 package br.uniriotec.prae.sebes.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,15 +14,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.uniriotec.prae.sebes.services.DiscenteService;
 import br.uniriotec.prae.sebes.dto.DiscenteDTO;
+import br.uniriotec.prae.sebes.dto.UsuarioDTO;
+import br.uniriotec.prae.sebes.services.DiscenteService;
 
 @RestController
-@RequestMapping("/discentes")
+@RequestMapping("/api/discentes")
 public class DiscenteController {
 
     @Autowired
     private DiscenteService discenteService;
+
+    @PostMapping
+    public ResponseEntity<?> criar(@RequestBody DiscenteDTO dto) {
+        return discenteService.criar(dto);
+    }
 
     @GetMapping
     public List<DiscenteDTO> listarTodos() {
@@ -32,46 +38,31 @@ public class DiscenteController {
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable String id) {
         try {
-            DiscenteDTO dto = discenteService.buscarPorId(id);
-            return ResponseEntity.ok(dto);
+            DiscenteDTO discente = discenteService.buscarPorId(id);
+            return ResponseEntity.ok(discente);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.notFound().build();
         }
     }
 
-    @PostMapping("/cadastrar")
-    public ResponseEntity<?> cadastrar(@RequestBody DiscenteDTO dto) {
+    @GetMapping("/{id}/usuario")
+    public ResponseEntity<UsuarioDTO> obterUsuario(@PathVariable String id) {
         try {
-            DiscenteDTO salvo = discenteService.cadastrar(dto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            DiscenteDTO discente = discenteService.buscarPorId(id);
+            UsuarioDTO usuarioDTO = discenteService.obterUsuario(discente.getIdUsuario());
+            return ResponseEntity.ok(usuarioDTO);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+            return ResponseEntity.notFound().build();
         }
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> atualizarParcial(@PathVariable String id, @RequestBody DiscenteDTO dto) {
-        try {
-            DiscenteDTO atualizado = discenteService.atualizarParcial(id, dto);
-            return ResponseEntity.ok(atualizado);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<?> atualizarParcial(@PathVariable String id, @RequestBody Map<String, Object> updates) {
+        return discenteService.atualizarParcial(id, updates);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable String id) {
-        try {
-            discenteService.deletar(id);
-            return ResponseEntity.noContent().build();
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+        return discenteService.deletar(id);
     }
 }

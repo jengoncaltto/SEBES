@@ -1,6 +1,7 @@
 package br.uniriotec.prae.sebes.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,4 +12,6 @@ import br.uniriotec.prae.sebes.entity.Discente;
 public interface DiscenteRepository extends JpaRepository<Discente, String> {
 
     List<Discente> findAllByCurso(String curso);
+
+    Optional<Discente> findByUsuario_Id(String idUsuario);
 }
