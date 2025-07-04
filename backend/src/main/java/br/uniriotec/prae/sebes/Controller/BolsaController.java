@@ -1,13 +1,11 @@
 package br.uniriotec.prae.sebes.Controller;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,101 +14,63 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.uniriotec.prae.sebes.Entity.Bolsa;
-import br.uniriotec.prae.sebes.Repositorio.BolsaRepository;
+import br.uniriotec.prae.sebes.Services.BolsaService;
+import br.uniriotec.prae.sebes.dto.BolsaDTO;
 
 @RestController
 @RequestMapping("/bolsas")
 public class BolsaController {
 
     @Autowired
-    private BolsaRepository bolsaRepository;
+    private BolsaService bolsaService;
 
     /* POST */
-    
     @PostMapping("/cadastrar")
-    public ResponseEntity<?> cadastrarBolsa(@RequestBody Bolsa request) {
-        if (request.getNome() == null || request.getNome().isBlank()) {
-            return ResponseEntity.badRequest().body("O nome da bolsa é obrigatório.");
+    public ResponseEntity<?> cadastrarBolsa(@RequestBody BolsaDTO dto) {
+        try {
+            BolsaDTO salva = bolsaService.cadastrar(dto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(salva);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-
-        if (request.getValor() == null || request.getValor().doubleValue() <= 0) {
-            return ResponseEntity.badRequest().body("O valor da bolsa deve ser maior que zero.");
-        }
-
-        if (request.getPeriodo() == null || request.getPeriodo() <= 0) {
-            return ResponseEntity.badRequest().body("O período da bolsa deve ser informado e maior que zero.");
-        }
-
-        if (request.getDescricao() == null || request.getDescricao().isBlank()) {
-            return ResponseEntity.badRequest().body("A descrição da bolsa é obrigatória.");
-        }
-
-        Bolsa bolsaSalva = bolsaRepository.save(request);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(bolsaSalva);
     }
 
-    
+
     /* GET */
-    
     @GetMapping
-    public List<Bolsa> listarTodas() {
-        return bolsaRepository.findAll();
+    public ResponseEntity<List<BolsaDTO>> listarTodas() {
+        return ResponseEntity.ok(bolsaService.listarTodas());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
-        Optional<Bolsa> result = bolsaRepository.findById(id);
-        if (result.isPresent()) {
-            return ResponseEntity.ok(result.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                 .body("Bolsa não encontrada.");
+        try {
+            BolsaDTO dto = bolsaService.buscarPorId(id);
+            return ResponseEntity.ok(dto);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
         }
     }
-
 
     /* PATCH */
-
-    // Editar apenas campos específicos
     @PatchMapping("/{id}")
-    public ResponseEntity<?> atualizarParcial(@PathVariable Integer id, @RequestBody Map<String, Object> updates) {
-        Optional<Bolsa> bolsaOpt = bolsaRepository.findById(id);
-        if (!bolsaOpt.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                 .body("Bolsa não encontrada.");
+    public ResponseEntity<?> atualizarParcial(@PathVariable Integer id, @RequestBody BolsaDTO dto) {
+        try {
+            BolsaDTO atualizado = bolsaService.atualizarParcial(id, dto);
+            return ResponseEntity.ok(atualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-
-        Bolsa bolsa = bolsaOpt.get();
-
-        updates.forEach((chave, valor) -> {
-            switch (chave) {
-                case "nome":
-                    bolsa.setNome((String) valor);
-                    break;
-                case "descricao":
-                    bolsa.setDescricao((String) valor);
-                    break;
-                case "valor":
-                    // pode precisar converter para BigDecimal
-                    if (valor instanceof Number) {
-                        bolsa.setValor(BigDecimal.valueOf(((Number) valor).doubleValue()));
-                    } else if (valor instanceof String) {
-                        bolsa.setValor(new BigDecimal((String) valor));
-                    }
-                    break;
-                case "periodo":
-                    if (valor instanceof Number) {
-                        bolsa.setPeriodo(((Number) valor).intValue());
-                    }
-                    break;
-                // adiciona outros campos conforme necessário
-            }
-        });
-
-        Bolsa bolsaAtualizada = bolsaRepository.save(bolsa);
-        return ResponseEntity.ok(bolsaAtualizada);
     }
 
+    /* DELETE */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletar(@PathVariable Integer id) {
+        try {
+            bolsaService.deletar(id);
+            return ResponseEntity.noContent().build(); // 204 No Content
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+    }
 }
