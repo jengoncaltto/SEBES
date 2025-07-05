@@ -1,34 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BolsaDTO } from '@models/bolsa.dto';
+import { BolsaDto } from '@models/dtos/bolsa.dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BolsaService {
-
-  private readonly apiUrl = 'http://localhost:8080/bolsas';
+  private apiUrl = 'http://localhost:8080/api/bolsas';
 
   constructor(private http: HttpClient) {}
 
-  // POST: Cadastrar nova bolsa
-  cadastrarBolsa(bolsa: BolsaDTO): Observable<BolsaDTO> {
-    return this.http.post<BolsaDTO>(`${this.apiUrl}/cadastrar`, bolsa);
+  getAll(): Observable<BolsaDto[]> {
+    return this.http.get<BolsaDto[]>(this.apiUrl);
   }
 
-  // GET: Listar todas
-  listarTodas(): Observable<BolsaDTO[]> {
-    return this.http.get<BolsaDTO[]>(this.apiUrl);
+  getById(id: number): Observable<BolsaDto> {
+    return this.http.get<BolsaDto>(`${this.apiUrl}/${id}`);
   }
 
-  // GET: Buscar por ID
-  buscarPorId(id: number): Observable<BolsaDTO> {
-    return this.http.get<BolsaDTO>(`${this.apiUrl}/${id}`);
+  create(bolsa: BolsaDto): Observable<BolsaDto> {
+    return this.http.post<BolsaDto>(this.apiUrl, bolsa);
   }
 
-  // PATCH: Atualizar parcialmente
-  atualizarParcial(id: number, campos: Partial<BolsaDTO>): Observable<BolsaDTO> {
-    return this.http.patch<BolsaDTO>(`${this.apiUrl}/${id}`, campos);
+  update(id: number, bolsa: BolsaDto): Observable<BolsaDto> {
+    return this.http.put<BolsaDto>(`${this.apiUrl}/${id}`, bolsa);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
