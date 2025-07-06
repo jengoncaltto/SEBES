@@ -21,7 +21,9 @@
     
     --blue-default:#2A6083;
 
-    --question-bg-default:#c5c5c5a2;
+    --question-bg-default:#f1f1f1;
+    --question-bg-focus-default:#d8d6d6;
+
 
     /* shadow */
     --shadow-default: 2px 2px 2px rgba(0, 0, 0, 0.425);
