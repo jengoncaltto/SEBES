@@ -1,45 +1,31 @@
 <main>
-    <section id="div-info-perfil">
-        <img  src="unirio.png" alt="foto do usuário">
+    <section id="div-info-user">
+        <img src="unirio.png" alt="">
         <div id="info-user">
-            <span id="username">Nome Usuário</span>
-            <span id="user-matricula">20211220011</span>
-            <span id="user-permissao">Permissão:Admin</span>
-        </div>
-    </section>
-    <section id="processos-seletivos">
-        <!-- Usar *ngFor para lista de processos seletivos -->
-        <h2 class="page-title">Histórico de Processos</h2>
-        <div class="div-processo">
-                <div class="esquerda">
-                    <span class="tipo-bolsa">Auxílio Moradia</span>
-                </div>
-                <div class="direita">
-                    <div class="div-periodo">
-                        <span>Período</span>
-                        <span id="periodo">2025.1</span>
-                    </div>
-                    <div class="div-status">
-                        <span>Status</span>
-                        <span id="status">Em andamento</span>
-                    </div>
-                </div>
-        </div>    
-        <div class="div-processo">
-                <div class="esquerda">
-                    <span class="tipo-bolsa">Auxílio Moradia</span>
-                </div>
-                <div class="direita">
-                    <div class="div-periodo">
-                        <span>Período</span>
-                        <span id="periodo">2025.1</span>
-                    </div>
-                    <div class="div-status">
-                        <span>Status</span>
-                        <span id="status">Em andamento</span>
-                    </div>
-                </div>
+            <span id="user-nome" class="page-title">Nome Usuário</span>
+            <span id="user-matricula">20211220013</span>
+            <span id="user-permissao">Permissão: Admin</span>
         </div>
     </section>
 
+    <section id="processos-seletivos">
+        <h2 class="page-title">Histórico de Processos Seletivos</h2>
+        <div class="processo" *ngFor="let processo of processos">
+            <div class="tipo-bolsa">
+                <span >{{processo.getNome()}}</span>
+            </div>
+            <div class="esquerda">
+                <div class="div-periodo">
+                    <span>Período</span>
+                    <span id="periodo">{{processo.getPeriodo()}}</span>
+                </div>
+                <div class="div-status">
+                    <span>Status</span>
+                    <span id="status">{{processo.getStatus()}}</span>
+                </div>
+            </div>
+            <button class="btn-default" routerLink="/processosSeletivos">Acessar Informações</button>
+        </div>
+        
+    </section>
 </main>

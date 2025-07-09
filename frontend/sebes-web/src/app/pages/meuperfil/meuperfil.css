@@ -1,55 +1,52 @@
 main{
     width: 70vw;
 }
-a:any-link{
-    text-decoration: none;
-}
 
-#div-info-perfil{
+#div-info-user{
+    background-color: white;
+    width: 100%;
     display: flex;
+    padding: 12px;
+    border-radius: 20px;
+    margin-bottom: 40px;
     align-items: center;
-    background-color:white;
-    border-radius: 25px;
-    padding: 15px;
 }
 #info-user{
     display: flex;
     flex-direction: column;
 }
-#username{
-    font-size: var(--page-title-font-size);
+
+#processos-seletivos  .page-title{
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+.processo{
+    margin: 10px 0;
+    background-color: white;
+    padding: 12px;
+    border-radius: 20px;
+    display: flex;
+    gap: 20px;
 }
 
-.div-processo{
-    background-color: white;
-    display: flex;
-    padding: 10px;
-    border-radius: 25px;
-    margin-bottom:20px;
-}
-.page-title{
-    margin: 20px 15px 10px 20px;
-}
-.esquerda{
-    align-content: center;
-}
-.direita{
-    display: flex;
-    justify-content: flex-end;
-    margin-left: 50px;
-}
-.div-periodo, .div-status{
+.div-status, .div-periodo{
     display: flex;
     flex-direction: column;
-    margin: 10px;
+}
+#status,#periodo{
+    margin-left: 10px;
+}
+.esquerda{
+    display: flex;
+    gap: 20px;
+    margin-left: 100px;
 }
 .tipo-bolsa{
     align-content: center;
+    width: 150px;
+    margin-left: 20px;
 }
-
-/* Imagens */
 img{
     width: 100px;
     height: 100px;
-    margin-right: 10px;
 }
