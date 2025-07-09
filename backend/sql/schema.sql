@@ -30,8 +30,10 @@ CREATE TABLE servidor_prae (
 -- Tabela: bolsa
 CREATE TABLE bolsa (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    Nome VARCHAR(255) NOT NULL,
-    valor DECIMAL NOT NULL
+    nome VARCHAR(255) NOT NULL,
+    descricao VARCHAR(500) not null,
+    valor DECIMAL NOT null,
+    periodo INT not NULL
 );
 
 -- Tabela: processo_seletivo

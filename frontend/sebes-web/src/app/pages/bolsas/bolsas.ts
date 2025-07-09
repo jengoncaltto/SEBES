@@ -25,6 +25,7 @@ export class Bolsas implements OnInit {
     this.bolsaService.getAll().subscribe({
       next: (dados: BolsaDto[]) => {
         this.bolsas = dados;
+        console.log(dados);
       },
       error: (err : any)  => {
         console.error('Erro ao carregar bolsas:', err);
