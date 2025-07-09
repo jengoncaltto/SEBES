@@ -118,10 +118,10 @@ public class DiscenteService {
         dto.setMatricula(discente.getMatricula());
         dto.setTelefone(discente.getTelefone());
 
-        Usuario u = discente.getUsuario();
-        if (u != null) {
-            dto.setEmail(u.getEmail());
-            dto.setEmailRecuperacao(u.getEmailRecuperacao());
+        Usuario usuario = discente.getUsuario();
+        if (usuario != null) {
+            dto.setEmail(usuario.getEmail());
+            dto.setEmailRecuperacao(usuario.getEmailRecuperacao());
         }
 
         return dto;
