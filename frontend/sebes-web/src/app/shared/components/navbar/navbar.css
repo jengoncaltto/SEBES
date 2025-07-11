@@ -39,6 +39,7 @@ nav .hover {
     padding: 13px;
     border-radius: 25px;
     font-size: 1rem;
+    font-weight: var(--font-weight-bold);
     transition: color 0.3s ease;
     border: solid 1px var(--blue-default);
     color: white;
@@ -47,8 +48,7 @@ nav .hover {
 
 
 nav .hover:hover {
-    border: solid 1px #0e245f5d;
-    background-color: #0e245f5d;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.425);
+    background-color: var(--btn-bg-hover-default);
+    box-shadow: var(--shadow-default);
     cursor: pointer;
 }

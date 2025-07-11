@@ -1,15 +1,34 @@
 
-.lista-documentos{
+.formulario{
     margin-top: 30px;
-    margin-left: 20px;    
+    margin-left: 20px;   
+    display: flex;
+    flex-direction: column; 
+    
 }
-
-.linha-documento {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border: 1px solid #ccc;
+.display-column{
+    display: flex;
+    flex-direction: column;
+}
+.display-row{
+    display: flex;
+    
+}
+.pergunta{
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid #ccc;    
+    
+    padding: 12px;
+    margin:5px;
     border-radius: 10px;
-    margin: 20px 0;
+}
+h4{
+    margin-top: 20px;
+}
+.instrucoes{
+    font-size: 13.5px;
+    color: rgb(58, 58, 58);
 }
 
 #page-title{
@@ -22,10 +41,10 @@
 
 .linha-documento {
     background-color: #fff;
-    padding: 10px 15px;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 10px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -36,30 +55,9 @@
     max-width: 500px;
 }
 
-
-.lista-documentos button {
-    background-color: #25597e;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 0.9rem;
-
-}
 .enviar{
     margin-top: 20px;
 }
-
-.lista-documentos button:hover {
-    background-color:   #1c4560;
-}
-/* 
-#25597e
-hover:#1c4560
-*/
-
 
 .status {
     display: flex;
@@ -67,23 +65,36 @@ hover:#1c4560
     gap: 8px;
 }
 
-
-
 button{
-    border: none;
-    padding: 7px;
-    border-radius: 20px;
     margin-left: 50px;
 }
-button:hover{
-    background-color: rgba(0, 0, 0, 0.185);
-}
-
 
 .direita{
     margin-left: 150px ;
+    display: flex;
+    align-items: center;
 }
 .esquerda{
     display: flex;
     justify-content: flex-end;
+}
+input[type="text"],input[type="email"],input[type="tel"],input[type="date"]{
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #bbbaba;
+    border-radius: 20px;
+    background-color: var(--question-bg-default);
+    font-size: 0.9rem;
+    outline: none;
+}
+
+input[type="text"]:focus,input[type="email"]:focus,input[type="tel"]:focus,input[type="date"]:focus{
+    background-color: var(--question-bg-focus-default);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.425);
+}
+.radio{
+    margin: 3px;
+}
+.radio span{
+    margin-left: 5px;
 }
