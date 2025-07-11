@@ -6,14 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.uniriotec.prae.sebes.dto.RespostaFormularioDTO;
 import br.uniriotec.prae.sebes.services.RespostaFormularioService;
@@ -27,7 +20,6 @@ public class RespostaFormularioController {
 
     @PostMapping("/criar")
     public ResponseEntity<?> criar(@RequestBody RespostaFormularioDTO dto) {
-        // Aqui o service já retorna ResponseEntity<?> com corpo e status
         return respostaService.criar(dto);
     }
 
@@ -69,6 +61,53 @@ public class RespostaFormularioController {
     @GetMapping("/resposta-associada/{idRespostaAssociada}")
     public List<RespostaFormularioDTO> buscarPorIdRespostaAssociada(@PathVariable String idRespostaAssociada) {
         return respostaService.buscarPorIdRespostaAssociada(idRespostaAssociada);
+    }
+
+    // Novos endpoints para buscas compostas:
+
+    @GetMapping("/tipo-processo")
+    public List<RespostaFormularioDTO> buscarPorTipoFormsEProcessoSeletivo(
+            @RequestParam String tipoForms,
+            @RequestParam String idProcessoSeletivo) {
+        return respostaService.buscarPorTipoFormsEProcessoSeletivo(tipoForms, idProcessoSeletivo);
+    }
+
+    @GetMapping("/tipo-resposta-associada")
+    public List<RespostaFormularioDTO> buscarPorTipoFormsEIdRespostaAssociada(
+            @RequestParam String tipoForms,
+            @RequestParam String idRespostaAssociada) {
+        return respostaService.buscarPorTipoFormsEIdRespostaAssociada(tipoForms, idRespostaAssociada);
+    }
+
+    @GetMapping("/tipo-processo-status")
+    public List<RespostaFormularioDTO> buscarPorTipoFormsProcessoSeletivoEStatus(
+            @RequestParam String tipoForms,
+            @RequestParam String idProcessoSeletivo,
+            @RequestParam String status) {
+        return respostaService.buscarPorTipoFormsProcessoSeletivoEStatus(tipoForms, idProcessoSeletivo, status);
+    }
+
+    @GetMapping("/tipo-resposta-associada-status")
+    public List<RespostaFormularioDTO> buscarPorTipoFormsIdRespostaAssociadaEStatus(
+            @RequestParam String tipoForms,
+            @RequestParam String idRespostaAssociada,
+            @RequestParam String status) {
+        return respostaService.buscarPorTipoFormsIdRespostaAssociadaEStatus(tipoForms, idRespostaAssociada, status);
+    }
+
+    @GetMapping("/tipo-usuario")
+    public List<RespostaFormularioDTO> buscarPorTipoFormsEUsuario(
+            @RequestParam String tipoForms,
+            @RequestParam String idUsuario) {
+        return respostaService.buscarPorTipoFormsEUsuario(tipoForms, idUsuario);
+    }
+
+    @GetMapping("/tipo-usuario-processo")
+    public List<RespostaFormularioDTO> buscarPorTipoFormsUsuarioEProcesso(
+            @RequestParam String tipoForms,
+            @RequestParam String idUsuario,
+            @RequestParam String idProcessoSeletivo) {
+        return respostaService.buscarPorTipoFormsUsuarioEProcesso(tipoForms, idUsuario, idProcessoSeletivo);
     }
 
     @PatchMapping("/{id}")

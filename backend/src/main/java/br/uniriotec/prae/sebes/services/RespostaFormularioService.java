@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PatchMapping;
 
 import br.uniriotec.prae.sebes.dto.RespostaFormularioDTO;
 import br.uniriotec.prae.sebes.entity.RespostaFormulario;
@@ -91,7 +90,37 @@ public class RespostaFormularioService {
         return respostaRepository.findAllByIdRespostaAssociada(idRespostaAssociada).stream().map(this::entityToDTO).collect(Collectors.toList());
     }
 
-    @PatchMapping("/{id}")
+    // Novos métodos combinados
+    public List<RespostaFormularioDTO> buscarPorTipoFormsEProcessoSeletivo(String tipoForms, String idProcessoSeletivo) {
+        return respostaRepository.findAllByTipoFormsAndIdProcessoSeletivo(tipoForms, idProcessoSeletivo)
+                .stream().map(this::entityToDTO).collect(Collectors.toList());
+    }
+
+    public List<RespostaFormularioDTO> buscarPorTipoFormsEIdRespostaAssociada(String tipoForms, String idRespostaAssociada) {
+        return respostaRepository.findAllByTipoFormsAndIdRespostaAssociada(tipoForms, idRespostaAssociada)
+                .stream().map(this::entityToDTO).collect(Collectors.toList());
+    }
+
+    public List<RespostaFormularioDTO> buscarPorTipoFormsProcessoSeletivoEStatus(String tipoForms, String idProcessoSeletivo, String status) {
+        return respostaRepository.findAllByTipoFormsAndIdProcessoSeletivoAndStatus(tipoForms, idProcessoSeletivo, status)
+                .stream().map(this::entityToDTO).collect(Collectors.toList());
+    }
+
+    public List<RespostaFormularioDTO> buscarPorTipoFormsIdRespostaAssociadaEStatus(String tipoForms, String idRespostaAssociada, String status) {
+        return respostaRepository.findAllByTipoFormsAndIdRespostaAssociadaAndStatus(tipoForms, idRespostaAssociada, status)
+                .stream().map(this::entityToDTO).collect(Collectors.toList());
+    }
+
+    public List<RespostaFormularioDTO> buscarPorTipoFormsEUsuario(String tipoForms, String idUsuario) {
+        return respostaRepository.findAllByTipoFormsAndIdUsuario(tipoForms, idUsuario)
+                .stream().map(this::entityToDTO).collect(Collectors.toList());
+    }
+
+    public List<RespostaFormularioDTO> buscarPorTipoFormsUsuarioEProcesso(String tipoForms, String idUsuario, String idProcessoSeletivo) {
+        return respostaRepository.findAllByTipoFormsAndIdUsuarioAndIdProcessoSeletivo(tipoForms, idUsuario, idProcessoSeletivo)
+                .stream().map(this::entityToDTO).collect(Collectors.toList());
+    }
+
     public RespostaFormularioDTO atualizarParcial(String id, Map<String, Object> updates) {
         RespostaFormulario resposta = respostaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Resposta não encontrada."));

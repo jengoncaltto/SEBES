@@ -23,4 +23,15 @@ public interface RespostaFormularioRepository extends JpaRepository<RespostaForm
 
     List<RespostaFormulario> findAllByIdRespostaAssociada(String idRespostaAssociada);
 
+    List<RespostaFormulario> findAllByTipoFormsAndIdProcessoSeletivo(String tipoForms, String idProcessoSeletivo);
+
+    List<RespostaFormulario> findAllByTipoFormsAndIdRespostaAssociada(String tipoForms, String idRespostaAssociada);
+
+    List<RespostaFormulario> findAllByTipoFormsAndIdProcessoSeletivoAndStatus(String tipoForms, String idProcessoSeletivo, String status);
+
+    List<RespostaFormulario> findAllByTipoFormsAndIdRespostaAssociadaAndStatus(String tipoForms, String idRespostaAssociada, String status);
+
+    List<RespostaFormulario> findAllByTipoFormsAndIdUsuario(String tipoForms, String idUsuario);
+
+    List<RespostaFormulario> findAllByTipoFormsAndIdUsuarioAndIdProcessoSeletivo(String tipoForms, String idUsuario, String idProcessoSeletivo);
 }
