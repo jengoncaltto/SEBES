@@ -1,3 +1,4 @@
+
 -- Tabela: usuario
 CREATE TABLE usuario (
     id VARCHAR(36) NOT NULL PRIMARY KEY,
@@ -30,8 +31,10 @@ CREATE TABLE servidor_prae (
 -- Tabela: bolsa
 CREATE TABLE bolsa (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    Nome VARCHAR(255) NOT NULL,
-    valor DECIMAL NOT NULL
+    nome VARCHAR(255) NOT NULL,
+    descricao VARCHAR(500) not null,
+    valor DECIMAL NOT null,
+    periodo INT not NULL
 );
 
 -- Tabela: processo_seletivo
@@ -69,4 +72,5 @@ CREATE TABLE publicacao (
     data_publicacao TIMESTAMP NOT NULL,
     conteudo VARCHAR(5000) NOT NULL,
     id_usuario VARCHAR(36) NOT NULL REFERENCES usuario(id)
+
 );

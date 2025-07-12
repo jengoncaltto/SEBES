@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 // verificação de acesso
 
 // páginas
+
 import { PaginaInicial } from './pages/pagina-inicial/pagina-inicial';
 import { Login } from './pages/login/login';
 import { Cadastro } from './pages/cadastro/cadastro';
@@ -11,6 +12,7 @@ import { Bolsas } from './pages/bolsas/bolsas';
 import { DetalhesInscricao } from '@pages/processoSeletivo/detalhes-inscricao/detalhes-inscricao';
 import { InscricoesProcessoSeletivo } from '@pages/processoSeletivo/inscricoes-processo-seletivo/inscricoes-processo-seletivo';
 import { AnexosProcessoSeletivo } from '@pages/processoSeletivo/anexos-processo-seletivo/anexos-processo-seletivo';
+
 import { Bolsa } from '@pages/bolsa/bolsa';
 
 export const routes: Routes = [

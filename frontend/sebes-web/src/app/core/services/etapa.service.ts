@@ -7,7 +7,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EtapaService {
+
   private apiUrl = 'http://localhost:8080/etapas'; // ajuste para a URL real da sua API
+
 
   constructor(private http: HttpClient) {}
 

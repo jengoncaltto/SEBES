@@ -7,7 +7,9 @@ import { ServidorPraeDto } from '@models/dtos/servidor-prae.dto';
   providedIn: 'root'
 })
 export class ServidorPraeService {
+
   private apiUrl = 'http://localhost:8080/servidores'; // ajuste conforme sua API real
+
 
   constructor(private http: HttpClient) {}
 

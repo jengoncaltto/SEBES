@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -25,6 +26,7 @@ export class Bolsas implements OnInit {
     this.bolsaService.getAll().subscribe({
       next: (dados: BolsaDto[]) => {
         this.bolsas = dados;
+        console.log(dados);
       },
       error: (err : any)  => {
         console.error('Erro ao carregar bolsas:', err);
@@ -32,3 +34,4 @@ export class Bolsas implements OnInit {
     });
   }
 }
+
