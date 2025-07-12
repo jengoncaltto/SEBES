@@ -38,6 +38,11 @@ public class LoginCodeService {
         if (!emailValido(email)) {
             return ResponseEntity.badRequest().body("E-mail deve ser institucional da UNIRIO");
         }
+
+    	if(!usuarioService.isEmailCadastrado(email)) {
+            return ResponseEntity.badRequest().body("Email não cadastrado.");
+    	}
+        
         String code = gerarCodigo();
         LocalDateTime expiration = LocalDateTime.now().plusMinutes(5);
 
