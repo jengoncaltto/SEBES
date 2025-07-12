@@ -11,4 +11,5 @@ import br.uniriotec.prae.sebes.entity.Discente;
 public interface DiscenteRepository extends JpaRepository<Discente, String> {
 
     Optional<Discente> findByUsuario_Id(String idUsuario);
+
 }
