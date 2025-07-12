@@ -14,6 +14,7 @@ import { InscricoesProcessoSeletivo } from '@pages/processoSeletivo/inscricoes-p
 import { AnexosProcessoSeletivo } from '@pages/processoSeletivo/anexos-processo-seletivo/anexos-processo-seletivo';
 
 import { Bolsa } from '@pages/bolsa/bolsa';
+import { MeuPerfilComponent } from '@pages/meu-perfil/meu-perfil.component';
 
 export const routes: Routes = [
     {
@@ -53,7 +54,7 @@ export const routes: Routes = [
 		{
 		/* Perfil do Usuário */
 		path: "meuPerfil",
-		component: PaginaInicial 
+		component: MeuPerfilComponent 
 		/* Mudar quando for criada a página */
 	},
 	{

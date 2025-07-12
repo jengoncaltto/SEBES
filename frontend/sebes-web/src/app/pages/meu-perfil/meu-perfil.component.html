@@ -1,0 +1,37 @@
+<main>
+    <section id="div-info-user">
+        <img src="unirio.png" alt="">
+        <div id="info-user">
+            <span id="user-nome" class="page-title">Nome Usuário</span>
+            <span id="user-matricula">20211220013</span>
+            <span id="user-permissao">Permissão: Admin</span>
+        </div>
+    </section>
+
+    <section id="processos-seletivos">
+        <h2 class="page-title">Histórico de Processos Seletivos</h2>
+        <div *ngIf="processos$ | async as processos">
+            <div class="processo" *ngFor="let processo of processos">
+            <div class="tipo-bolsa">
+                <span >{{processo.status}}</span>
+            </div>
+            <div class="esquerda">
+                <div class="div-periodo">
+                    <span>Período</span>
+                    <span id="periodo">{{processo.dataInicio}}</span>
+                </div>
+                <div class="div-status">
+                    <span>Status</span>
+                    <span id="status">{{processo.dataEncerramento}}</span>
+                </div>
+            </div>
+            <button class="btn-default" routerLink="/processosSeletivos">Acessar Informações</button>
+        </div>
+        </div>
+        <!--
+        *ngIf="processos.length > 0; else AlunosemProcessos"
+        *ngFor="let processo of processos"
+        -->
+        
+    </section>
+</main>

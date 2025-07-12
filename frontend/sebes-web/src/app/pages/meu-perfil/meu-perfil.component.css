@@ -1,0 +1,52 @@
+main{
+    width: 70vw;
+}
+
+#div-info-user{
+    background-color: white;
+    width: 100%;
+    display: flex;
+    padding: 12px;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    align-items: center;
+}
+#info-user{
+    display: flex;
+    flex-direction: column;
+}
+
+#processos-seletivos  .page-title{
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+.processo{
+    margin: 10px 0;
+    background-color: white;
+    padding: 12px;
+    border-radius: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.div-status, .div-periodo{
+    display: flex;
+    flex-direction: column;
+}
+#status,#periodo{
+    margin-left: 10px;
+}
+.esquerda{
+    display: flex;
+    gap: 20px;
+    margin-left: 100px;
+}
+.tipo-bolsa{
+    align-content: center;
+    width: 150px;
+    margin-left: 20px;
+}
+img{
+    width: 100px;
+    height: 100px;
+}
