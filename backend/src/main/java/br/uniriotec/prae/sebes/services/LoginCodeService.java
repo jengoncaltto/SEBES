@@ -13,7 +13,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import br.uniriotec.prae.sebes.entity.LoginCode;
-import br.uniriotec.prae.sebes.entity.Usuario;
 import br.uniriotec.prae.sebes.repository.LoginCodeRepository;
 import br.uniriotec.prae.sebes.security.JwtTokenProvider;
 
@@ -102,8 +101,7 @@ public class LoginCodeService {
         loginCode.setUsed(true);
         repository.save(loginCode);
 
-    	Usuario usuario = usuarioService.buscaPorEmail(email);
-        String token = jwtTokenProvider.gerarToken(usuario.getId());
+        String token = jwtTokenProvider.gerarToken(usuarioService.buscaPorEmail(email));
 
         return ResponseEntity.ok(Map.of("token", token));
     }

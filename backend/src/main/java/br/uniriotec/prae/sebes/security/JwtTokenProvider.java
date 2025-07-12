@@ -6,6 +6,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import br.uniriotec.prae.sebes.entity.Usuario;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -27,12 +28,12 @@ public class JwtTokenProvider {
         key = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String gerarToken(String idUsuario) {
+    public String gerarToken(Usuario usuario) {
         Date agora = new Date();
         Date validade = new Date(agora.getTime() + expiration);
 
         return Jwts.builder()
-                .setSubject(idUsuario)
+                .setSubject(usuario.getId())
                 .setIssuedAt(agora)
                 .setExpiration(validade)
                 .signWith(key, SignatureAlgorithm.HS256)
@@ -48,10 +49,11 @@ public class JwtTokenProvider {
         }
     }
 
-    public String getEmailDoToken(String token) {
+    public String getIdDoUsuario(String token) {
         return Jwts.parserBuilder().setSigningKey(key).build()
                 .parseClaimsJws(token)
                 .getBody()
-                .getSubject();
+                .getSubject(); // o ID foi salvo no .setSubject()
     }
+    
 }
