@@ -3,33 +3,33 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BolsaDto } from '@models/dtos/bolsa.dto';
+import { Endpoints } from '@models/enums/api.endpoints';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BolsaService {
-  private apiUrl = 'http://localhost:8080/api/bolsas';
 
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<BolsaDto[]> {
-    return this.http.get<BolsaDto[]>(this.apiUrl);
+    return this.http.get<BolsaDto[]>(Endpoints.BOLSAS);
   }
 
   getById(id: number): Observable<BolsaDto> {
-    return this.http.get<BolsaDto>(`${this.apiUrl}/${id}`);
+    return this.http.get<BolsaDto>(`${Endpoints.BOLSAS}/${id}`);
   }
 
   create(bolsa: BolsaDto): Observable<BolsaDto> {
-    return this.http.post<BolsaDto>(this.apiUrl, bolsa);
+    return this.http.post<BolsaDto>(Endpoints.BOLSAS, bolsa);
   }
 
   update(id: number, bolsa: BolsaDto): Observable<BolsaDto> {
-    return this.http.put<BolsaDto>(`${this.apiUrl}/${id}`, bolsa);
+    return this.http.put<BolsaDto>(`${Endpoints.BOLSAS}/${id}`, bolsa);
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${Endpoints.BOLSAS}/${id}`);
   }
 }
 
