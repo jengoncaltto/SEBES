@@ -11,7 +11,7 @@ import br.uniriotec.prae.sebes.entity.Publicacao;
 @Repository
 public interface PublicacaoRepository extends JpaRepository<Publicacao, Integer> {
 
-    List<Publicacao> findAllByServidor_Id(String idServidor);
+    List<Publicacao> findAllByUsuario_Id(String idUsuario);
 
     List<Publicacao> findAllByDataPublicacao(LocalDateTime dataPublicacao);
 
