@@ -1,4 +1,3 @@
-
 -- Tabela: usuario
 CREATE TABLE usuario (
     id VARCHAR(36) NOT NULL PRIMARY KEY,
@@ -30,16 +29,16 @@ CREATE TABLE servidor_prae (
 
 -- Tabela: bolsa
 CREATE TABLE bolsa (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nome VARCHAR(255) NOT NULL,
-    descricao VARCHAR(500) not null,
-    valor DECIMAL NOT null,
-    periodo INT not NULL
+    descricao TEXT NOT NULL,
+    periodo INT NOT NULL,
+    valor DECIMAL(10,2) NOT NULL
 );
 
 -- Tabela: processo_seletivo
 CREATE TABLE processo_seletivo (
-    id VARCHAR(36) NOT NULL PRIMARY key,
+    id VARCHAR(36) PRIMARY KEY NOT NULL,
     data_inicio TIMESTAMP NOT NULL,
     data_encerramento TIMESTAMP NOT NULL,
     status VARCHAR(50) NOT NULL,
@@ -48,7 +47,7 @@ CREATE TABLE processo_seletivo (
 
 -- Tabela: etapa
 CREATE TABLE etapa (
-    id VARCHAR(36) NOT NULL PRIMARY key,
+    id VARCHAR(36) PRIMARY KEY NOT NULL,
     tipo_etapa VARCHAR(255) NOT NULL,
     data_inicio TIMESTAMP NOT NULL,
     data_encerramento TIMESTAMP NOT NULL,
@@ -56,21 +55,24 @@ CREATE TABLE etapa (
     id_processo_seletivo VARCHAR(36) NOT NULL REFERENCES processo_seletivo(id)
 );
 
-
 -- Tabela: inscricao
-CREATE TABLE inscricao (
-    id VARCHAR(36) NOT NULL PRIMARY key,
-    data_envio TIMESTAMP NOT NULL,
+CREATE TABLE resposta_formulario (
+    id VARCHAR(36) PRIMARY KEY NOT NULL,
+    data_envio TIMESTAMP,
+    tipo_forms VARCHAR(255) NOT NULL,
+    conteudo TEXT,
     status VARCHAR(255) NOT NULL,
+    id_resposta_associada VARCHAR(36) NOT NULL REFERENCES resposta_formulario(id),
     id_usuario VARCHAR(36) NOT NULL REFERENCES usuario(id),
     id_processo_seletivo VARCHAR(36) NOT NULL REFERENCES processo_seletivo(id)
 );
 
 -- Tabela: publicacao
 CREATE TABLE publicacao (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     data_publicacao TIMESTAMP NOT NULL,
-    conteudo VARCHAR(5000) NOT NULL,
-    id_usuario VARCHAR(36) NOT NULL REFERENCES usuario(id)
-
+    data_atualizacao TIMESTAMP,
+    conteudo TEXT,
+    id_servidor VARCHAR(36) NOT NULL REFERENCES servidor_prae(id),
+    id_bolsa INT NOT NULL REFERENCES bolsa(id)
 );
