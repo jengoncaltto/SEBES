@@ -8,7 +8,7 @@ import { ProcessoSeletivoDto } from '@models/dtos/processo-seletivo.dto';
 })
 export class ProcessoSeletivoService {
 
-  private apiUrl = 'http://localhost:8080/processos-seletivos'; // ajuste conforme sua API
+  private apiUrl = 'http://localhost:8080/api/processos-seletivos'; // ajuste conforme sua API
 
 
   constructor(private http: HttpClient) {}

@@ -8,7 +8,7 @@ import { DiscenteDto } from '@models/dtos/discente.dto';
 })
 export class DiscenteService {
 
-  private apiUrl = 'http://localhost:8080/discentes'; // ajuste conforme sua API real
+  private apiUrl = 'http://localhost:8080/api/discentes'; // ajuste conforme sua API real
 
 
   constructor(private http: HttpClient) {}

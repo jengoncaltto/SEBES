@@ -18,7 +18,7 @@ import br.uniriotec.prae.sebes.services.BolsaService;
 import br.uniriotec.prae.sebes.dto.BolsaDTO;
 
 @RestController
-@RequestMapping("/bolsas")
+@RequestMapping("/api/bolsas")
 public class BolsaController {
 
     @Autowired

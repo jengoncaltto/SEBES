@@ -7,7 +7,7 @@ import { RespostaFormularioDto } from '@models/dtos/resposta-formulario.dto';
   providedIn: 'root',
 })
 export class RespostaFormularioService {
-  private readonly API = 'http://localhost:8080/respostas';
+  private readonly API = 'http://localhost:8080/api/respostas';
 
   constructor(private http: HttpClient) {}
 

@@ -18,7 +18,7 @@ import br.uniriotec.prae.sebes.dto.EtapaDTO;
 import br.uniriotec.prae.sebes.services.EtapaService;
 
 @RestController
-@RequestMapping("/etapas")
+@RequestMapping("/api/etapas")
 public class EtapaController {
 
     @Autowired

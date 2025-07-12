@@ -18,7 +18,7 @@ import br.uniriotec.prae.sebes.dto.UsuarioDTO;
 import br.uniriotec.prae.sebes.services.UsuarioService;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/api/usuarios")
 public class UsuarioController {
 
     @Autowired

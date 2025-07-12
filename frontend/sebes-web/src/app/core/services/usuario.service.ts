@@ -8,7 +8,7 @@ import { UsuarioDto } from '@models/dtos/usuario.dto';
 })
 export class UsuarioService {
 
-  private apiUrl = 'http://localhost:8080/usuarios'; // Ajuste se necessário
+  private apiUrl = 'http://localhost:8080/api/usuarios'; // Ajuste se necessário
 
 
   constructor(private http: HttpClient) {}

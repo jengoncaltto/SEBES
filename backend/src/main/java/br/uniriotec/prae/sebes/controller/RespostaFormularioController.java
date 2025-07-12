@@ -12,7 +12,7 @@ import br.uniriotec.prae.sebes.dto.RespostaFormularioDTO;
 import br.uniriotec.prae.sebes.services.RespostaFormularioService;
 
 @RestController
-@RequestMapping("/respostas")
+@RequestMapping("/api/respostas")
 public class RespostaFormularioController {
 
     @Autowired

@@ -18,7 +18,7 @@ import br.uniriotec.prae.sebes.dto.PublicacaoDTO;
 import br.uniriotec.prae.sebes.services.PublicacaoService;
 
 @RestController
-@RequestMapping("/publicacoes")
+@RequestMapping("/api/publicacoes")
 public class PublicacaoController {
 
     @Autowired

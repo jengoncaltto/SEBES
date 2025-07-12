@@ -8,7 +8,7 @@ import { BolsaDto } from '@models/dtos/bolsa.dto';
   providedIn: 'root'
 })
 export class BolsaService {
-  private apiUrl = 'http://localhost:8080/bolsas';
+  private apiUrl = 'http://localhost:8080/api/bolsas';
 
   constructor(private http: HttpClient) {}
 

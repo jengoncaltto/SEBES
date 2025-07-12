@@ -18,7 +18,7 @@ import br.uniriotec.prae.sebes.dto.ProcessoSeletivoDTO;
 import br.uniriotec.prae.sebes.services.ProcessoSeletivoService;
 
 @RestController
-@RequestMapping("/processos")
+@RequestMapping("/api/processos")
 public class ProcessoSeletivoController {
 
     @Autowired
