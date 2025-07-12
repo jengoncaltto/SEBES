@@ -1,3 +1,4 @@
+
 -- Tabela: usuario
 CREATE TABLE usuario (
     id VARCHAR(36) NOT NULL PRIMARY KEY,
@@ -71,4 +72,5 @@ CREATE TABLE publicacao (
     data_publicacao TIMESTAMP NOT NULL,
     conteudo VARCHAR(5000) NOT NULL,
     id_usuario VARCHAR(36) NOT NULL REFERENCES usuario(id)
+
 );

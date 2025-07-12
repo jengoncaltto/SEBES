@@ -1,3 +1,16 @@
 <main>
+    <!-- Página das Publicações -->
+    <h2 class="page-title">Publicações</h2>
+    <section class="grid-view">
+        <div *ngFor="let publicacao of processos" class="grid-item">
+            <p class="grid-item-title">{{publicacao.idBolsa}}</p>
+            <div class="grid-item-descricao">
+                <span>{{publicacao.dataInicio}} até {{publicacao.dataEncerramento}}</span>
+            </div>
+            <a routerLink="/detalhes" class="btn-default btn-link">Acessar Processo</a>
+        </div>
 
+    </section>
+    
+<!---->
 </main>
