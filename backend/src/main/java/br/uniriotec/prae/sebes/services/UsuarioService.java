@@ -69,6 +69,16 @@ public class UsuarioService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
         return usuario;
     }
+    
+	public Usuario buscaPorEmail(String email) {
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+		return usuario;
+	}
+    
+	public boolean isEmailCadastrado(String email) {
+        return usuarioRepository.existsByEmail(email);
+	}
 
     // Listar todos usuários
     public List<UsuarioDTO> listarTodos() {
