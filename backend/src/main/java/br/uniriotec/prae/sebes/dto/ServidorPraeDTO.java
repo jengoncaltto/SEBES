@@ -5,6 +5,7 @@ public class ServidorPraeDTO {
     private String id;
     private String nome;
     private String nomeSocial;
+    private String nomeUsuario;
     private String email;
     private String emailRecuperacao;
     private String telefone;
@@ -35,6 +36,14 @@ public class ServidorPraeDTO {
     public void setNomeSocial(String nomeSocial) {
         this.nomeSocial = nomeSocial;
     }
+
+    public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
+	}
 
     public String getEmail() {
         return email;
