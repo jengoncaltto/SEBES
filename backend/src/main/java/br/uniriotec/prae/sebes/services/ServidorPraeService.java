@@ -2,6 +2,7 @@ package br.uniriotec.prae.sebes.services;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.uniriotec.prae.sebes.dto.ServidorPraeDTO;
-import br.uniriotec.prae.sebes.dto.UsuarioDTO;
 import br.uniriotec.prae.sebes.entity.ServidorPrae;
 import br.uniriotec.prae.sebes.entity.Usuario;
 import br.uniriotec.prae.sebes.repository.ServidorPraeRepository;
@@ -44,18 +44,13 @@ public class ServidorPraeService {
             return ResponseEntity.badRequest().body("Telefone é obrigatório.");
         }
 
-        Usuario usuario = usuarioService.buscarEntityPorId(dto.getIdUsuario());
-        if (usuario == null) {
+        if (!usuarioService.isUsuarioCadastrado(dto.getIdUsuario())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário não encontrado.");
         }
 
-        if (servidorRepository.existsById(dto.getIdUsuario())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Servidor já cadastrado com esse usuário.");
-        }
-
         ServidorPrae servidor = new ServidorPrae();
-        servidor.setId(dto.getIdUsuario()); // id do usuário é id do servidor
-        servidor.setUsuario(usuario);
+        servidor.setId(UUID.randomUUID().toString());
+        servidor.setIdUsuario(dto.getIdUsuario());
         servidor.setCargo(dto.getCargo());
         servidor.setSetor(dto.getSetor());
         servidor.setNome(dto.getNome());
@@ -78,11 +73,7 @@ public class ServidorPraeService {
                 .map(this::entityToDTO)
                 .orElseThrow(() -> new RuntimeException("Servidor não encontrado."));
     }
-
-    public UsuarioDTO obterUsuario(String idUsuario) {
-        return usuarioService.buscarPorId(idUsuario);
-    }
-
+    
     public ResponseEntity<?> atualizarParcial(String id, Map<String, Object> updates) {
         ServidorPrae servidor = servidorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Servidor não encontrado."));
@@ -119,17 +110,18 @@ public class ServidorPraeService {
         ServidorPraeDTO dto = new ServidorPraeDTO();
 
         dto.setId(servidor.getId());
-        dto.setIdUsuario(servidor.getUsuario().getId());
+        dto.setIdUsuario(servidor.getIdUsuario());
         dto.setNome(servidor.getNome());
         dto.setNomeSocial(servidor.getNomeSocial());
         dto.setCargo(servidor.getCargo());
         dto.setSetor(servidor.getSetor());
         dto.setTelefone(servidor.getTelefone());
 
-        Usuario u = servidor.getUsuario();
-        if (u != null) {
-            dto.setEmail(u.getEmail());
-            dto.setEmailRecuperacao(u.getEmailRecuperacao());
+        Usuario usuario = usuarioService.buscarEntityPorId(servidor.getIdUsuario());
+        if (usuario != null) {
+            dto.setNomeUsuario(usuario.getNomeUsuario());
+            dto.setEmail(usuario.getEmail());
+            dto.setEmailRecuperacao(usuario.getEmailRecuperacao());
         }
 
         return dto;

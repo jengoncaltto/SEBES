@@ -79,6 +79,10 @@ public class UsuarioService {
 	public boolean isEmailCadastrado(String email) {
         return usuarioRepository.existsByEmail(email);
 	}
+	
+	public boolean isUsuarioCadastrado(String idUsuario) {
+		return usuarioRepository.existsById(idUsuario);
+	}
 
     // Listar todos usuários
     public List<UsuarioDTO> listarTodos() {

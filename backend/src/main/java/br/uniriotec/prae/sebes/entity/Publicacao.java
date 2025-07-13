@@ -32,10 +32,6 @@ public class Publicacao {
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
-    @ManyToOne
-    @JoinColumn(name = "id_bolsa", nullable = false)
-    private Bolsa bolsa;
-
     public Publicacao() {
     }
 
@@ -81,11 +77,4 @@ public class Publicacao {
         this.usuario = usuario;
     }
 
-    public Bolsa getBolsa() {
-        return bolsa;
-    }
-
-    public void setBolsa(Bolsa bolsa) {
-        this.bolsa = bolsa;
-    }
 }
