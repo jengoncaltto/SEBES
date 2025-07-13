@@ -5,6 +5,7 @@ public class DiscenteDTO {
     private String id;
     private String nome;
     private String nomeSocial;
+    private String nomeUsuario;
     private String email;
     private String emailRecuperacao;
     private String telefone;
@@ -35,7 +36,15 @@ public class DiscenteDTO {
         this.nomeSocial = nomeSocial;
     }
 
-    public String getEmail() {
+    public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
+	}
+
+	public String getEmail() {
         return email;
     }
 

@@ -2,6 +2,7 @@ package br.uniriotec.prae.sebes.services;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,18 +42,13 @@ public class DiscenteService {
             return ResponseEntity.badRequest().body("Telefone é obrigatório.");
         }
 
-        Usuario usuario = usuarioService.buscarEntityPorId(dto.getIdUsuario());
-        if (usuario == null) {
+        if (!usuarioService.isUsuarioCadastrado(dto.getIdUsuario())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário não encontrado.");
         }
 
-        if (discenteRepository.existsById(dto.getIdUsuario())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Discente já cadastrado com esse usuário.");
-        }
-
         Discente discente = new Discente();
-        discente.setId(dto.getIdUsuario()); // Id do usuario é id do discente
-        discente.setUsuario(usuario);
+        discente.setId(UUID.randomUUID().toString());
+        discente.setUsuario(dto.getIdUsuario());
         discente.setMatricula(dto.getMatricula());
         discente.setNome(dto.getNome());
         discente.setNomeSocial(dto.getNomeSocial());
@@ -112,14 +108,15 @@ public class DiscenteService {
         DiscenteDTO dto = new DiscenteDTO();
 
         dto.setId(discente.getId());
-        dto.setIdUsuario(discente.getUsuario().getId());
+        dto.setIdUsuario(discente.getIdUsuario());
         dto.setNome(discente.getNome());
         dto.setNomeSocial(discente.getNomeSocial());
         dto.setMatricula(discente.getMatricula());
         dto.setTelefone(discente.getTelefone());
 
-        Usuario usuario = discente.getUsuario();
+        Usuario usuario = usuarioService.buscarEntityPorId(discente.getIdUsuario());
         if (usuario != null) {
+            dto.setNomeUsuario(usuario.getNomeUsuario());
             dto.setEmail(usuario.getEmail());
             dto.setEmailRecuperacao(usuario.getEmailRecuperacao());
         }

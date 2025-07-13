@@ -10,10 +10,7 @@ import br.uniriotec.prae.sebes.entity.ServidorPrae;
 
 @Repository
 public interface ServidorPraeRepository extends JpaRepository<ServidorPrae, String> {
+	
+    Optional<Discente> findByIdUsuario(String idUsuario);
 
-    boolean existsByCargo(String cargo);
-
-    boolean existsBySetor(String setor);
-
-    Optional<Discente> findByUsuario_Id(String idUsuario);
 }
