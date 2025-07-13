@@ -14,21 +14,15 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  solicitarAcesso(email: string): void{
-    this.http.post<any>(Endpoints.AUTH, { email: email });
+  solicitarAcesso(email: string): void {
+    this.http.post<void>(Endpoints.AUTH, { email }).subscribe({
+      next: () => console.log('Código enviado com sucesso'),
+      error: (err) => console.error('Erro ao enviar código:', err)
+    });
   }
 
-  validarAcesso(email: string, codigo: string): void {
-    this.http.post<{ token: string }>(`${Endpoints.AUTH}/verificar-codigo`, 
-      { email: email, codigo: codigo }).subscribe({
-      next: (response) => {
-        const token = response.token;
-        localStorage.setItem(this.tokenKey, token);
-      },
-      error: (err) => {
-        console.error('Erro ao validar código:', err);
-      }
-    });
+  validarAcesso(email: string, codigo: string): Observable<{ token: string }> {
+    return this.http.post<{ token: string }>(`${Endpoints.AUTH}/verificar-codigo`, { email: email, codigo: codigo });
   }
 
   getUserLoggedIn(): Observable<UsuarioDto> {

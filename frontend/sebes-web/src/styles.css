@@ -2,10 +2,12 @@
     /* sizes */
     --font-weight-bold: 700;
 
+	/* font-size */
     --page-title-font-size: 25px;
     --grid-item-title-font-size: 16px;
     --grid-item-desc-font-size: 12px;
-
+	--span-info-font-size: 12px;
+	
     --border-default: 2px solid #cccccc;
 
     /* colors */
@@ -18,8 +20,10 @@
 
     --grid-item-bg-default: #f5f5f5;
     --grid-item-desc-font-color: #999999;
-    
-    --blue-default:#2A6083;
+
+	--blue-default:#2A6083;
+	
+	--error-red-default:#cf0e0e;
 
     --question-bg-default:#f1f1f1;
     --question-bg-focus-default:#d8d6d6;
@@ -106,13 +110,15 @@ body{
 
 .btn-default{
     text-transform: capitalize;
-    padding: 8px 12px;
-    margin: 5px 10px 5px 0;
-    border-radius: 5px;
-    background-color: var(--blue-default);
-    color: white;
-    font-size: 0.85rem;
-    transition: background-color 0.2s ease;
+	padding: 10px 25px;
+	margin: 0 5px;
+	border: none;
+	border-radius: 20px;
+	background-color: var(--btn-bg-default);
+	color: #fff;
+	font-size: 0.95rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn-default:hover {

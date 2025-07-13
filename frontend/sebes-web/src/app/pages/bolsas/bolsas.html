@@ -3,10 +3,8 @@
 <div class="grid-view" *ngIf="bolsas.length > 0; else semBolsas">
   <div *ngFor="let bolsa of bolsas" class="grid-item">
     <div class="grid-item-title">{{ bolsa.nome }}</div>
-    <p class="grid-item-descricao">{{ bolsa.descricao }}</p>
 
     <div class="btn-container">
-      <a class="btn-default btn-link" routerLink="/processosSeletivos">Processos Seletivos</a>
       <a class="btn-default btn-link" [routerLink]="['/bolsas', bolsa.id]">Detalhes</a>
     </div>
   </div>

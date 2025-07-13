@@ -20,22 +20,22 @@ public class AuthController {
     private LoginCodeService loginCodeService;
 
     @PostMapping
-    public ResponseEntity<?> enviarCodigoLogin(@RequestBody Map<String, String> body) {
-        String email = body.get("email");
+    public ResponseEntity<?> enviarCodigoLogin(@RequestBody Map<String, Object> body) {
+        String email = (String) body.get("email");
         
         return loginCodeService.enviarCodigoEmail(email);
     }
 
     @PostMapping("/verificar-codigo")
-    public ResponseEntity<?> verificarCodigo(@RequestBody Map<String, String> body) {
-        String email = body.get("email");
-        String code = body.get("codigo");
+    public ResponseEntity<?> verificarCodigo(@RequestBody Map<String, Object> body) {
+        String email = (String) body.get("email");
+        String code = (String) body.get("codigo");
 
         return loginCodeService.validarCodigo(email, code);
     }
 
     @GetMapping("/usuario")
-    public ResponseEntity<?> getUsuarioLogado(@RequestBody Map<String, String> body) {
-        return ResponseEntity.ok(loginCodeService.getIdDoUsuarioLogado(body.get("token")));
+    public ResponseEntity<?> getUsuarioLogado(@RequestBody Map<String, Object> body) {
+        return ResponseEntity.ok(loginCodeService.getIdDoUsuarioLogado((String) body.get("token")));
     }
 }

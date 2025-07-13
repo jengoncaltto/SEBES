@@ -41,7 +41,7 @@ export const routes: Routes = [
 		component: AllPages.Bolsa
 	},
 	{
-		path: "meuPerfil",
+		path: "perfil",
   		canActivate: [AuthGuard],
 		data: { requireLogin: true },
 		component: AllPages.PaginaInicial

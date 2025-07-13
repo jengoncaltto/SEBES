@@ -1,10 +1,20 @@
-<main>
-    <h1 id="page-title">Login</h1>
-    <form id="form-login">
-        <input class="input" type="email" id="email" placeholder="Email">
-        <input class="input" type="password" id="password" placeholder="Senha">   
-        <span>Esqueceu a <a routerLink="">senha?</a></span>
-        <span>Não tem cadastro? <a routerLink="/cadastro">Cadastre-se.</a></span>
-        <button type="submit">Entrar</button>
-    </form>
-</main>
+<div class="box-login">
+  <h1 id="page-title">Login</h1>
+
+  <form (ngSubmit)="onSubmit()" *ngIf="!codigoEnviado">
+    <input class="input" type="email" [(ngModel)]="email" name="email" placeholder="Email" (ngModelChange)="erroEmail = ''" required>
+	<span class="erroEmail" *ngIf="erroEmail">{{ erroEmail }}</span>
+    <button type="submit" class="btn-default">Enviar código</button>
+	<span class="infoLogin"> Não tem cadastro? <a routerLink="/cadastro">Cadastre-se aqui.</a></span>
+  </form>
+
+  <form (ngSubmit)="onVerificarCodigo()" *ngIf="codigoEnviado">
+    <input class="input" type="text" [(ngModel)]="codigo" name="codigo" placeholder="Código de 6 dígitos" maxlength="6" required>
+    <div>	
+		<button type="button" (click)="codigoEnviado = false" class="btn-default">Alterar email</button>
+		<button type="submit" class="btn-default">Entrar</button>
+	</div>
+  </form>
+
+
+</div>
