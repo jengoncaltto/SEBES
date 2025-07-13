@@ -55,7 +55,7 @@ export const routes: Routes = [
 	{
 		path: "detalhes",
   		canActivate: [AuthGuard],
-		data: { requireLogin: true, roles: [UsuarioTipo.Discente] },
+		data: { requireLogin: true, roles: [UsuarioTipo.DISCENTE] },
 		component: AllPages.DetalhesInscricao
 	},
 	{

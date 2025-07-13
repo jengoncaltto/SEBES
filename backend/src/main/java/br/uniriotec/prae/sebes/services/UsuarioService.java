@@ -33,10 +33,6 @@ public class UsuarioService {
             return ResponseEntity.badRequest().body("Email é obrigatório.");
         }
 
-        if (dto.getEmailRecuperacao() == null || dto.getEmailRecuperacao().trim().isEmpty()) {
-            return ResponseEntity.badRequest().body("Email de recuperação é obrigatório.");
-        }
-
         // Verificar se nomeUsuario já existe
         if (usuarioRepository.existsByNomeUsuario(dto.getNomeUsuario())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Nome de usuário já existe.");

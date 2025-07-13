@@ -19,7 +19,7 @@ public class Usuario {
     @Column(nullable = false)
     private String email;
 
-    @Column(name = "email_recuperacao", nullable = false)
+    @Column(name = "email_recuperacao")
     private String emailRecuperacao;
     
     private String tipo;

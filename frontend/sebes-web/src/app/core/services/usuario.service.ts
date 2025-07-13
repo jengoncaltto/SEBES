@@ -19,6 +19,10 @@ export class UsuarioService {
     return this.http.get<UsuarioDto>(`${Endpoints.USUARIOS}/${id}`);
   }
 
+  isEmailCadastrado(email: string): Observable<boolean> {
+    return this.http.post<boolean>(`${Endpoints.USUARIOS}/is-email-cadastrado`, { email: email });
+  }
+
   create(usuario: UsuarioDto): Observable<UsuarioDto> {
     return this.http.post<UsuarioDto>(Endpoints.USUARIOS, usuario);
   }

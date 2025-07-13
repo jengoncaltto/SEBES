@@ -131,3 +131,10 @@ body{
     text-decoration: none;
     color: white;
 }
+
+/* forms */
+
+.erro{
+	font-size: var(--span-info-font-size);
+	color: var(--error-red-default);
+}

@@ -1,4 +1,4 @@
 export enum UsuarioTipo {
-  Servidor = 'SERVIDOR',
-  Discente = 'DISCENTE',
+  SERVIDOR = 'SERVIDOR',
+  DISCENTE = 'DISCENTE',
 }

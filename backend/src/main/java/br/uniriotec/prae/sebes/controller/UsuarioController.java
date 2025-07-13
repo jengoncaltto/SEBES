@@ -1,6 +1,7 @@
 package br.uniriotec.prae.sebes.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,12 @@ public class UsuarioController {
         }
     }
 
+    @PostMapping("/is-email-cadastrado")
+    public boolean isEmailCadastrado(@RequestBody  Map<String, Object> body){
+        String email = (String) body.get("email");
+    	return usuarioService.isEmailCadastrado(email);
+    }
+
     // Buscar usuário por ID
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable String id) {
@@ -48,12 +55,6 @@ public class UsuarioController {
     @GetMapping("/tipo/{tipo}")
     public List<UsuarioDTO> buscarPorTipo(@PathVariable String tipo){
     	return usuarioService.buscarPorTipo(tipo);
-    }
-
-    // Listar todos usuários
-    @GetMapping
-    public List<UsuarioDTO> listarTodos() {
-        return usuarioService.listarTodos();
     }
 
     // Atualizar parcialmente usuário

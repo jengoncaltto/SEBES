@@ -9,12 +9,6 @@
   align-items: center;
 }
 
-#page-title {
-  font-size: var(--page-title-font-size);
-  margin-bottom: 30px;
-  color: var(--text-primary, #333);
-}
-
 form {
   display: flex;
   flex-direction: column;
@@ -35,11 +29,6 @@ form {
 
 .input:focus {
   background-color: #d0d0d0;
-}
-
-.erroEmail{
-	font-size: var(--span-info-font-size);
-	color: var(--error-red-default);
 }
 
 .infoLogin {

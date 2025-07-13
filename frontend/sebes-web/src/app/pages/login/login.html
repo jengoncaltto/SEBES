@@ -1,11 +1,12 @@
 <div class="box-login">
-  <h1 id="page-title">Login</h1>
+  <h1 class="page-title">Login</h1>
 
   <form (ngSubmit)="onSubmit()" *ngIf="!codigoEnviado">
     <input class="input" type="email" [(ngModel)]="email" name="email" placeholder="Email" (ngModelChange)="erroEmail = ''" required>
-	<span class="erroEmail" *ngIf="erroEmail">{{ erroEmail }}</span>
+    <span class="erroEmail" *ngIf="erroEmail">{{ erroEmail }}</span>
+    
     <button type="submit" class="btn-default">Enviar código</button>
-	<span class="infoLogin"> Não tem cadastro? <a routerLink="/cadastro">Cadastre-se aqui.</a></span>
+    <span class="infoLogin"> Não tem cadastro? <a routerLink="/cadastro">Cadastre-se aqui.</a></span>
   </form>
 
   <form (ngSubmit)="onVerificarCodigo()" *ngIf="codigoEnviado">
