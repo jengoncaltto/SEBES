@@ -34,6 +34,19 @@ export class AuthService {
   getUserLoggedIn(): Observable<UsuarioDto> {
     return this.http.post<any>(Endpoints.AUTH, { token: this.getToken() });
   }
+  
+  getTipo(): string | null {
+   const token = this.getToken();
+    if (token == null) return null;
+
+    try {
+      const decoded: any = jwtDecode(token);
+      return decoded.tipo || null;
+    } catch (err) {
+      console.error('Erro ao decodificar token para obter tipo:', err);
+      return null;
+    }
+  }
 
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
@@ -51,8 +64,6 @@ export class AuthService {
     const now = Math.floor(Date.now() / 1000);
     return exp > now;
   }
-
-
 
   logout() {
     localStorage.removeItem(this.tokenKey);
