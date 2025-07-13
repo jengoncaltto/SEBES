@@ -63,7 +63,7 @@ public class UsuarioService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
         return entityToDTO(usuario);
     }
-
+    
     public Usuario buscarEntityPorId(String id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
@@ -75,6 +75,14 @@ public class UsuarioService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
 		return usuario;
 	}
+    
+    public List<UsuarioDTO> buscarPorTipo(String tipo) {
+        List<Usuario> usuarios = usuarioRepository.findByTipo(tipo);
+        
+        return usuarios.stream()
+        		.map(u -> entityToDTO(u))
+        		.collect(Collectors.toList());
+    }
     
 	public boolean isEmailCadastrado(String email) {
         return usuarioRepository.existsByEmail(email);

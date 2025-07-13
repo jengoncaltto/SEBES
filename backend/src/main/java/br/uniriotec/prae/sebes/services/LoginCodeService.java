@@ -12,6 +12,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import br.uniriotec.prae.sebes.dto.UsuarioDTO;
 import br.uniriotec.prae.sebes.entity.LoginCode;
 import br.uniriotec.prae.sebes.repository.LoginCodeRepository;
 import br.uniriotec.prae.sebes.security.JwtTokenProvider;
@@ -31,7 +32,6 @@ public class LoginCodeService {
     
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
-
 
     public ResponseEntity<?> enviarCodigoEmail(String email) {
         if (!emailValido(email)) {
@@ -73,6 +73,7 @@ public class LoginCodeService {
         message.setText("Seu código de login é: " + code + "\nEle expira em 5 minutos.");
         mailSender.send(message);
     }
+
     public ResponseEntity<?> validarCodigo(String email, String code) {
     	if(!usuarioService.isEmailCadastrado(email)) {
             return ResponseEntity.badRequest().body("Email não cadastrado.");
@@ -104,6 +105,10 @@ public class LoginCodeService {
         String token = jwtTokenProvider.gerarToken(usuarioService.buscaPorEmail(email));
 
         return ResponseEntity.ok(Map.of("token", token));
+    }
+
+    public UsuarioDTO getIdDoUsuarioLogado(String token){
+        return usuarioService.buscarPorId(jwtTokenProvider.getIdUsuario(token));
     }
 
 }

@@ -49,11 +49,11 @@ public class JwtTokenProvider {
         }
     }
 
-    public String getIdDoUsuario(String token) {
+    public String getIdUsuario(String token) {
         return Jwts.parserBuilder().setSigningKey(key).build()
                 .parseClaimsJws(token)
                 .getBody()
-                .getSubject(); // o ID foi salvo no .setSubject()
+                .getSubject();
     }
     
 }

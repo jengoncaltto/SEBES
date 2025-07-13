@@ -44,6 +44,11 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+    
+    @GetMapping("/tipo/{tipo}")
+    public List<UsuarioDTO> buscarPorTipo(@PathVariable String tipo){
+    	return usuarioService.buscarPorTipo(tipo);
+    }
 
     // Listar todos usuários
     @GetMapping

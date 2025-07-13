@@ -1,5 +1,5 @@
 export enum Endpoints {
-	URL_API = 'https://sebes-weck.onrender.com/api',
+	URL_API = 'https://localhost:8080/api',
 
     BOLSAS = URL_API + '/bolsas',
     PROCESSOS = URL_API + '/processos',
@@ -8,5 +8,6 @@ export enum Endpoints {
     DISCENTES = URL_API + '/discentes',
     SERVIDORES = URL_API + '/servidores',
     ETAPAS = URL_API + '/etapas',
-    RESPOSTAS = URL_API + '/respostas'
+    RESPOSTAS = URL_API + '/respostas',
+    AUTH = URL_API + '/auth'
 }

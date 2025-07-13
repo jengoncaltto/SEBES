@@ -21,6 +21,8 @@ public class Usuario {
 
     @Column(name = "email_recuperacao", nullable = false)
     private String emailRecuperacao;
+    
+    private String tipo;
 
     public Usuario() {
     }
@@ -56,4 +58,13 @@ public class Usuario {
     public void setEmailRecuperacao(String emailRecuperacao) {
         this.emailRecuperacao = emailRecuperacao;
     }
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+    
 }
