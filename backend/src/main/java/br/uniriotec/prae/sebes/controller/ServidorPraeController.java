@@ -25,7 +25,7 @@ public class ServidorPraeController {
     private ServidorPraeService servidorPraeService;
     
     @PostMapping
-    public ResponseEntity<?> criar(@RequestBody ServidorPraeDTO dto) {
+    public Object criar(@RequestBody ServidorPraeDTO dto) {
         return servidorPraeService.criar(dto);
     }
 

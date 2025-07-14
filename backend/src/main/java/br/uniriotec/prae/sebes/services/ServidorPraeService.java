@@ -24,7 +24,7 @@ public class ServidorPraeService {
     @Autowired
     private UsuarioService usuarioService;
 
-    public ResponseEntity<?> criar(ServidorPraeDTO dto) {
+    public Object criar(ServidorPraeDTO dto) {
         if (dto == null) {
             return ResponseEntity.badRequest().body("Dados do servidor são obrigatórios.");
         }
@@ -42,6 +42,9 @@ public class ServidorPraeService {
         }
         if (dto.getTelefone() == null || dto.getTelefone().isBlank()) {
             return ResponseEntity.badRequest().body("Telefone é obrigatório.");
+        }
+        if (dto.getTelefone().length()>15) {
+            return ResponseEntity.badRequest().body("Telefone inválido");
         }
 
         if (!usuarioService.isUsuarioCadastrado(dto.getIdUsuario())) {

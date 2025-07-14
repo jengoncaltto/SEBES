@@ -1,7 +1,8 @@
-import { ServidorPraeService } from './../../core/services/servidor.service';
+import { ServidorRequest } from './../../core/models/dtos/servidor-prae.dto';
+import { ServidorPraeService } from '@services/servidor.service';
 import { Component } from '@angular/core';
-import { UsuarioDto } from '@models/dtos/usuario.dto';
-import { DiscenteDto } from '@models/dtos/discente.dto';
+import { UsuarioDto, UsuarioRequest } from '@models/dtos/usuario.dto';
+import { DiscenteDto, DiscenteRequest } from '@models/dtos/discente.dto';
 import { ServidorPraeDto } from '@models/dtos/servidor-prae.dto';
 import { UsuarioTipo } from '@models/enums/usuario.roles';
 import { UsuarioService } from '@services/usuario.service';
@@ -17,14 +18,14 @@ import { DiscenteService } from '@services/discente.service';
   imports: [CommonModule, FormsModule]
 })
 export class Cadastro {
-  usuario: UsuarioDto = {
-    id: '', nomeUsuario: '', email: '', emailRecuperacao: '', tipo: '' };
+  usuario: UsuarioDto = { id: null, nomeUsuario: '', email: '', emailRecuperacao: null, tipo: '' };
 
   discente: DiscenteDto = {
-    id: '', nome: '', nomeSocial: '', telefone: '', matricula: '', idUsuario: '' };
+    id: null, nome: '', nomeSocial: '', telefone: '', matricula: '', idUsuario: null };
 
   servidor: ServidorPraeDto = {
-    id: '', nome: '', nomeSocial: '', telefone: '', setor: '', cargo: '', idUsuario: '' };
+    id: null, nome: '', nomeSocial: '', telefone: '', setor: '', cargo: '', idUsuario: null };
+
 
   erroEmail = '';
   erroGeral = '';
@@ -35,33 +36,38 @@ export class Cadastro {
               private discenteService: DiscenteService,
               private servidorService: ServidorPraeService) {}
 
-  createConta(){
-    () => {
-      this.usuarioService.create(this.usuario).subscribe({
-        next: (usuarioCriado) => {this.usuario = usuarioCriado},
-        error: (err) => {console.error('Erro ao criar usuário:', err);}
-      });
-    };
-  }
-
   onSubmit(): void {
     if (!this.validacoes()) {
       return;
     }
 
-    this.createConta();
+    this.usuarioService.create(new UsuarioRequest(this.usuario)).subscribe({
+      next: (usuarioCriado) => {
+        this.usuario.id = usuarioCriado.id;
 
-    if (this.usuario.tipo === UsuarioTipo.DISCENTE) {
-      this.discente.idUsuario = this.usuario.id;
-      console.log(this.discenteService.create(this.discente));
-    }
-    if (this.usuario.tipo === UsuarioTipo.SERVIDOR){
-      this.servidor.idUsuario = this.usuario.id;
-      this.servidorService.create(this.servidor);
-    }
+        if (this.usuario.tipo === UsuarioTipo.DISCENTE) {
+          this.discente.idUsuario = this.usuario.id!;
+          this.discenteService.create(new DiscenteRequest(this.discente)).subscribe({
+            next: () => this.router.navigate(['/login']);,
+            error: (err) => console.error('Erro ao criar discente:', err)
+          });
+        }
+
+        if (this.usuario.tipo === UsuarioTipo.SERVIDOR) {
+          this.servidor.idUsuario = this.usuario.id!;
+          this.servidorService.create(new ServidorRequest(this.servidor)).subscribe({
+            next: () => this.router.navigate(['/login']);,
+            error: (err) => console.error('Erro ao criar servidor:', err)
+          });
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao criar usuário:', err);
+      }
+    });
   }
 
-    validacoes(){
+  validacoes(){
     // usuário básico
     if (!this.usuario.nomeUsuario.trim()) {
       this.erroGeral = 'Informe o nome de usuário.';
