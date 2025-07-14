@@ -25,7 +25,7 @@ public class DiscenteService {
     @Autowired
     private UsuarioService usuarioService;
 
-    public ResponseEntity<?> criar(DiscenteDTO dto) {
+    public Object criar(DiscenteDTO dto) {
         if (dto == null) {
             return ResponseEntity.badRequest().body("Dados do discente são obrigatórios.");
         }
@@ -41,6 +41,9 @@ public class DiscenteService {
         if (dto.getTelefone() == null || dto.getTelefone().isBlank()) {
             return ResponseEntity.badRequest().body("Telefone é obrigatório.");
         }
+        if (dto.getTelefone().length()>15) {
+            return ResponseEntity.badRequest().body("Telefone inválido");
+        }
 
         if (!usuarioService.isUsuarioCadastrado(dto.getIdUsuario())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário não encontrado.");
@@ -48,7 +51,7 @@ public class DiscenteService {
 
         Discente discente = new Discente();
         discente.setId(UUID.randomUUID().toString());
-        discente.setUsuario(dto.getIdUsuario());
+        discente.setIdUsuario(dto.getIdUsuario());
         discente.setMatricula(dto.getMatricula());
         discente.setNome(dto.getNome());
         discente.setNomeSocial(dto.getNomeSocial());

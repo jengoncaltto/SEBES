@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DiscenteDto } from '@models/dtos/discente.dto';
+import { DiscenteDto, DiscenteRequest } from '@models/dtos/discente.dto';
 import { Endpoints } from '@models/enums/api.endpoints';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class DiscenteService {
     return this.http.get<DiscenteDto>(`${Endpoints.DISCENTES}/${id}`);
   }
 
-  create(discente: DiscenteDto): Observable<DiscenteDto> {
+  create(discente: DiscenteRequest): Observable<DiscenteDto> {
     return this.http.post<DiscenteDto>(Endpoints.DISCENTES, discente);
   }
 

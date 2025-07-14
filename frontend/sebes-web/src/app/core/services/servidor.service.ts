@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ServidorPraeDto } from '@models/dtos/servidor-prae.dto';
+import { ServidorPraeDto, ServidorRequest } from '@models/dtos/servidor-prae.dto';
 import { Endpoints } from '@models/enums/api.endpoints';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class ServidorPraeService {
     return this.http.get<ServidorPraeDto>(`${Endpoints.SERVIDORES}/${id}`);
   }
 
-  create(servidor: ServidorPraeDto): Observable<ServidorPraeDto> {
+  create(servidor: ServidorRequest): Observable<ServidorPraeDto> {
     return this.http.post<ServidorPraeDto>(Endpoints.SERVIDORES, servidor);
   }
 

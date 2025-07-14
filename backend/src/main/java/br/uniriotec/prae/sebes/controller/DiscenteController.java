@@ -26,7 +26,7 @@ public class DiscenteController {
     private DiscenteService discenteService;
 
     @PostMapping
-    public ResponseEntity<?> criar(@RequestBody DiscenteDTO dto) {
+    public Object criar(@RequestBody DiscenteDTO dto) {
         return discenteService.criar(dto);
     }
 

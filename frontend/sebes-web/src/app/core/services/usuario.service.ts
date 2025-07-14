@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UsuarioDto } from '@models/dtos/usuario.dto';
+import { UsuarioDto, UsuarioRequest } from '@models/dtos/usuario.dto';
 import { Endpoints } from '@models/enums/api.endpoints';
 
 @Injectable({
@@ -19,7 +19,11 @@ export class UsuarioService {
     return this.http.get<UsuarioDto>(`${Endpoints.USUARIOS}/${id}`);
   }
 
-  create(usuario: UsuarioDto): Observable<UsuarioDto> {
+  isEmailCadastrado(email: string): Observable<boolean> {
+    return this.http.post<boolean>(`${Endpoints.USUARIOS}/is-email-cadastrado`, { email: email });
+  }
+
+  create(usuario: UsuarioRequest): Observable<UsuarioDto> {
     return this.http.post<UsuarioDto>(Endpoints.USUARIOS, usuario);
   }
 

@@ -72,7 +72,7 @@ public class Discente {
         return idUsuario;
     }
 
-    public void setUsuario(String idUsuario) {
+    public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
 }
