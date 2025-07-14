@@ -4,16 +4,7 @@ import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporte
 //Ir até pasta de teste : cd backend/src/TESTES-K6
 //Comando resultado em JSON : k6 run exemplos-script.test.js --out json=resultados-json/resultado.json   
 //Comando resultado em Web-Dashboard : k6.exe run --out web-dashboard=report.html exemplos-script.test.js
-/*
-avaliar a escalabilidade e o comportamento do sistema sob
-diferentes volumes de carga utilizando a ferramenta de testes de performance k6.
-O objetivo principal é medir e analisar métricas como latência (tempo de
-resposta médio), vazão (quantidade média de requisições por intervalo de
-tempo, como 1s, 5s, 10s, 30s, e 1min), concorrência (limite de requisições
-simultâneas), além de gerar gráficos e relatórios para interpretação dos
-resultados. Dessa forma, o grupo deve escolher 2 funcionalidades ou serviço
-internos, fazer medições de Testes de Carga desses artefatos escolhidos.
-*/
+
 //Configurações de número de virtual users(VUS) e duração
 export let options = {
     stages: [
@@ -27,11 +18,15 @@ export let options = {
 
 //Cada VUS executará a função simultaneamente
 export default function (){
-    //testeGETBolsas();
-    testePOSTBolsas();
+    //Seleção de qual requisição testar
+    testeGETBolsas();
+    //testePOSTBolsas();
+
     //Pausa de 1s até a próxima requisição
     sleep(1);
 }
+
+//Configurações  do Dashboard
 export function handleSummary(data) {
   console.log('Preparing the end-of-test summary...');
   return {
@@ -71,7 +66,7 @@ export function testePOSTBolsas(){
   check(res, {
     //201 indica que o POST foi bem sucedido
     'status é 201': (r) => r.status === 201,
-    'latência < 500ms': (r) => r.timings.duration < 1000,
+    'latência < 500ms': (r) => r.timings.duration < 500,
   });
 
 }
