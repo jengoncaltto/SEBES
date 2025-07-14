@@ -3,7 +3,8 @@ CREATE TABLE usuario (
     id VARCHAR(36) NOT NULL PRIMARY KEY,
     nome_usuario VARCHAR(15) not null,
     email VARCHAR(255) NOT NULL,
-    email_recuperacao VARCHAR(255) NOT NULL
+    email_recuperacao VARCHAR(255),
+    tipo VARCHAR(255) NOT NULL
 );
 
 -- Tabela: discente
@@ -73,6 +74,13 @@ CREATE TABLE publicacao (
     data_publicacao TIMESTAMP NOT NULL,
     data_atualizacao TIMESTAMP,
     conteudo TEXT,
-    id_servidor VARCHAR(36) NOT NULL REFERENCES servidor_prae(id),
-    id_bolsa INT NOT NULL REFERENCES bolsa(id)
+    id_servidor VARCHAR(36) NOT NULL REFERENCES servidor_prae(id)
+);
+
+CREATE TABLE login_codes (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    code VARCHAR(6) NOT NULL,
+    expiration TIMESTAMP NOT NULL,
+    used BOOLEAN DEFAULT FALSE
 );

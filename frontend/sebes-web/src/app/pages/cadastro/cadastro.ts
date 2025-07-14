@@ -1,14 +1,12 @@
-import { ServidorRequest } from './../../core/models/dtos/servidor-prae.dto';
-import { ServidorPraeService } from '@services/servidor.service';
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { UsuarioDto, UsuarioRequest } from '@models/dtos/usuario.dto';
-import { DiscenteDto, DiscenteRequest } from '@models/dtos/discente.dto';
-import { ServidorPraeDto } from '@models/dtos/servidor-prae.dto';
-import { UsuarioTipo } from '@models/enums/usuario.roles';
-import { UsuarioService } from '@services/usuario.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { DiscenteService } from '@services/discente.service';
+import { UsuarioDto, UsuarioRequest } from '@models/dtos/usuario.dto';
+import { DiscenteDto, DiscenteRequest } from '@models/dtos/discente.dto';
+import { ServidorPraeDto, ServidorRequest } from '@models/dtos/servidor-prae.dto';
+import { UsuarioTipo } from '@models/enums/usuario.roles';
+import { DiscenteService, ServidorPraeService, UsuarioService } from '@services/index';
 
 @Component({
   selector: 'cadastro',
@@ -32,7 +30,8 @@ export class Cadastro {
 
   usuarioTipo = UsuarioTipo;
 
-  constructor(private usuarioService: UsuarioService, 
+  constructor(private router: Router,
+              private usuarioService: UsuarioService, 
               private discenteService: DiscenteService,
               private servidorService: ServidorPraeService) {}
 
@@ -48,7 +47,7 @@ export class Cadastro {
         if (this.usuario.tipo === UsuarioTipo.DISCENTE) {
           this.discente.idUsuario = this.usuario.id!;
           this.discenteService.create(new DiscenteRequest(this.discente)).subscribe({
-            next: () => this.router.navigate(['/login']);,
+            next: () => this.router.navigate(['/login']),
             error: (err) => console.error('Erro ao criar discente:', err)
           });
         }
@@ -56,7 +55,7 @@ export class Cadastro {
         if (this.usuario.tipo === UsuarioTipo.SERVIDOR) {
           this.servidor.idUsuario = this.usuario.id!;
           this.servidorService.create(new ServidorRequest(this.servidor)).subscribe({
-            next: () => this.router.navigate(['/login']);,
+            next: () => this.router.navigate(['/login']),
             error: (err) => console.error('Erro ao criar servidor:', err)
           });
         }
