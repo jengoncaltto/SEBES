@@ -1,13 +1,13 @@
 <main>
     <section id="div-info-user">
         <img src="unirio.png" alt="">
-        <div id="info-user">
+        <div id="info-user" *ngIf="true">
             <span id="user-nome" class="page-title">Nome Usuário</span>
             <span id="user-matricula">20211220013</span>
             <span id="user-permissao">Permissão: Admin</span>
         </div>
     </section>
-
+<!--
     <section id="processos-seletivos">
         <h2 class="page-title">Histórico de Processos Seletivos</h2>
         <div *ngIf="processos$ | async as processos">
@@ -28,10 +28,14 @@
             <button class="btn-default" routerLink="/processosSeletivos">Acessar Informações</button>
         </div>
         </div>
-        <!--
+        
         *ngIf="processos.length > 0; else AlunosemProcessos"
         *ngFor="let processo of processos"
+        </section>
         -->
         
-    </section>
+    
 </main>
+<ng-template #usuarioLogin>
+
+</ng-template>

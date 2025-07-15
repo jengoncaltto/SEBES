@@ -7,6 +7,7 @@ import { EtapaService } from './etapa.service';
 import { DiscenteService } from './discente.service';
 import { BolsaService } from './bolsa.service';
 import { AuthService } from './auth.service';
+import { MeuPerfilComponent } from '@pages/index';
 
 export {
   AuthService,
@@ -17,7 +18,8 @@ export {
   PublicacaoService,
   RespostaFormularioService,
   ServidorPraeService,
-  UsuarioService
+  UsuarioService,
+  MeuPerfilComponent
 };
 
 export const AllServices = {
@@ -29,5 +31,6 @@ export const AllServices = {
   PublicacaoService,
   RespostaFormularioService,
   ServidorPraeService,
-  UsuarioService
+  UsuarioService,
+  MeuPerfilComponent
 };

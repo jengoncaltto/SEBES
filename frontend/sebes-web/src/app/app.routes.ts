@@ -44,7 +44,7 @@ export const routes: Routes = [
 		path: "perfil",
   		canActivate: [AuthGuard],
 		data: { requireLogin: true },
-		component: AllPages.PaginaInicial
+		component: AllPages.MeuPerfilComponent
 	},
 	{
 		path: "config",

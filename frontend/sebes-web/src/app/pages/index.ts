@@ -8,6 +8,7 @@ import { InscricoesProcessoSeletivo } from './processoSeletivo/inscricoes-proces
 import { Login } from './login/login';
 import { PaginaInicial } from './pagina-inicial/pagina-inicial';
 import { ProcessosSeletivos } from './processoSeletivo/processos-seletivos/processos-seletivos';
+import { MeuPerfilComponent } from './meu-perfil/meu-perfil.component';
 
 export {
   AcessoNegado,
@@ -19,7 +20,8 @@ export {
   InscricoesProcessoSeletivo,
   Login,
   PaginaInicial,
-  ProcessosSeletivos
+  ProcessosSeletivos,
+  MeuPerfilComponent
 };
 
 export const AllPages = {
@@ -32,5 +34,6 @@ export const AllPages = {
   InscricoesProcessoSeletivo,
   Login,
   PaginaInicial,
-  ProcessosSeletivos
+  ProcessosSeletivos,
+  MeuPerfilComponent
 };
