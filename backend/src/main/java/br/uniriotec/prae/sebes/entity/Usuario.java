@@ -19,8 +19,10 @@ public class Usuario {
     @Column(nullable = false)
     private String email;
 
-    @Column(name = "email_recuperacao", nullable = false)
+    @Column(name = "email_recuperacao")
     private String emailRecuperacao;
+    
+    private String tipo;
 
     public Usuario() {
     }
@@ -56,4 +58,13 @@ public class Usuario {
     public void setEmailRecuperacao(String emailRecuperacao) {
         this.emailRecuperacao = emailRecuperacao;
     }
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+    
 }

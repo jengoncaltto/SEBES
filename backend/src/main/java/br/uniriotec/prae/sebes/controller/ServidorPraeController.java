@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.uniriotec.prae.sebes.dto.ServidorPraeDTO;
-import br.uniriotec.prae.sebes.dto.UsuarioDTO;
 import br.uniriotec.prae.sebes.services.ServidorPraeService;
 
 @RestController
@@ -24,9 +23,9 @@ public class ServidorPraeController {
 
     @Autowired
     private ServidorPraeService servidorPraeService;
-
+    
     @PostMapping
-    public ResponseEntity<?> criar(@RequestBody ServidorPraeDTO dto) {
+    public Object criar(@RequestBody ServidorPraeDTO dto) {
         return servidorPraeService.criar(dto);
     }
 
@@ -40,17 +39,6 @@ public class ServidorPraeController {
         try {
             ServidorPraeDTO servidor = servidorPraeService.buscarPorId(id);
             return ResponseEntity.ok(servidor);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping("/{id}/usuario")
-    public ResponseEntity<UsuarioDTO> obterUsuario(@PathVariable String id) {
-        try {
-            ServidorPraeDTO servidor = servidorPraeService.buscarPorId(id);
-            UsuarioDTO usuarioDTO = servidorPraeService.obterUsuario(servidor.getIdUsuario());
-            return ResponseEntity.ok(usuarioDTO);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }

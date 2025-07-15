@@ -3,9 +3,6 @@ package br.uniriotec.prae.sebes.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,6 +10,7 @@ import jakarta.persistence.Table;
 public class Discente {
 
     @Id
+    @Column(length = 36)
     private String id;
 
     @Column(nullable = false)
@@ -27,15 +25,8 @@ public class Discente {
     @Column(nullable = false, length = 15)
     private String telefone;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id_usuario", nullable = false)
-    private Usuario usuario;
-
-    public Discente() {
-    }
-
-    // Getters e Setters
+    @Column(name = "id_usuario", length = 36, nullable = false)
+    private String idUsuario;
 
     public String getId() {
         return id;
@@ -77,11 +68,11 @@ public class Discente {
         this.telefone = telefone;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public String getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }

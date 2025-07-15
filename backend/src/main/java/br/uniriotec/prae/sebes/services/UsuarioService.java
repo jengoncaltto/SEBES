@@ -33,10 +33,6 @@ public class UsuarioService {
             return ResponseEntity.badRequest().body("Email é obrigatório.");
         }
 
-        if (dto.getEmailRecuperacao() == null || dto.getEmailRecuperacao().trim().isEmpty()) {
-            return ResponseEntity.badRequest().body("Email de recuperação é obrigatório.");
-        }
-
         // Verificar se nomeUsuario já existe
         if (usuarioRepository.existsByNomeUsuario(dto.getNomeUsuario())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Nome de usuário já existe.");
@@ -63,12 +59,34 @@ public class UsuarioService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
         return entityToDTO(usuario);
     }
-
+    
     public Usuario buscarEntityPorId(String id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
         return usuario;
     }
+    
+	public Usuario buscaPorEmail(String email) {
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+		return usuario;
+	}
+    
+    public List<UsuarioDTO> buscarPorTipo(String tipo) {
+        List<Usuario> usuarios = usuarioRepository.findByTipo(tipo);
+        
+        return usuarios.stream()
+        		.map(u -> entityToDTO(u))
+        		.collect(Collectors.toList());
+    }
+    
+	public boolean isEmailCadastrado(String email) {
+        return usuarioRepository.existsByEmail(email);
+	}
+	
+	public boolean isUsuarioCadastrado(String idUsuario) {
+		return usuarioRepository.existsById(idUsuario);
+	}
 
     // Listar todos usuários
     public List<UsuarioDTO> listarTodos() {

@@ -1,59 +1,47 @@
-main {
-    background-color: var(--background-default);
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    align-content: center;
-    height: 92vh;
-    width: 90vw;
+.box-login {
+  text-align: center;
+  align-content: center;
+  height: 70vh;
+  width: 75vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-#page-title {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
-
 
 .input {
-    width: 250px;
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    border: none;
-    border-radius: 20px;
-    background-color: #e0e0e0;
-    font-size: 0.9rem;
-    outline: none;
+  width: 250px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 20px;
+  background-color: #e0e0e0;
+  font-size: 0.95rem;
+  outline: none;
+  transition: background-color 0.3s ease;
 }
 
 .input:focus {
-    background-color: #d0d0d0;
+  background-color: #d0d0d0;
 }
 
-/* Container dos botões de seleção */
-#form-login div {
-    margin: 15px 0;
-}
-#form-login{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.infoLogin {
+  margin-top: 20px;
+  font-size: 0.85rem;
+  color: #555;
 }
 
-/* Botão de submit */
-#form-login button[type="submit"] {
-    margin-top: 10px;
-    padding: 10px 25px;
-    border: none;
-    border-radius: 20px;
-    background-color:var(--btn-bg-default);
-    color: #fff;
-    font-size: 0.9rem;
-    cursor: pointer;
+.infoLogin a {
+  color: var(--link-color, #007bff);
+  text-decoration: none;
 }
 
-#form-login button[type="submit"]:hover {
-    background-color:var(--btn-bg-hover-default);
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.425);
+.infoLogin a:hover {
+  text-decoration: underline;
 }
-

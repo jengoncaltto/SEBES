@@ -1,5 +1,6 @@
 package br.uniriotec.prae.sebes.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,6 +13,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, String> {
 
     // Buscar usuário pelo nome de usuário exato
     Optional<Usuario> findByNomeUsuario(String nomeUsuario);
+    
+    // Buscar usuário pelo tipo
+    List<Usuario> findByTipo(String tipo);
 
     // Verificar existência por email
     boolean existsByEmail(String email);

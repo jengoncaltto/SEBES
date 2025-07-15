@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.uniriotec.prae.sebes.services.BolsaService;
 import br.uniriotec.prae.sebes.dto.BolsaDTO;
+import br.uniriotec.prae.sebes.services.BolsaService;
 
 @RestController
 @RequestMapping("/api/bolsas")
@@ -25,7 +25,7 @@ public class BolsaController {
     private BolsaService bolsaService;
 
     /* POST */
-    @PostMapping("/cadastrar")
+    @PostMapping
     public ResponseEntity<?> cadastrarBolsa(@RequestBody BolsaDTO dto) {
         try {
             BolsaDTO salva = bolsaService.cadastrar(dto);

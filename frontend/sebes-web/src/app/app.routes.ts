@@ -1,80 +1,69 @@
+import { UsuarioTipo } from '@models/enums/usuario.roles';
+import { AllPages } from '@pages/index';
 import { Routes } from '@angular/router';
-
-// verificação de acesso
-
-// páginas
-
-import { PaginaInicial } from './pages/pagina-inicial/pagina-inicial';
-import { Login } from './pages/login/login';
-import { Cadastro } from './pages/cadastro/cadastro';
-import { ProcessosSeletivos } from './pages/processoSeletivo/processos-seletivos/processos-seletivos';
-import { Bolsas } from './pages/bolsas/bolsas';
-import { DetalhesInscricao } from '@pages/processoSeletivo/detalhes-inscricao/detalhes-inscricao';
-import { InscricoesProcessoSeletivo } from '@pages/processoSeletivo/inscricoes-processo-seletivo/inscricoes-processo-seletivo';
-import { AnexosProcessoSeletivo } from '@pages/processoSeletivo/anexos-processo-seletivo/anexos-processo-seletivo';
-
-import { Bolsa } from '@pages/bolsa/bolsa';
-import { MeuPerfilComponent } from '@pages/meu-perfil/meu-perfil.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
+	{
+		path: "acesso-negado",
+		component: AllPages.AcessoNegado
+	},
     {
 		path: "",
-		component: PaginaInicial 
+		component: AllPages.PaginaInicial 
 	},
 	{
-		/* Página Inicial */
 		path: "inicio",
-		component: PaginaInicial 
+		component: AllPages.PaginaInicial 
 	},
 	{
-		/* Página do Login */
 		path: "login",
-		component: Login
+		component: AllPages.Login
 	},
 	{
-		/* Página do Cadastro */
 		path: "cadastro",
-		component: Cadastro
+		component: AllPages.Cadastro
 	},
 	{
-		/* Publicações */
-		path: "processosSeletivos",
-		component: ProcessosSeletivos
+		path: "processos-seletivos",
+  		canActivate: [AuthGuard],
+		data: { requireLogin: true },
+		component: AllPages.ProcessosSeletivos
 	},
 	{
-		/* Mostra todas as bolsas oferecidas */
 		path: "bolsas",
-		component: Bolsas
+  		canActivate: [AuthGuard],
+		data: { requireLogin: true },
+		component: AllPages.Bolsas
 	},
 	{
-		/* Detalhes de um Processo seletivo para uma bolsa */
 		path: "bolsas/:id",
-		component: Bolsa
-	},
-		{
-		/* Perfil do Usuário */
-		path: "meuPerfil",
-		component: MeuPerfilComponent 
-		/* Mudar quando for criada a página */
+		component: AllPages.Bolsa
 	},
 	{
-		/* Configurações */
-		path: "config",
-		component: PaginaInicial 
-		/* Mudar quando for criada a página */
+		path: "perfil",
+  		canActivate: [AuthGuard],
+		data: { requireLogin: true },
+		component: AllPages.PaginaInicial
 	},
-	/* Para facilitar testes */
+	{
+		path: "config",
+  		canActivate: [AuthGuard],
+		data: { requireLogin: true },
+		component: AllPages.PaginaInicial
+	},
 	{
 		path: "detalhes",
-		component: DetalhesInscricao
+  		canActivate: [AuthGuard],
+		data: { requireLogin: true, roles: [UsuarioTipo.DISCENTE] },
+		component: AllPages.DetalhesInscricao
 	},
 	{
 		path: "inscricoesProcesso",
-		component: InscricoesProcessoSeletivo
+		component: AllPages.InscricoesProcessoSeletivo,
 	},
 	{
 		path: "anexosProcesso",
-		component: AnexosProcessoSeletivo
+		component: AllPages.AnexosProcessoSeletivo
 	},
-
 ];

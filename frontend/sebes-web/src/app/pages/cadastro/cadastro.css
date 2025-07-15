@@ -1,18 +1,12 @@
 /* Estilização do main */
-main {
+.box-cadastro {
     background-color: var(--background-default);
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    height: 92vh;
-    width: 90vw;
+    height: 60vh;
+    width: 75vw;
     align-content: space-around;
-}
-
-/* Título */
-#page-title {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
 }
 
 /* Estilo dos inputs */
@@ -43,6 +37,13 @@ form{
     align-items: center;
 }
 
+.form-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Botões Aluno e Funcionário */
 .cadastro-aluno, .cadastro-funcionario {
     padding: 10px 20px;
@@ -62,19 +63,6 @@ form{
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.425);
 }
 
-/* Botão de submit */
-#form-cadastro button[type="submit"]{
-    margin-top: 10px;
-    padding: 10px 25px;
-    border: none;
-    border-radius: 20px;
-    background-color: var(--btn-bg-default);
-    color: #fff;
-    font-size: 0.9rem;
-    cursor: pointer;
-}
-
-#form-cadastro button[type="submit"]:hover{
-    background-color: var(--btn-bg-hover-default);
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.425);
+.erroGeral{
+    margin: 5px 0;
 }
