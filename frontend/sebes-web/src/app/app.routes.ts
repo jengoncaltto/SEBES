@@ -18,10 +18,14 @@ export const routes: Routes = [
 	},
 	{
 		path: "login",
+  		canActivate: [AuthGuard],
+		data: { loggedOut: true },
 		component: AllPages.Login
 	},
 	{
 		path: "cadastro",
+  		canActivate: [AuthGuard],
+		data: { loggedOut: true },
 		component: AllPages.Cadastro
 	},
 	{
