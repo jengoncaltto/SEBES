@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '@services/auth.service';
 
@@ -16,13 +17,12 @@ export class Sidebar{
 
   constructor(private authService : AuthService) {
     //Ta errado isso ainda
-    if(this.authService.isLoggedIn()){
-      if(this.authService.getTipo()?.toLowerCase() == "discente"){
+      if(this.authService.getTipo()?.includes('discente')){
       this.textoOpcaoInscricoes = "Minhas inscrições";
-    } else if(this.authService.getTipo()?.toLowerCase() == "servidor"){
+    } else{
       this.textoOpcaoInscricoes = "Inscrições Recebidas";
     }
     //Colocar um else caso tipo seja null??
-    }
+    
   }
 }
