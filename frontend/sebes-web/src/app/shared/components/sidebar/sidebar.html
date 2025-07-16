@@ -1,4 +1,4 @@
-<aside class="menu" [hidden]="!isLogado">
+<aside class="menu" *ngIf="isLoggedIn">
     <nav>
         <h3 id="titulo-menu" >Menu</h3>
         <a routerLink="">{{ textoOpcaoInscricoes }}</a>
