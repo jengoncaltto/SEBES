@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@services/auth.service';
+import { UsuarioService } from '@services/index';
 
 @Component({
   selector: 'login',
@@ -24,12 +25,12 @@ export class Login{
 		this.erroEmail = 'Digite um email válido.';
 		return;
 	}
-    if (!this.usuario.email.trim() || !this.validarEmail(this.usuario.email)) {
+    if (!this.email.trim() || !this.validarEmail(this.email)) {
         this.erroEmail = 'Informe um email válido.';
         return;
     }
     
-    this.usuarioService.isEmailCadastrado(this.usuario.email).subscribe({
+    this.usuarioService.isEmailCadastrado(this.email).subscribe({
       next: (existe) => {
         this.erroEmail = '';
         if (!existe) {
