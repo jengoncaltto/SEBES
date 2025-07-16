@@ -24,9 +24,33 @@ export class Login{
 		this.erroEmail = 'Digite um email válido.';
 		return;
 	}
+    if (!this.usuario.email.trim() || !this.validarEmail(this.usuario.email)) {
+        this.erroEmail = 'Informe um email válido.';
+        return;
+    }
+    
+    this.usuarioService.isEmailCadastrado(this.usuario.email).subscribe({
+      next: (existe) => {
+        this.erroEmail = '';
+        if (!existe) {
+          this.erroEmail = 'Email não cadastrado.';
+        }
+      },
+      error: (err) => { this.erroEmail = 'Erro ao validar email. Tente novamente.'}
+    });
     this.authService.solicitarAcesso(this.email);
     this.codigoEnviado = true;
   }
+  
+  private validarEmail(email: string): boolean {
+    // Verifica se o email tem formato básico válido
+    const formatoBasico = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formatoBasico.test(email)) return false;
+
+    // Verifica se termina com os domínios permitidos
+    return email.endsWith('@edu.unirio.br') || email.endsWith('@uniriotec.br');
+  }
+  
 
   onVerificarCodigo(): void {
   	if (this.codigo == null || this.codigo == '') return;
