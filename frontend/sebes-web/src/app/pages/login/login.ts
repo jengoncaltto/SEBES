@@ -18,7 +18,9 @@ export class Login{
   codigo: string = '';
   codigoEnviado = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService,
+              private usuarioService: UsuarioService,
+              private router: Router) {}
 
   onSubmit(): void {
     if (this.email == null || this.email == '') {
@@ -31,13 +33,13 @@ export class Login{
     }
     
     this.usuarioService.isEmailCadastrado(this.email).subscribe({
-      next: (existe) => {
+      next: (existe: any) => {
         this.erroEmail = '';
         if (!existe) {
           this.erroEmail = 'Email não cadastrado.';
         }
       },
-      error: (err) => { this.erroEmail = 'Erro ao validar email. Tente novamente.'}
+      error: (err: any) => { this.erroEmail = 'Erro ao validar email. Tente novamente.'}
     });
     this.authService.solicitarAcesso(this.email);
     this.codigoEnviado = true;

@@ -37,10 +37,6 @@ export const routes: Routes = [
 		component: AllPages.Bolsas
 	},
 	{
-		path: "bolsas/:id",
-		component: AllPages.Bolsa
-	},
-	{
 		path: "perfil",
   		canActivate: [AuthGuard],
 		data: { requireLogin: true },
