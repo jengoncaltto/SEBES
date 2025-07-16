@@ -25,7 +25,7 @@ public class DiscenteController {
     @Autowired
     private DiscenteService discenteService;
 
-    @PostMapping
+    @PostMapping("/cadastrar")
     public Object criar(@RequestBody DiscenteDTO dto) {
         return discenteService.criar(dto);
     }
