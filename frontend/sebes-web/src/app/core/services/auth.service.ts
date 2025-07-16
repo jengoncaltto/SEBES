@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   getUserLoggedIn(): Observable<UsuarioDto> {
-    return this.http.post<any>(Endpoints.AUTH, { token: this.getToken() });
+    return this.http.post<UsuarioDto>(Endpoints.AUTH, { token: this.getToken() });
   }
   
   getTipo(): string | null {

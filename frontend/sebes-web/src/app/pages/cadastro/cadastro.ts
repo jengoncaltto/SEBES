@@ -97,6 +97,12 @@ export class Cadastro {
         this.erroGeral = 'Informe o nome completo do discente.';
         return false;
       }
+      /*******************/
+      if(this.discente.matricula.trim().length != 11){
+        this.erroGeral = 'A matrícula deve ter 11 dígitos'
+        return false;
+      }
+      /*******************/
       if (!this.discente.matricula.trim()) {
         this.erroGeral = 'Informe a matrícula.';
         return false;
@@ -105,6 +111,12 @@ export class Cadastro {
         this.erroGeral = 'Informe o telefone.';
         return false;
       }
+      /*******************/
+      if(this.discente.telefone.trim().length > 15){
+        this.erroGeral = 'O telefone deve ter no máximo 15 dígitos'
+        return false;
+      }
+      /*******************/
       this.discente.idUsuario = '';
     } 
     
