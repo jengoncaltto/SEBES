@@ -9,7 +9,8 @@
             <div>
                 <a routerLink="/inicio" class="hover">Início</a>
                 <a routerLink="/processos-seletivos" class="hover">Publicações</a>
-                <a routerLink="/perfil" class="hover">Perfil</a>
+                <a routerLink="/bolsas" class="hover">Bolsas</a>
+                <a routerLink="/perfil" *ngIf="isLoggedIn" class="hover">Perfil</a>
             </div>
         </nav>
 </header>

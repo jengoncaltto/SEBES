@@ -16,8 +16,11 @@ import { BolsaService } from '@services/bolsa.service';
 export class Bolsas implements OnInit {
   bolsas: BolsaDto[] = [];
 
-  constructor(private bolsaService: BolsaService) {}
+  constructor(private authService: AuthService,
+  private bolsaService: BolsaService) {}
 
+  isLoggedIn = this.authService.isLoggedIn();
+  
   ngOnInit(): void {
     this.carregarBolsas();
   }

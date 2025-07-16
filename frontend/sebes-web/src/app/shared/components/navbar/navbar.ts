@@ -9,4 +9,10 @@ import { RouterLink } from '@angular/router';
 })
 export class Navbar {
 
+
+  constructor(private authService: AuthService,
+              private usuarioService: UsuarioService,
+              private router: Router) {}
+              
+  isLoggedIn = this.authService.isLoggedIn();
 }
