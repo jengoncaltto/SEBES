@@ -25,8 +25,8 @@ public class DiscenteController {
     @Autowired
     private DiscenteService discenteService;
 
-    @PostMapping
-    public ResponseEntity<?> criar(@RequestBody DiscenteDTO dto) {
+    @PostMapping("/cadastrar")
+    public Object criar(@RequestBody DiscenteDTO dto) {
         return discenteService.criar(dto);
     }
 
