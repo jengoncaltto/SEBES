@@ -6,7 +6,7 @@ import { UsuarioTipo } from '@models/enums/usuario.roles';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css'
   

@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-import { ProcessoSeletivoService } from '@services/processo.service';
 import { ProcessoSeletivoDto } from '@models/dtos/processo-seletivo.dto';
-import { catchError, EMPTY, forkJoin, Observable, of, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UsuarioService } from '@services/usuario.service';
 import { AuthService } from '@services/auth.service';
 import { UsuarioDto } from '@models/dtos/usuario.dto';
 
 @Component({
   selector: 'app-meu-perfil',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './meu-perfil.component.html',
   styleUrls: ['./meu-perfil.component.css']
 })
