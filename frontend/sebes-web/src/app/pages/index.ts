@@ -1,5 +1,4 @@
 import { AcessoNegado } from './authentication/acesso-negado/acesso-negado';
-import { AnexosProcessoSeletivo } from './processoSeletivo/anexos-processo-seletivo/anexos-processo-seletivo';
 import { Bolsas } from './bolsas/bolsas';
 import { Cadastro } from './cadastro/cadastro';
 import { DetalhesInscricao } from './processoSeletivo/detalhes-inscricao/detalhes-inscricao';
@@ -11,7 +10,6 @@ import { MeuPerfilComponent } from './meu-perfil/meu-perfil.component';
 
 export {
   AcessoNegado,
-  AnexosProcessoSeletivo,
   Bolsas,
   Cadastro,
   DetalhesInscricao,
@@ -24,7 +22,6 @@ export {
 
 export const AllPages = {
   AcessoNegado,
-  AnexosProcessoSeletivo,
   Bolsas,
   Cadastro,
   DetalhesInscricao,

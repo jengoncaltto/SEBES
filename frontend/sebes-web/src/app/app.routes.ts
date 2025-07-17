@@ -61,9 +61,5 @@ export const routes: Routes = [
 	{
 		path: "inscricoesProcesso",
 		component: AllPages.InscricoesProcessoSeletivo,
-	},
-	{
-		path: "anexosProcesso",
-		component: AllPages.AnexosProcessoSeletivo
-	},
+	}
 ];

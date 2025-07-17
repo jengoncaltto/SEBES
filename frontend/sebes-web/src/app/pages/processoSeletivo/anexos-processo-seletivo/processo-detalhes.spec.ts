@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AnexosProcessoSeletivo } from './anexos-processo-seletivo';
+import { AnexosProcessoSeletivo } from './processo-detalhes';
 
 describe('AnexosProcessoSeletivo', () => {
   let component: AnexosProcessoSeletivo;

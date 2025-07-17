@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 
 import { BolsaDto } from '@models/dtos/bolsa.dto';
 import { BolsaService } from '@services/bolsa.service';
+import { AuthService } from '@services/auth.service';
 
 @Component({
   selector: 'app-bolsas',
@@ -15,14 +16,18 @@ import { BolsaService } from '@services/bolsa.service';
 })
 export class Bolsas implements OnInit {
   bolsas: BolsaDto[] = [];
+  isLoggedIn = false;
 
   constructor(private authService: AuthService,
   private bolsaService: BolsaService) {}
 
-  isLoggedIn = this.authService.isLoggedIn();
+  isUsuarioLoggedIn(){
+    this.isLoggedIn = this.authService.isLoggedIn();
+  }
   
   ngOnInit(): void {
     this.carregarBolsas();
+    this.isUsuarioLoggedIn();
   }
 
   private carregarBolsas(): void {
